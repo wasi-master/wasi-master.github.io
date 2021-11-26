@@ -1237,13 +1237,21 @@
     <!-- Performance Test JS -->
     <script type="text/javascript">
       document.addEventListener("DOMContentLoaded", function () {
+	    function removeStars(){
+			document.getElementById("_stars").remove();
+		}
+	    if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ){
+			removeStars();
+			return false;
+		}
         let startTime = new Date();
         for (let i = 0; i < 100000000; i++);
         let timeTaken = new Date() - startTime;
 
         if (timeTaken > 100) {
           console.log("Performance low (" + timeTaken + "ms), disabling stars");
-          document.getElementById("_stars").remove();
+		  removeStars();
+		  return false;
         } else {
           console.log(
             "Performance good (" + timeTaken + "ms), stars can be enabled"

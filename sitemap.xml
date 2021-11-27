@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+<url>
+  <loc>https://wasi-master.github.io/</loc>
+  <lastmod>2021-11-27T17:47:02+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://wasi-master.github.io/pypi-command-line/</loc>
+  <lastmod>2021-11-07T10:18:30+00:00</lastmod>
+  <priority>0.84</priority>
+</url>
+<url>
+  <loc>https://wasi-master.github.io/wm_bot/commands</loc>
+  <lastmod>2021-11-04T05:52:51+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://wasi-master.github.io/wm_bot/</loc>
+  <lastmod>2021-11-04T05:52:51+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://wasi-master.github.io/todot/</loc>
+  <lastmod>2021-09-20T05:56:31+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://wasi-master.github.io/dpylint/</loc>
+  <lastmod>2021-08-20T05:56:31+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://wasi-master.github.io/pypi-command-line/install/</loc>
+  <lastmod>2021-11-07T10:18:30+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wasi-master.github.io/pypi-command-line/usage/</loc>
+  <lastmod>2021-11-07T10:18:30+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wasi-master.github.io/pypi-command-line/notes/</loc>
+  <lastmod>2021-11-07T10:18:30+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wasi-master.github.io/pypi-command-line/smart_features/</loc>
+  <lastmod>2021-11-07T10:18:30+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wasi-master.github.io/pypi-command-line/testimonials/</loc>
+  <lastmod>2021-11-07T10:18:30+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wasi-master.github.io/todot/config</loc>
+  <lastmod>2021-09-20T05:56:31+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
+</urlset>

@@ -150,12 +150,6 @@
     return false;
   });
 
-  // jQuery counterUp
-  $('[data-toggle="counter-up"]').counterUp({
-    delay: 10,
-    time: 1000,
-  });
-
   // Skills section
   $(".skills-content").waypoint(
     function () {
@@ -227,8 +221,54 @@
     return false;
   });
 
-  var tooltipTriggerList = [].slice.call(document.querySelectorAll("tooltip"));
+  // Setup abbreviation tooltips
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll("abbr"));
   tooltipTriggerList.map(function (tooltipTriggerElement) {
     return new bootstrap.Tooltip(tooltipTriggerElement);
   });
+
+  // Setup counterup
+  const counterUp = window.counterUp.default
+
+  function counterAnimation (entries) {
+    entries.forEach( entry => {
+      const el = entry.target
+      if ( entry.isIntersecting ) {
+        counterUp( el, {
+          duration: el.getAttribute("counter-duration") || 3000,
+          delay: 16,
+        } )
+      }
+    })
+  }
+
+
+  var counterTriggerList = [].slice.call(document.querySelectorAll(".counter"));
+  counterTriggerList.forEach(entry => {
+    const IO = new IntersectionObserver( counterAnimation, { threshold: 1 } )
+    IO.observe( entry )
+  })
+
+  function progressBarAnimation (entries){
+    entries.forEach( entry => {
+      const el = entry.target
+      if ( entry.isIntersecting ) {
+        function frame() {
+          let width = 1;
+          if (width >= el.getAttribute("aria-valuenow")) {
+              clearInterval(id);
+          } else {
+              width += 0.5;
+              el.setAttribute("aria-valuenow", width )
+          }
+        }
+      }
+    })
+  }
+
+  var progressBarList = [].slice.call(document.querySelectorAll(".progress-bar"));
+  progressBarList.forEach(entry => {
+    const IO = new IntersectionObserver( progressBarAnimation, { threshold: 1 } )
+    IO.observe( entry )
+  })
 })(jQuery);

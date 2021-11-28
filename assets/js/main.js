@@ -17,6 +17,10 @@
         });
     }
   });
+  
+  // Lazy Loading Images
+  let images = document.querySelectorAll(".portfolio-wrap img");
+  lazyload(images);
 
   // Hero typed
   if ($(".typed").length) {

@@ -169,7 +169,7 @@ body::-webkit-scrollbar-track {
 
 body::-webkit-scrollbar-thumb {
   background: transparent;
-  box-shadow: 0px 0px 0px 100vh #252525;
+  box-shadow: 0px 0px 0px 200vh #252525;
   border-radius: 8px;
 }
 

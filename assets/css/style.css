@@ -479,6 +479,50 @@ section {
 }
 
 /*--------------------------------------------------------------
+# FAQ
+--------------------------------------------------------------*/
+.faq #accordion {
+	width: 95%;
+	background: rgba(35, 35, 35, 0.7);
+	position: relative;
+	margin-left: 1.5em;
+	outline: none !important;
+	border-radius: 25px;
+  padding: 0.7em 0 0.7em 0;
+}
+.faq .card{
+	background: transparent;
+	outline: none !important;
+	margin: 1em;
+}
+.faq .card-body{
+	font-family: "Open Sans", sans-serif;
+	outline: none !important;
+	padding-left: 2em;
+	margin: 1em;
+}
+.faq button{
+	width: 100%;
+	outline: none !important;
+	background: rgba(50, 50, 50, 0.7);
+  color: #ddd;
+	padding: 1em;
+	border-radius: 8px;
+}
+.faq button:hover{
+	outline: none !important;
+	background: rgba(50, 50, 50, 1);
+  color: #ddd;
+	border-radius: 12px;
+}
+
+.faq button:active{
+  outline: #6a0dad !important;
+  box-shadow: none !important;
+}
+
+
+/*--------------------------------------------------------------
 # Contact
 --------------------------------------------------------------*/
 .contact .card{

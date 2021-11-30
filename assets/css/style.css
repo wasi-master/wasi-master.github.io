@@ -11,6 +11,7 @@
 @font-face {
   font-family: "Poppins";
   src: url("./assets/fonts/Poppins/Poppins-Regular.ttf") format("truetype");
+  src: url("./assets/fonts/Poppins/Poppins-Regular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -18,6 +19,8 @@
 @font-face {
   font-family: "Poppins";
   src: url("./assets/fonts/Poppins/Poppins-Italic.ttf") format("truetype");
+  src: url("./assets/fonts/Poppins/Poppins-Italic.woff") format("woff");
+  src: url("./assets/fonts/Poppins/Poppins-Italic.woff") format("woff");
   font-weight: normal;
   font-style: italic;
 }
@@ -25,6 +28,7 @@
 @font-face {
   font-family: "Poppins";
   src: url("./assets/fonts/Poppins/Poppins-Bold.ttf") format("truetype");
+  src: url("./assets/fonts/Poppins/Poppins-Bold.woff") format("woff");
   font-weight: bold;
   font-style: normal;
 }
@@ -32,6 +36,7 @@
 @font-face {
   font-family: "Poppins";
   src: url("./assets/fonts/Poppins/Poppins-BoldItalic.ttf") format("truetype");
+  src: url("./assets/fonts/Poppins/Poppins-BoldItalic.woff") format("woff");
   font-weight: bold;
   font-style: italic;
 }
@@ -39,6 +44,7 @@
 @font-face {
   font-family: "Open Sans";
   src: url("./assets/fonts/Open_Sans/OpenSans-Regular.ttf") format("truetype");
+  src: url("./assets/fonts/Open_Sans/OpenSans-Regular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -46,6 +52,7 @@
 @font-face {
   font-family: "Open Sans";
   src: url("./assets/fonts/Open_Sans/OpenSans-Italic.ttf") format("truetype");
+  src: url("./assets/fonts/Open_Sans/OpenSans-Italic.woff") format("woff");
   font-weight: normal;
   font-style: italic;
 }
@@ -53,19 +60,23 @@
 @font-face {
   font-family: "Open Sans";
   src: url("./assets/fonts/Open_Sans/OpenSans-Bold.ttf") format("truetype");
+  src: url("./assets/fonts/Open_Sans/OpenSans-Bold.woff") format("woff");
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Open Sans";
-  src: url("./assets/fonts/Open_Sans/OpenSans-BoldItalic.ttf") format("truetype");
+  src: url("./assets/fonts/Open_Sans/OpenSans-BoldItalic.ttf")
+    format("truetype");
+  src: url("./assets/fonts/Open_Sans/OpenSans-BoldItalic.woff") format("woff");
   font-weight: bold;
   font-style: italic;
 }
 @font-face {
   font-family: "Raleway";
   src: url("./assets/fonts/Raleway/Raleway-Regular.ttf") format("truetype");
+  src: url("./assets/fonts/Raleway/Raleway-Regular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -73,6 +84,7 @@
 @font-face {
   font-family: "Raleway";
   src: url("./assets/fonts/ORaleway/Raleway-Italic.ttf") format("truetype");
+  src: url("./assets/fonts/ORaleway/Raleway-Italic.woff") format("woff");
   font-weight: normal;
   font-style: italic;
 }
@@ -80,6 +92,7 @@
 @font-face {
   font-family: "Raleway";
   src: url("./assets/fonts/Raleway/Raleway-Bold.ttf") format("truetype");
+  src: url("./assets/fonts/Raleway/Raleway-Bold.woff") format("woff");
   font-weight: bold;
   font-style: normal;
 }
@@ -87,6 +100,7 @@
 @font-face {
   font-family: "Raleway";
   src: url("./assets/fonts/Raleway/Raleway-BoldItalic.ttf") format("truetype");
+  src: url("./assets/fonts/Raleway/Raleway-BoldItalic.woff") format("woff");
   font-weight: bold;
   font-style: italic;
 }
@@ -99,15 +113,15 @@ body {
 }
 
 @keyframes gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 a {
@@ -119,7 +133,12 @@ a:hover {
   text-decoration: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: "Raleway", sans-serif;
 }
 
@@ -134,7 +153,7 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 50px;
   right: 15px;
   bottom: 15px;
-  background: #6A0DAD;
+  background: #6a0dad;
   color: #f2f3f5;
   transition: display 0.5s ease-in-out;
   z-index: 99999;
@@ -149,7 +168,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .back-to-top:hover {
   color: #f2f3f5;
-  background: #6A0DAD;
+  background: #6a0dad;
   transition: background 0.2s ease-in-out;
 }
 
@@ -172,7 +191,7 @@ h1, h2, h3, h4, h5, h6 {
   position: fixed;
   top: calc(50% - 30px);
   left: calc(50% - 30px);
-  border: 6px solid #6A0DAD;
+  border: 6px solid #6a0dad;
   border-top-color: #f2f3f5;
   border-bottom-color: #f2f3f5;
   border-radius: 50%;
@@ -247,7 +266,7 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-track {
-  background:  linear-gradient(#6a0dad 0%, #8B0000 100%);
+  background: linear-gradient(#6a0dad 0%, #8b0000 100%);
 }
 
 body::-webkit-scrollbar-thumb {
@@ -255,7 +274,6 @@ body::-webkit-scrollbar-thumb {
   box-shadow: 0px 0px 0px 200vh #252525;
   border-radius: 8px;
 }
-
 
 /*--------------------------------------------------------------
 # Navigation Menu
@@ -307,21 +325,27 @@ body::-webkit-scrollbar-thumb {
   }
 }
 
-.nav-menu a:hover, .nav-menu .active > a, .nav-menu li:hover > a {
+.nav-menu a:hover,
+.nav-menu .active > a,
+.nav-menu li:hover > a {
   color: #f2f3f5;
-  background: #6A0DAD;
+  background: #6a0dad;
 }
 
-.nav-menu a:hover span, .nav-menu .active > a span, .nav-menu li:hover > a span {
+.nav-menu a:hover span,
+.nav-menu .active > a span,
+.nav-menu li:hover > a span {
   color: #f2f3f5;
 }
 
-.nav-menu a:hover, .nav-menu li:hover > a {
+.nav-menu a:hover,
+.nav-menu li:hover > a {
   width: 100%;
   color: #f2f3f5;
 }
 
-.nav-menu a:hover span, .nav-menu li:hover > a span {
+.nav-menu a:hover span,
+.nav-menu li:hover > a span {
   display: block;
 }
 
@@ -354,7 +378,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .mobile-nav-active .mobile-nav-toggle i {
-  color: #6A0DAD;
+  color: #6a0dad;
 }
 
 /*--------------------------------------------------------------
@@ -418,7 +442,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 #hero .social-links a:hover {
-  color: #6A0DAD;
+  color: #6a0dad;
 }
 
 @media (max-width: 992px) {
@@ -460,7 +484,7 @@ section {
 }
 
 .section-title h2::before {
-  content: '';
+  content: "";
   position: absolute;
   display: block;
   width: 120px;
@@ -471,12 +495,12 @@ section {
 }
 
 .section-title h2::after {
-  content: '';
+  content: "";
   position: absolute;
   display: block;
   width: 40px;
   height: 3px;
-  background: #6A0DAD;
+  background: #6a0dad;
   bottom: 0;
   left: calc(50% - 20px);
 }
@@ -489,8 +513,8 @@ section {
 # Work
 --------------------------------------------------------------*/
 
-#work .row{
-	margin: 1em 0 1em 0;
+#work .row {
+  margin: 1em 0 1em 0;
 }
 
 /*--------------------------------------------------------------
@@ -552,8 +576,8 @@ section {
 .skills .progress-bar {
   width: 1px;
   height: 10px;
-  transition: .9s;
-  background-color: #6A0DAD;
+  transition: 0.9s;
+  background-color: #6a0dad;
 }
 .skills center {
   margin-top: 1em;
@@ -565,54 +589,53 @@ section {
 # FAQ
 --------------------------------------------------------------*/
 .faq #accordion {
-	width: 95%;
-	background: rgba(35, 35, 35, 0.7);
-	position: relative;
-	margin-left: 1.5em;
-	outline: none !important;
-	border-radius: 25px;
+  width: 95%;
+  background: rgba(35, 35, 35, 0.7);
+  position: relative;
+  margin-left: 1.5em;
+  outline: none !important;
+  border-radius: 25px;
   padding: 0.7em 0 0.7em 0;
 }
-.faq .card{
-	background: transparent;
-	outline: none !important;
-	margin: 1em;
+.faq .card {
+  background: transparent;
+  outline: none !important;
+  margin: 1em;
 }
-.faq .card-body{
-	font-family: "Open Sans", sans-serif;
-	outline: none !important;
-	padding-left: 2em;
-	margin: 1em;
+.faq .card-body {
+  font-family: "Open Sans", sans-serif;
+  outline: none !important;
+  padding-left: 2em;
+  margin: 1em;
 }
-.faq button{
-	width: 100%;
-	outline: none !important;
-	background: rgba(50, 50, 50, 0.7);
+.faq button {
+  width: 100%;
+  outline: none !important;
+  background: rgba(50, 50, 50, 0.7);
   color: #ddd;
-	padding: 1em;
-	border-radius: 8px;
+  padding: 1em;
+  border-radius: 8px;
 }
-.faq button:hover{
-	outline: none !important;
-	background: rgba(50, 50, 50, 1);
+.faq button:hover {
+  outline: none !important;
+  background: rgba(50, 50, 50, 1);
   color: #ddd;
-	border-radius: 12px;
+  border-radius: 12px;
 }
 
-.faq button:active{
+.faq button:active {
   outline: #6a0dad !important;
   box-shadow: none !important;
 }
 
-
 /*--------------------------------------------------------------
 # Contact
 --------------------------------------------------------------*/
-.contact .card{
-	width: fit-content;
-	background: #252525;
-	padding: 1em;
-	margin: 1em;
+.contact .card {
+  width: fit-content;
+  background: #252525;
+  padding: 1em;
+  margin: 1em;
 }
 /*--------------------------------------------------------------
 # Footer
@@ -650,37 +673,36 @@ section {
   font-size: 13px;
 }
 
-
 /* SOCIALS */
 #socials {
-	cursor: default;
+  cursor: default;
 }
 #socials a {
-	border-bottom: 1px solid transparent;    
-    /* transition: all 500ms ease-in-out; */
+  border-bottom: 1px solid transparent;
+  /* transition: all 500ms ease-in-out; */
 }
 #socials a:hover {
-	border-bottom: 1px solid #90b7db;
+  border-bottom: 1px solid #90b7db;
 }
 #socials .social {
-	margin-bottom: 2em;
+  margin-bottom: 2em;
 }
 #socials .social .col-6 img {
-	width: 6em;
+  width: 6em;
 }
 #socials .social .col-6 {
-	line-height: 5.5em;
-	font-size: 1.3em;
-	font-weight: 600;
-	font-style: italic;
+  line-height: 5.5em;
+  font-size: 1.3em;
+  font-weight: 600;
+  font-style: italic;
 }
 #socials .link-txt {
-	display: block;
-	line-height: 1em!important;
-	font-size: .7em;
+  display: block;
+  line-height: 1em !important;
+  font-size: 0.7em;
 
-	position: absolute;
-	top: 5.5em;
+  position: absolute;
+  top: 5.5em;
 }
 
 /*--------------------------------------------------------------
@@ -708,7 +730,8 @@ section {
   transition: all 0.3s ease-in-out;
   border-radius: 3px;
 }
-.portfolio #portfolio-flters li:hover, .portfolio #portfolio-flters li.filter-active {
+.portfolio #portfolio-flters li:hover,
+.portfolio #portfolio-flters li.filter-active {
   color: #fff;
   background: #6a0dad;
 }
@@ -801,14 +824,20 @@ section {
   margin-top: 20px;
   position: relative;
 }
-.portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet {
+.portfolio-details
+  .portfolio-details-slider
+  .swiper-pagination
+  .swiper-pagination-bullet {
   width: 12px;
   height: 12px;
   background-color: #fff;
   opacity: 1;
   border: 1px solid #6a0dad;
 }
-.portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet-active {
+.portfolio-details
+  .portfolio-details-slider
+  .swiper-pagination
+  .swiper-pagination-bullet-active {
   background-color: #6a0dad;
 }
 .portfolio-details .portfolio-info {

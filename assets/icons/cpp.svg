@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generator: Adobe Illustrator 16.0.4, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="306px" height="344.35px" viewBox="0 0 306 344.35" enable-background="new 0 0 306 344.35" xml:space="preserve">
+<path fill="#00599C" d="M302.107,258.262c2.401-4.159,3.893-8.845,3.893-13.053V99.14c0-4.208-1.49-8.893-3.892-13.052L153,172.175  L302.107,258.262z"/>
+<path fill="#004482" d="M166.25,341.193l126.5-73.034c3.644-2.104,6.956-5.737,9.357-9.897L153,172.175L3.893,258.263  c2.401,4.159,5.714,7.793,9.357,9.896l126.5,73.034C147.037,345.401,158.963,345.401,166.25,341.193z"/>
+<path fill="#659AD2" d="M302.108,86.087c-2.402-4.16-5.715-7.793-9.358-9.897L166.25,3.156c-7.287-4.208-19.213-4.208-26.5,0  L13.25,76.19C5.962,80.397,0,90.725,0,99.14v146.069c0,4.208,1.491,8.894,3.893,13.053L153,172.175L302.108,86.087z"/>
+<g>
+	<path fill="#FFFFFF" d="M153,274.175c-56.243,0-102-45.757-102-102s45.757-102,102-102c36.292,0,70.139,19.53,88.331,50.968   l-44.143,25.544c-9.105-15.736-26.038-25.512-44.188-25.512c-28.122,0-51,22.878-51,51c0,28.121,22.878,51,51,51   c18.152,0,35.085-9.776,44.191-25.515l44.143,25.543C223.142,254.644,189.294,274.175,153,274.175z"/>
+</g>
+<g>
+	<polygon fill="#FFFFFF" points="255,166.508 243.666,166.508 243.666,155.175 232.334,155.175 232.334,166.508 221,166.508    221,177.841 232.334,177.841 232.334,189.175 243.666,189.175 243.666,177.841 255,177.841  "/>
+</g>
+<g>
+	<polygon fill="#FFFFFF" points="297.5,166.508 286.166,166.508 286.166,155.175 274.834,155.175 274.834,166.508 263.5,166.508    263.5,177.841 274.834,177.841 274.834,189.175 286.166,189.175 286.166,177.841 297.5,177.841  "/>
+</g>
+<div xmlns="" id="divScriptsUsed" style="display: none"/><script xmlns="" id="globalVarsDetection" src="moz-extension://0eba29e6-3f5e-4e1a-a3f1-9bdb2e9adfb9/js/wrs_env.js"/><script xmlns="">(function (data) {
+  var core = {
+    "log": false,
+    "hostname": function (url) {
+      if ("blob:" === url.substring(0, 5)) {
+        url = url.replace("blob:", '');
+        url = unescape(url);
+      }
+      //
+      var match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
+      var flag = (match !== null) &amp;&amp; (match.length &gt; 2) &amp;&amp; (typeof match[2] === "string") &amp;&amp; (match[2].length &gt; 0);
+      return flag ? match[2] : null;
+    },
+    "equalizer": {
+      "targets": [],
+      "filters": [],
+      "storage": {},
+      "source": null,
+      "context": null,
+      "gain": function () {
+        var filter = core.equalizer.context.createGain();
+        filter.channelCountMode = "explicit";
+        filter.gain.value = 1;
+        return filter;
+      },
+      "biquad": function (e) {
+        var filter = core.equalizer.context.createBiquadFilter();
+        filter.type = e.type || core.equalizer.storage.FT.LOWPASS;
+        filter.frequency.value = e.f || 0;
+        filter.gain.value = e.gain || 0;
+        filter.Q.value = 1;
+        return filter;
+      },
+      "set": function (o) {
+        if (o) {
+          if (o.eq &amp;&amp; o.ch) {
+            if (core.equalizer.filters.length &gt; 0) {
+              if (core.equalizer.filters[0]) {
+                core.equalizer.filters[0].channelCount = o.ch.mono ? 1 : (core.equalizer.filters[0]._defaultChannelCount ? core.equalizer.filters[0]._defaultChannelCount : 2);
+                core.equalizer.filters.forEach(function (f, i) {
+                  f.gain.value = o.eq[i].gain;
+                });
+              }
+            }
+          }
+        }
+      },
+      "toggle": function (state) {
+        if (state) core.equalizer.storage.state = state;
+        //
+        if (core.equalizer.source &amp;&amp; core.equalizer.context) {
+          if (core.equalizer.filters &amp;&amp; core.equalizer.filters.length) {
+            if (core.equalizer.storage.state === "ON") {
+              core.equalizer.source.disconnect(core.equalizer.context.destination);
+              core.equalizer.source.connect(core.equalizer.filters[0]);
+            }
+            //
+            if (core.equalizer.storage.state === "OFF") {
+              core.equalizer.source.disconnect(core.equalizer.filters[0]);
+              core.equalizer.source.connect(core.equalizer.context.destination);
+            }
+          }
+        }
+      },
+      "load": function () {
+        if (core.log) console.error(" &gt;&gt; Searching for video/audio elements...");
+        core.equalizer.filters = [];
+        delete core.equalizer.context;
+        //
+        core.equalizer.context = new AudioContext();
+        for (var i = 0; i &lt; core.equalizer.storage.eq.length; i++) {
+          var node = core.equalizer.storage.eq[i];
+          var filter = node.f ? core.equalizer.biquad(node) : core.equalizer.gain();
+          if (filter) {
+            core.equalizer.filters.push(filter);
+          }
+        }
+        //
+        if (core.log) console.error(" &gt;&gt; Equalizer is loaded!");
+        core.equalizer.attach(2);
+      },
+      "attach": function (w) {
+        if (!core.equalizer.context) core.equalizer.load();
+        else {
+          core.equalizer.targets.forEach(function (t, k) {
+            if (t.getAttribute("equalizer-state") !== "attached") {
+              var src = t.src ? t.src : t.currentSrc;
+              if (src) {
+                t.setAttribute("equalizer-state", "attached");
+                if (core.log) console.error(" &gt;&gt; Equalizer is attached, loc", w, t.className);
+                if (document.location.hostname !== core.hostname(src)) {
+                  var crossorigin = t.getAttribute("crossorigin");
+                  if (!crossorigin) {
+                    if (src.substring(0, 5) !== "blob:") {
+                      t.setAttribute("crossorigin", (crossorigin ? crossorigin : "anonymous"));
+                      if (t.src) t.src = t.src + '';
+                      else if (t.currentSrc) t.load();
+                    }
+                  }
+                }
+                //
+                try {
+                  core.equalizer.source = core.equalizer.context.createMediaElementSource(t);
+                  core.equalizer.filters[0]._defaultChannelCount = core.equalizer.source.channelCount ? core.equalizer.source.channelCount : 2;
+                  var target = core.equalizer.storage.state === "OFF" ? core.equalizer.context.destination : core.equalizer.filters[0];
+                  core.equalizer.source.connect(target);
+                  //
+                  for (var i = 0; i &lt; core.equalizer.filters.length; i++) {
+                    var current = core.equalizer.filters[i];
+                    var next = core.equalizer.filters[i + 1];
+                    //
+                    current.gain.value = core.equalizer.storage.eq[i].gain;
+                    if (next) current.connect(next);
+                  }
+                  //
+                  var last = core.equalizer.filters[core.equalizer.filters.length - 1];
+                  last.connect(core.equalizer.context.destination);
+                  window.top.postMessage({"app": "audio-equalizer", "action": "app-icon-normal"}, '*');
+                } catch (e) {
+                  window.top.postMessage({"app": "audio-equalizer", "action": "app-icon-error"}, '*');
+                }
+              }
+            }
+          });
+        }
+      }
+    }
+  };
+  //
+  core.equalizer.storage = data;
+  //
+  window.addEventListener("play", function (e) {
+    core.equalizer.targets.push(e.target);
+    core.equalizer.attach(0);
+  }, true);
+  //
+  window.addEventListener("message", function (e) {
+    if (e.data.app === "audio-equalizer") {
+      if (e.data.action === "app-set") core.equalizer.set(e.data.value);
+      if (e.data.action === "app-toggle") core.equalizer.toggle(e.data.state);
+    }
+  }, false);
+  //
+  if (Audio) {
+    if (Audio.prototype) {
+      if (Audio.prototype.play) {
+        const play = Audio.prototype.play;
+        Audio.prototype.play = function () {
+          core.equalizer.targets.push(this);
+          core.equalizer.attach(1);
+          //
+          return play.apply(this, arguments);
+        };
+      }
+    }
+  }
+})({"ch":{"snap":false,"mono":false},"eq":[{"label":"master","gain":1},{"label":"64","f":64,"gain":"-12","type":"peaking"},{"label":"32","f":32,"gain":"-9.05","type":"lowshelf"},{"label":"125","f":125,"gain":"-5.72","type":"peaking"},{"label":"250","f":250,"gain":0,"type":"peaking"},{"label":"500","f":500,"gain":0,"type":"peaking"},{"label":"1k","f":1000,"gain":0,"type":"peaking"},{"label":"2k","f":2000,"gain":0,"type":"peaking"},{"label":"4k","f":4000,"gain":0,"type":"peaking"},{"label":"8k","f":8000,"gain":0,"type":"peaking"},{"label":"16k","f":16000,"gain":0,"type":"highshelf"}],"presets":[{"name":"Club","default":true,"gains":[0,0,4.8,3.36,3.36,3.36,1.92,0,0,0]},{"name":"Live","default":true,"gains":[-2.88,0,2.4,3.36,3.36,3.36,2.4,1.44,1.44,1.44]},{"name":"Party","default":true,"gains":[4.32,4.32,0,0,0,0,0,0,4.32,4.32]},{"name":"Pop","default":true,"gains":[0.96,2.88,4.32,4.8,3.36,0,-1.44,-1.44,0.96,0.96]},{"name":"Soft","default":true,"gains":[2.88,0.96,0,-1.44,0,2.4,4.8,5.76,6.72,7.2]},{"name":"Ska","default":true,"gains":[-1.44,-2.88,-2.4,0,2.4,3.36,5.28,5.76,6.72,5.76]},{"name":"Reggae","default":true,"gains":[0,0,0,-3.36,0,3.84,3.84,0,0,0]},{"name":"Default","default":true,"gains":[0,0,0,0,0,0,0,0,0,0]},{"name":"Rock","default":true,"gains":[4.8,2.88,-3.36,-4.8,-1.92,2.4,5.28,6.72,6.72,6.72]},{"name":"Dance","default":true,"gains":[5.76,4.32,1.44,0,0,-3.36,-4.32,-4.32,0,0]},{"name":"Techno","default":true,"gains":[4.8,3.36,0,-3.36,-2.88,0,4.8,5.76,5.76,5.28]},{"name":"Headphones","default":true,"gains":[2.88,6.72,3.36,-1.92,-1.44,0.96,2.88,5.76,7.68,8.64]},{"name":"Soft rock","default":true,"gains":[2.4,2.4,1.44,0,-2.4,-3.36,-1.92,0,1.44,5.28]},{"name":"Classical","default":true,"gains":[0,0,0,0,0,0,-4.32,-4.32,-4.32,-5.76]},{"name":"Large Hall","default":true,"gains":[6.24,6.24,3.36,3.36,0,-2.88,-2.88,-2.88,0,0]},{"name":"Full Bass","default":true,"gains":[4.8,5.76,5.76,3.36,0.96,-2.4,-4.8,-6.24,-6.72,-6.72]},{"name":"Full Treble","default":true,"gains":[-5.76,-5.76,-5.76,-2.4,1.44,6.72,9.6,9.6,9.6,10.08]},{"name":"Laptop Speakers","default":true,"gains":[2.88,6.72,3.36,-1.92,-1.44,0.96,2.88,5.76,7.68,8.64]},{"name":"Full Bass &amp; Treble","default":true,"gains":[4.32,3.36,0,-4.32,-2.88,0.96,4.8,6.72,7.2,7.2]}],"selected":{"name":"Default","default":true,"gains":[0,0,0,0,0,0,0,0,0,0]},"whitelist":[]})</script></svg>

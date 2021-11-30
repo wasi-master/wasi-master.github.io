@@ -119,7 +119,7 @@
     <link href="assets/css/style.css" rel="stylesheet" />
 
     <!-- Background Star Animation CSS File -->
-    <link href="assets/css/stars.css" rel="stylesheet" media="(min-width: 768px)"/>
+    <link href="assets/css/stars.min.css" rel="stylesheet" media="(min-width: 768px)"/>
 
     <!-- Clarity tracking code for https://wasi-master.github.io -->
     <script type="text/javascript">
@@ -473,10 +473,17 @@
                       <strong>Rich</strong>
                     </li>
                     <li>
-                      <img
-                        src="assets/icons/python-requests.png"
-                        width="30px"
-                      />
+                      <picture class="img-fluid rounded">
+						  <source
+							srcset="assets/icons/python-requests.avif"
+							type="image/avif"
+						  />
+						  <source
+							srcset="assets/icons/python-requests.webp"
+							type="image/webp"
+						  />
+						  <img class="img-fluid" src="assets/icons/python-requests.png" alt="" width="30px"/>
+					  </picture>
                       <strong>Requests</strong>
                     </li>
                     <li>
@@ -709,11 +716,18 @@
                       <img src="assets/icons/rich.svg" width="30px" />
                       <strong>Rich</strong>
                     </li>
-                    <li>
-                      <img
-                        src="assets/icons/python-requests.png"
-                        width="30px"
-                      />
+                    <li>            
+					  <picture class="img-fluid rounded">
+						  <source
+							srcset="assets/icons/python-requests.avif"
+							type="image/avif"
+						  />
+						  <source
+							srcset="assets/icons/python-requests.webp"
+							type="image/webp"
+						  />
+						  <img class="img-fluid" src="assets/icons/python-requests.png" alt="" width="30px"/>
+					  </picture>
                       <strong>Requests</strong>
                     </li>
                   </ul>
@@ -1522,7 +1536,7 @@
 
               <div class="progress">
                 <span class="skill counter" counter-duration="500"
-                  ><img width=20px src="assets/icons/cpp.png"> C++
+                  ><img width=20px src="assets/icons/cpp.svg"> C++
                   <i class="val">65%</i></span
                 >
                 <div class="progress-bar-wrap">
@@ -1595,7 +1609,7 @@
                   <div
                     class="progress-bar"
                     role="progressbar"
-                    aria-valuenow="50"
+                    aria-valuenow="75"
                     aria-valuemin="0"
                     aria-valuemax="100"
                   ></div>
@@ -1646,10 +1660,21 @@
           <div class="row">
             <div class="col-lg-4">
               <img
-                src="./assets/img/logo.jpg"
+                src=""
                 class="card img-fluid"
                 alt="Logo"
-              />
+              />              
+			  <picture class="img-fluid">
+                  <source
+                    srcset="./assets/img/logo.avif"
+                    type="image/avif"
+                  />
+                  <source
+                    srcset="./assets/img/logo.webp"
+                    type="image/webp"
+                  />
+                  <img class="img-fluid" src="a./assets/img/logo.jpg" alt="Logo" />
+			  </picture>
             </div>
             <div class="col-lg-8 pt-4 pt-lg-0 content">
               <h2>

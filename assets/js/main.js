@@ -191,14 +191,6 @@
       aos_init();
     });
 
-    // Initiate lightGallery (used in portofilo)
-    lightGallery(document.getElementById("portfolio-images"), {
-      selector: ".portfolio-item",
-      download: false,
-      mousewheel: true,
-      controls: true,
-    });
-
     // Initiate aos_init() function
     aos_init();
   });

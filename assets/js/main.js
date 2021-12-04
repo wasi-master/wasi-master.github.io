@@ -204,47 +204,48 @@
   });
 
   // Setup counterup
-  const counterUp = window.counterUp.default
+  const counterUp = window.counterUp.default;
 
-  function counterAnimation (entries) {
-    entries.forEach( entry => {
-      const el = entry.target
-      if ( entry.isIntersecting ) {
-        counterUp( el, {
+  function counterAnimation(entries) {
+    entries.forEach((entry) => {
+      const el = entry.target;
+      if (entry.isIntersecting) {
+        counterUp(el, {
           duration: el.getAttribute("data-counter-duration") || 3000,
           delay: 16,
-        } )
+        });
       }
-    })
+    });
   }
 
-
   var counterTriggerList = [].slice.call(document.querySelectorAll(".counter"));
-  counterTriggerList.forEach(entry => {
-    const IO = new IntersectionObserver( counterAnimation, { threshold: 1 } )
-    IO.observe( entry )
-  })
+  counterTriggerList.forEach((entry) => {
+    const IO = new IntersectionObserver(counterAnimation, { threshold: 1 });
+    IO.observe(entry);
+  });
 
-  function progressBarAnimation (entries){
-    entries.forEach( entry => {
-      const el = entry.target
-      if ( entry.isIntersecting ) {
+  function progressBarAnimation(entries) {
+    entries.forEach((entry) => {
+      const el = entry.target;
+      if (entry.isIntersecting) {
         function frame() {
           let width = 1;
           if (width >= el.getAttribute("aria-valuenow")) {
-              clearInterval(id);
+            clearInterval(id);
           } else {
-              width += 0.5;
-              el.setAttribute("aria-valuenow", width )
+            width += 0.5;
+            el.setAttribute("aria-valuenow", width);
           }
         }
       }
-    })
+    });
   }
 
-  var progressBarList = [].slice.call(document.querySelectorAll(".progress-bar"));
-  progressBarList.forEach(entry => {
-    const IO = new IntersectionObserver( progressBarAnimation, { threshold: 1 } )
-    IO.observe( entry )
-  })
+  var progressBarList = [].slice.call(
+    document.querySelectorAll(".progress-bar")
+  );
+  progressBarList.forEach((entry) => {
+    const IO = new IntersectionObserver(progressBarAnimation, { threshold: 1 });
+    IO.observe(entry);
+  });
 })(jQuery);

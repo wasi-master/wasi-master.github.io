@@ -211,7 +211,7 @@
       const el = entry.target
       if ( entry.isIntersecting ) {
         counterUp( el, {
-          duration: el.getAttribute("counter-duration") || 3000,
+          duration: el.getAttribute("data-counter-duration") || 3000,
           delay: 16,
         } )
       }

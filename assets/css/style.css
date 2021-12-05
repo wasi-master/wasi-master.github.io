@@ -560,35 +560,41 @@ section {
 # Work
 --------------------------------------------------------------*/
 
-#work .row {
+.work .row {
   margin: 1em 0 1em 0;
 }
 
-/*--------------------------------------------------------------
-# About
---------------------------------------------------------------*/
-.about .content h3 {
+.work a.btn {
+  background: #6a0dad;
+}
+
+.work a.btn > i:nth-child(2) {
+  position: relative;
+  top: 0.06em;
+}
+
+.work .content h3 {
   font-weight: 700;
   font-size: 26px;
   color: #fff;
 }
 
-.about .content ul {
+.work .content ul {
   list-style: none;
   padding: 0;
 }
 
-.about .content ul li {
+.work .content ul li {
   padding-bottom: 10px;
 }
 
-.about .content ul i {
+.work .content ul i {
   font-size: 20px;
   padding-right: 2px;
   color: #ddd;
 }
 
-.about .content p:last-child {
+.work .content p:last-child {
   margin-bottom: 0;
 }
 
@@ -632,10 +638,9 @@ section {
   transition: 0.9s;
   background-color: #6a0dad;
 }
-.skills center {
-  margin-top: 1em;
-  font-family: "Poppins", sans-serif;
-  transition: 0.9s;
+
+.skills .skill-notice {
+  margin-top: 1em
 }
 
 /*--------------------------------------------------------------

@@ -307,9 +307,12 @@ span.weak {
 }
 
 /*--------------------------------------------------------------
-# Gradient Scrollbar
+# Custom Scrollbar
 --------------------------------------------------------------*/
-
+:root{
+  scrollbar-color: #6a0dad #252525 !important;
+  scrollbar-width: thin !important;
+}
 body::-webkit-scrollbar {
   width: 10px;
 }

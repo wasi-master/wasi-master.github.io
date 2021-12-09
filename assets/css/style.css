@@ -152,13 +152,13 @@ body {
 
 a {
   color: #42aaff;
-  border-bottom: 1px solid #0066F2;
+  border-bottom: 1px solid #0066f2;
 }
 
 a:hover {
   color: #90b7db;
   text-decoration: none;
-  border-bottom: 3px solid #0066F2;
+  border-bottom: 3px solid #0066f2;
 }
 
 h1,
@@ -329,32 +329,32 @@ body::-webkit-scrollbar-thumb {
 --------------------------------------------------------------*/
 /* Works on common browsers */
 ::selection {
-    background-color: #6a00ff;
-    color: #fff;
+  background-color: #6a00ff;
+  color: #fff;
 }
 
 /* Mozilla based browsers */
 ::-moz-selection {
-    background-color: #6a00ff;
-    color: #fff;
+  background-color: #6a00ff;
+  color: #fff;
 }
 
 /* For old pre-WebKit versions of Opera */
 ::-o-selection {
-    background-color: #6a00ff;
-    color: #fff;
+  background-color: #6a00ff;
+  color: #fff;
 }
 
 /* Edge and Internet Explorer */
 ::-ms-selection {
-    background-color: #6a00ff;
-    color: #fff;
+  background-color: #6a00ff;
+  color: #fff;
 }
 
 /* For Webkit */
 ::-webkit-selection {
-    background-color: #6a00ff;
-    color: #fff;
+  background-color: #6a00ff;
+  color: #fff;
 }
 
 /*--------------------------------------------------------------
@@ -675,7 +675,7 @@ section {
 }
 
 .skills .skill-notice {
-  margin-top: 1em
+  margin-top: 1em;
 }
 
 /*--------------------------------------------------------------
@@ -684,8 +684,7 @@ section {
 .about .content h3 {
   font-weight: 700;
   font-size: 26px;
-  color:
-#fff;
+  color: #fff;
 }
 
 .about .content ul {
@@ -700,22 +699,21 @@ section {
 .about .content ul i {
   font-size: 20px;
   padding-right: 2px;
-  color:
-#ddd;
+  color: #ddd;
 }
 
 .about .content p:last-child {
   margin-bottom: 0;
 }
 
-.about .content ul > li > a:hover{
-  border-bottom: 3px solid #0066F2;
+.about .content ul > li > a:hover {
+  border-bottom: 3px solid #0066f2;
 }
 
-.about .content ul > li > a:link, 
+.about .content ul > li > a:link,
 .about .content ul > li > a:visited {
   color: inherit;
-  border-bottom: 1px solid #0066F2;
+  border-bottom: 1px solid #0066f2;
 }
 
 /*--------------------------------------------------------------

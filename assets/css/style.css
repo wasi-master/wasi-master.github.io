@@ -323,6 +323,39 @@ body::-webkit-scrollbar-thumb {
 }
 
 /*--------------------------------------------------------------
+# Text Selection Color
+--------------------------------------------------------------*/
+/* Works on common browsers */
+::selection {
+    background-color: #6a00ff;
+    color: #fff;
+}
+
+/* Mozilla based browsers */
+::-moz-selection {
+    background-color: #6a00ff;
+    color: #fff;
+}
+
+/* For old pre-WebKit versions of Opera */
+::-o-selection {
+    background-color: #6a00ff;
+    color: #fff;
+}
+
+/* Edge and Internet Explorer */
+::-ms-selection {
+    background-color: #6a00ff;
+    color: #fff;
+}
+
+/* For Webkit */
+::-webkit-selection {
+    background-color: #6a00ff;
+    color: #fff;
+}
+
+/*--------------------------------------------------------------
 # Navigation Menu
 --------------------------------------------------------------*/
 /* Desktop Navigation */

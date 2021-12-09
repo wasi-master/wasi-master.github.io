@@ -191,10 +191,12 @@
     aos_init();
   });
 
-  // Disable Ctrl+S
-  $(document).bind("keydown", "ctrl+s", function (e) {
-    e.preventDefault();
-    return false;
+  // Disable Ctrl+S, Ctrl+U, Ctrl+A, Ctrl+P
+  $(document).bind('keydown', function(e) {
+	  if(e.ctrlKey && ((e.which == 83) || (e.which == 85) || (e.which == 65) || (e.which == 80))) {
+		e.preventDefault();
+		return false;
+	  }
   });
 
   // Setup abbreviation tooltips

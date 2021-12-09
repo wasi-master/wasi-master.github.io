@@ -151,12 +151,14 @@ body {
 }
 
 a {
-  color: #77a4ce;
+  color: #42aaff;
+  border-bottom: 1px solid #0066F2;
 }
 
 a:hover {
   color: #90b7db;
   text-decoration: none;
+  border-bottom: 3px solid #0066F2;
 }
 
 h1,
@@ -706,8 +708,14 @@ section {
   margin-bottom: 0;
 }
 
-.about .content ul > li > a:link, .about .content ul > li > a:visited {
-  color: cyan;
+.about .content ul > li > a:hover{
+  border-bottom: 3px solid #0066F2;
+}
+
+.about .content ul > li > a:link, 
+.about .content ul > li > a:visited {
+  color: inherit;
+  border-bottom: 1px solid #0066F2;
 }
 
 /*--------------------------------------------------------------

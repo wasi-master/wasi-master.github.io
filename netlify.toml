@@ -1,0 +1,13 @@
+ # 1 month cache for all images
+[[headers]]
+  for = "*.avif"  
+  [headers.values]
+    Cache-Control = "public, max-age=2629746"
+[[headers]]
+  for = "*.webp"  
+  [headers.values]
+    Cache-Control = "public, max-age=2629746"
+[[headers]]
+  for = "*.jpg"  
+  [headers.values]
+    Cache-Control = "public, max-age=2629746"

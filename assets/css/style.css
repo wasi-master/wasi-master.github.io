@@ -191,6 +191,12 @@ span.weak {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+abbr.no-underline[title] {
+  border-bottom: none !important;
+  cursor: inherit !important;
+  text-decoration: none !important;
+}
+
 /*--------------------------------------------------------------
 # Back to top button
 --------------------------------------------------------------*/
@@ -707,6 +713,11 @@ section {
 
 .about .content p:last-child {
   margin-bottom: 0;
+}
+
+#about > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > p:nth-child(3) {
+  margin-top: 1em;
+  color: #CCCCCC;
 }
 
 .about .content ul > li > a:hover {

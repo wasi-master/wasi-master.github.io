@@ -1,13 +1,43 @@
- # 1 month cache for all images
+# Infinite cache for all images and fonts
 [[headers]]
-  for = "*.avif"  
+  for = "*.avif"
   [headers.values]
-    Cache-Control = "public, max-age=2629746"
+    Cache-Control = "public, max-age=immutable"
 [[headers]]
-  for = "*.webp"  
+  for = "*.webp"
   [headers.values]
-    Cache-Control = "public, max-age=2629746"
+    Cache-Control = "public, max-age=immutable"
 [[headers]]
-  for = "*.jpg"  
+  for = "*.jpg"
   [headers.values]
-    Cache-Control = "public, max-age=2629746"
+    Cache-Control = "public, max-age=immutable"
+[[headers]]
+  for = "*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=immutable"
+[[headers]]
+  for = "*.ttf"
+  [headers.values]
+    Cache-Control = "public, max-age=immutable"
+[[headers]]
+  for = "*.woff"
+  [headers.values]
+    Cache-Control = "public, max-age=immutable"
+[[headers]]
+  for = "*.woff2"
+  [headers.values]
+    Cache-Control = "public, max-age=immutable"
+
+
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+[[headers]]
+  for = "*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=10800"
+[[headers]]
+  for = "*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=21600"

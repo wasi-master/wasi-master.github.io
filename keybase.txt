@@ -4,7 +4,7 @@ https://keybase.io/wasimaster
 
 I hereby claim:
 
-  * I am an admin of https://wasimaster.github.io
+  * I am an admin of https://wasi-master.github.io
   * I am wasimaster (https://keybase.io/wasimaster) on keybase.
   * I have a public key with fingerprint 0214 4B65 1422 C52E A8C5  5E39 5B87 09DF C524 5072
 
@@ -21,17 +21,27 @@ To do so, I am signing this object:
       "uid": "fd258185d28d597cb11ddfbab6557819",
       "username": "wasimaster"
     },
+    "merkle_root": {
+      "ctime": 1641993838,
+      "hash_meta": "e7dc01e023a7175f8e942a062ec6f45076eb5637e6cacdce546bd1544adc96c3",
+      "seqno": 21617825
+    },
+    "revoke": {
+      "sig_ids": [
+        "29e33fca1174a813f5aceddbf709e8a76ccd5f27f8fd0afb68f8a3055f153b7e0f"
+      ]
+    },
     "service": {
-      "hostname": "wasimaster.github.io",
+      "hostname": "wasi-master.github.io",
       "protocol": "https:"
     },
     "type": "web_service_binding",
     "version": 1
   },
-  "ctime": 1641992577,
+  "ctime": 1641993844,
   "expire_in": 157680000,
-  "prev": "12bab6ab1647c83a227dcb59264e921169ad6419ab6568b9725eea3e23d4c13a",
-  "seqno": 6,
+  "prev": "df4f23a7b80acc9e3535dba663efec3074159b525a742a959bdaa3f5d9556e14",
+  "seqno": 12,
   "tag": "signature"
 }
 
@@ -41,23 +51,26 @@ which yields the signature:
 Version: Keybase OpenPGP v2.1.13
 Comment: https://keybase.io/crypto
 
-yMInAnicrVJrSFRBGF3zQQk9CKOHFXUrVFx0Z/a+ZgssCHsqPSApqm3mzuzuTd3d
-7r3rJqKiYBZUSkGvH0VpZaSBBT2pTCRKI5ReJpZIBEZBBUX2suZu9at+Nn+G+Tjn
-zDmHr2NsvCM5LmPfuO7Je76kx3XdOh5x4Oc9VWUCCdFSwVMmFLLYxYooMy1voU4F
-j+ACLoCBKlORYBUSkSBZhDJgGGoacWtUBsiHqISpomnMpTKgSqLspiJkhBDsc7sR
-Qi4sOAWfHvQzI2zoQcuWhUAUiSwBEUJNggyrmiQxN5KIqrgQ9fGZKLkUyImBkGkz
-uDmCTZalh/iMP7wxe//A/2ffkZicj0JJ5RgKVSohRSMAUOojmEeQFBUgG2gyI4iL
-GUdHsakXY9NihlDuFPi8RNeYXa2d5S9Mll+3AhHyK1nYCFkhLVTEEQHLCpseW8Eq
-DccojHh/i3mJHqS8Uc4oYYaph4KCB3CkZum2OpBFgBCUFMUpsO1h3WBe3UZIiqy6
-+LH/YSVcEkA7AyacoGiqG0OoUI1ICMoiQxAAGWFqa9lBZZUgBUqMYTeDvCoNuO2C
-TLYtGBI8MreJ/VzS1P1BbEUMJpS3t21McMQlO5ISR9mb5kgeM+HP/l2uGO2oTs9e
-XrSj89vwlfE9N97WPHyadGtK9urB+sQjTRPvBVyPKxbmRfOaX3fWdz1wrC1oOd69
-ePejE9dL5+YYO4cOljd5kz5n9nc5v96ujQ4emtpTvnd+pX9OpvX9VUbFYPYacm3D
-gouXUj597ulPeNzemtWxvmHoXRNa2Xdk17wLbyZ1Dmf8mNw4Nr1+1bNj+f195xo3
-tTRGV/Y/GZB7B+4OXu3b7D+VWhOum7mrrsA64cyb0Xa9Yd2SadNfVLUXbjnqORk4
-UPNxWQJedGckpaNXyr0xu7a56PDWtg9xcE+a3tG7v3qk8sy3aMWHB6fll7OWtrau
-OH9z+H3YzE+NzzmUVlfWeda8n6v9BLyMTww=
-=XgyT
+yMLCAnicrZNbaB1FGMdPTLzkVKNWxUul1cWKoWm6s7szO3Psi0g0gXiLRGuTuJnL
+NyfruezJ7p4kJaTeUChYCyUFa1BQLG2tomKLUQtNY0xboygI3q2iIJTWC7RPvsTZ
+VFHER/dld4b/9//+32925i5qzOUbWre3fHLl1t9valiYfaye48c/S8ctEalNVmHc
+KsHSC8oKkjQohcoqWDayEUeUKE9w6ghPMOI5BAF3pBSuVAQxzRTmypcSbAqIYo+4
+ynNACMG16zLGbG61WTqsFiGuxWE1zWwd5HmCYOQ5jsQOcCoxBpdhQX2bKW32PGz7
+jikcipKswoQTPIH2MDJ7ZhEsxfsP/f+cu75kp5WDqdEohyrMfCkQUkoLbkbAPkUs
+EyYQV3kFjHqUJ2GFJynE1kSbVYG4VIYgjqI0wyvTMBMh4iHGXOpSMyJPhoIKpNzU
+gq+kjcB2XO4jH2sKzHO4TRyQRGczEhCYuD4QyaWSYGILhbDncSUZka5JksBwNbIK
+DiLIpw42EWIYiUqQdU/CoiGXWIU+y2HgulpyhHyPU+RqzCUoJbQhCpT7REqFteNr
+qpXNtSBUU+7aGGuEXeGDra2BiaxbPBLKJfPsqP6BYO1ZBu3FMB2qi7MnV4ujNJJR
+2UiG0rSWFDJC6abaUg2I4E+3QIRVZf4YUzECcRJGVUPMKP8Fz/PaLBirhTEEYabA
+PqG2ebI+MGIslfZ0RlJQm0tpBsYuVoIT4oIG6dq+hzAT2MHcN5SZ+VacGxKKYUwA
+eX/TRI7JyYvG0yCs8rQegzUxO9PflGvI584795zsKuXyzZf8dcGWHz5/sWu8u2lg
+4Vf0wen3Prz9x4e7v3jqrrcu2NGYX/npA1e8Otj6ROnLZT0HWq5+kz7ace+euW0f
+nXmZvf8Qv67/5wW9/tZnXi+0HMyfLLaceeTFS+t4x7K+ub2n5o+uO3Hn6dUPTv32
+0pG+mc3Lf+l9p3N1V3/7zOTHtakt961Zdazj4O5Dz35/1TX3bE8Ob+x4frF5cOrC
+2ubplU97ZP+uxlW7mu8I7t/z1XBP6xtbB/ZNXzb8bufl3+4NDozNw3O3vX2ioSe6
+8YcVa5q6rObFY3ODoxs6J3tPXf9N0LvlyPqdNTbai/vWnnxh20/l2cmxo4eOT2/Y
+uP/u3ZXc2GtN135Xni/zdY+v+PzrGy62X9l3S/eTN/8BZwKCAg==
+=6u2O
 -----END PGP MESSAGE-----
 
 And finally, I am proving ownership of this host by posting or

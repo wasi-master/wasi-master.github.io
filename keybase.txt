@@ -1,0 +1,68 @@
+==================================================================
+https://keybase.io/wasimaster
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://wasimaster.github.io
+  * I am wasimaster (https://keybase.io/wasimaster) on keybase.
+  * I have a public key with fingerprint 0214 4B65 1422 C52E A8C5  5E39 5B87 09DF C524 5072
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0101a186d4ba82b4b964261ea2ccb3cd619f9d5ad7cce08e185463d42ebbbaf339990a",
+      "fingerprint": "02144b651422c52ea8c55e395b8709dfc5245072",
+      "host": "keybase.io",
+      "key_id": "5b8709dfc5245072",
+      "kid": "0101a186d4ba82b4b964261ea2ccb3cd619f9d5ad7cce08e185463d42ebbbaf339990a",
+      "uid": "fd258185d28d597cb11ddfbab6557819",
+      "username": "wasimaster"
+    },
+    "service": {
+      "hostname": "wasimaster.github.io",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "ctime": 1641992577,
+  "expire_in": 157680000,
+  "prev": "12bab6ab1647c83a227dcb59264e921169ad6419ab6568b9725eea3e23d4c13a",
+  "seqno": 6,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.1.13
+Comment: https://keybase.io/crypto
+
+yMInAnicrVJrSFRBGF3zQQk9CKOHFXUrVFx0Z/a+ZgssCHsqPSApqm3mzuzuTd3d
+7r3rJqKiYBZUSkGvH0VpZaSBBT2pTCRKI5ReJpZIBEZBBUX2suZu9at+Nn+G+Tjn
+zDmHr2NsvCM5LmPfuO7Je76kx3XdOh5x4Oc9VWUCCdFSwVMmFLLYxYooMy1voU4F
+j+ACLoCBKlORYBUSkSBZhDJgGGoacWtUBsiHqISpomnMpTKgSqLspiJkhBDsc7sR
+Qi4sOAWfHvQzI2zoQcuWhUAUiSwBEUJNggyrmiQxN5KIqrgQ9fGZKLkUyImBkGkz
+uDmCTZalh/iMP7wxe//A/2ffkZicj0JJ5RgKVSohRSMAUOojmEeQFBUgG2gyI4iL
+GUdHsakXY9NihlDuFPi8RNeYXa2d5S9Mll+3AhHyK1nYCFkhLVTEEQHLCpseW8Eq
+DccojHh/i3mJHqS8Uc4oYYaph4KCB3CkZum2OpBFgBCUFMUpsO1h3WBe3UZIiqy6
++LH/YSVcEkA7AyacoGiqG0OoUI1ICMoiQxAAGWFqa9lBZZUgBUqMYTeDvCoNuO2C
+TLYtGBI8MreJ/VzS1P1BbEUMJpS3t21McMQlO5ISR9mb5kgeM+HP/l2uGO2oTs9e
+XrSj89vwlfE9N97WPHyadGtK9urB+sQjTRPvBVyPKxbmRfOaX3fWdz1wrC1oOd69
+ePejE9dL5+YYO4cOljd5kz5n9nc5v96ujQ4emtpTvnd+pX9OpvX9VUbFYPYacm3D
+gouXUj597ulPeNzemtWxvmHoXRNa2Xdk17wLbyZ1Dmf8mNw4Nr1+1bNj+f195xo3
+tTRGV/Y/GZB7B+4OXu3b7D+VWhOum7mrrsA64cyb0Xa9Yd2SadNfVLUXbjnqORk4
+UPNxWQJedGckpaNXyr0xu7a56PDWtg9xcE+a3tG7v3qk8sy3aMWHB6fll7OWtrau
+OH9z+H3YzE+NzzmUVlfWeda8n6v9BLyMTww=
+=XgyT
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/wasimaster
+
+==================================================================

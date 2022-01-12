@@ -519,6 +519,38 @@ body::-webkit-scrollbar-thumb {
   letter-spacing: 1px;
 }
 
+#hero h2 {
+  color: #d6d7da;
+  margin: 15px 0 0 0;
+  font-size: 26px;
+  font-family: "Poppins", sans-serif;
+}
+
+
+#hero :not(p a) {
+  text-decoration: none !important;
+  border-bottom: none !important;
+}
+
+#hero p {
+  color: #d6d7da;
+  font-size: 26px;
+  font-family: "Poppins", sans-serif;
+}
+#hero p a {
+  font-weight: 700;
+  font-size: 16px !important;
+}
+
+#hero p a:link,
+#hero p a:visited{
+  color: #e0e1e2 !important;
+}
+#hero p a:hover,
+#hero p a:active {
+  color: #ffffff !important;
+}
+
 #hero .social-links {
   margin-top: 30px;
 }

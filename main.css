@@ -213,6 +213,21 @@ img.emoji {
     color: #dddddd;
 }
 
+.card>.stats {
+    margin-top: 1rem;
+}
+
+.card>.stats>.stat {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #aaaaaa;
+}
+
+.card>.stats>.stat>svg, .card>.stats>.stat>img {
+    margin-right: 5px;
+}
+
 .card>.button {
     display: inline-flex;
     align-items: center;

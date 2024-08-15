@@ -293,11 +293,28 @@ img.emoji {
     border-radius: 5px;
     background: #202020;
     padding: 4px;
+    display: flex;
+    align-items: center;
+    height: 100%;
 }
 
-.tag:before {
-    content: "#";
+.tag > svg {
+    margin: 0 auto;
+    margin-right: 4px;
+    display: block;
 }
+.tag > img {
+    filter: invert(98%) sepia(58%) saturate(108%) hue-rotate(189deg) brightness(113%) contrast(87%);
+    margin: 0 auto;
+    margin-right: 4px;
+    display: block;
+    width: 16px;
+    height: 16px
+}
+
+/* .tag:before {
+    content: "#";
+} */
 
 .skill-section {
     /* display: flex; */

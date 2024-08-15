@@ -403,7 +403,7 @@ table tr:first-child td:first-child {
 
 footer {
     background-color: #000000;
-    color: rgba(255, 255, 255, 0.5);
+    color: #bbbbbb;
     text-align: center;
     margin-top: 3rem;
     font-family: Open Sans;
@@ -413,6 +413,6 @@ footer {
 footer .weak {
     font-size: 0.9rem;
     font-weight: 300;
-    color: rgba(255, 255, 255, 0.3);
+    color: #999999;
     margin: 0.5rem;
 }

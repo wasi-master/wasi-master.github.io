@@ -227,6 +227,32 @@ img.emoji {
     transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
+.cards-section {
+    display: contents;
+}
+
+.cards-section__title {
+    grid-column: 1 / -1;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-align: center;
+    transition: opacity 0.2s ease, display 0.2s ease;
+}
+
+.cards-section__title.is-hidden {
+    display: none;
+    opacity: 0;
+}
+
+.cards-section__wrapper {
+    display: contents;
+}
+
 @media (min-width: 600px) {
     .cards {
         max-width: 600px;

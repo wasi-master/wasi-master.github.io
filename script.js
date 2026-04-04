@@ -273,6 +273,38 @@ if (projectsSection) {
             return matchesMainFilter && matchesDocFilter;
         };
 
+        const updateSectionVisibility = () => {
+            const isFiltering = activeFilter !== null || activeDocFilter !== null;
+            const sections = projectsSection.querySelectorAll(".cards-section");
+            
+            sections.forEach((section) => {
+                const title = section.querySelector(".cards-section__title");
+                const cards = Array.from(section.querySelectorAll(".card-wrapper"));
+                
+                // Check if any cards in this section are visible
+                const hasVisibleCards = cards.some(card => !card.classList.contains("is-filtered-out"));
+                
+                if (isFiltering) {
+                    // While filtering, hide section title
+                    if (title) {
+                        title.classList.add("is-hidden");
+                    }
+                } else {
+                    // When not filtering, show section title
+                    if (title) {
+                        title.classList.remove("is-hidden");
+                    }
+                }
+                
+                // Hide entire section if no visible cards
+                if (!hasVisibleCards && isFiltering) {
+                    section.style.display = "none";
+                } else {
+                    section.style.display = "";
+                }
+            });
+        };
+
         const applyProjectFilter = () => {
             projectCards.forEach((card) => {
                 const shouldShow = cardMatchesFilters(card);
@@ -302,6 +334,8 @@ if (projectsSection) {
                     card.classList.remove("is-filter-transition");
                 }, 180);
             });
+            
+            updateSectionVisibility();
         };
 
         Array.from(allTags.entries())

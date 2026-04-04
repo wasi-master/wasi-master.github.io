@@ -147,6 +147,81 @@ img.emoji {
     gap: 1rem;
 }
 
+.project-filter {
+    max-width: 1200px;
+    margin: 0 auto 1.5rem;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.project-filter__label {
+    color: #a8a8a8;
+    font-family: "Raleway", sans-serif;
+    font-size: 0.95rem;
+}
+
+.project-filter__group {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.project-filter__chip {
+    background: #121212;
+    color: #bcbcbc;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 0.42rem 0.72rem;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.82rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
+    transition: all 0.2s ease;
+}
+
+.project-filter__chip-icon {
+    width: 14px;
+    height: 14px;
+    filter: invert(98%) sepia(58%) saturate(108%) hue-rotate(189deg) brightness(113%) contrast(87%);
+}
+
+.project-filter__chip-text {
+    line-height: 1;
+}
+
+.project-filter__chip:hover {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.55);
+    background: #1b1b1b;
+}
+
+.project-filter__chip.is-active {
+    color: #ffffff;
+    border-color: rgba(3, 177, 252, 0.9);
+    background: rgba(3, 177, 252, 0.2);
+    box-shadow: 0 0 0 1px rgba(3, 177, 252, 0.2);
+}
+
+.card-wrapper.is-filtered-out {
+    display: none;
+}
+
+.card-wrapper.is-filter-transition {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+    pointer-events: none;
+}
+
+.cards .card-wrapper {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
 @media (min-width: 600px) {
     .cards {
         max-width: 600px;

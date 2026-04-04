@@ -108,15 +108,166 @@ setTimeout(function() {
 
 // Wrap every letter in a span
 var textWrapper = document.querySelector('.anim1');
-textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+if (textWrapper) {
+    textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
 
-anime.timeline({ loop: false })
-    .add({
-        targets: '.anim1 .letter',
-        scale: [4, 1],
-        opacity: [0, 1],
-        translateZ: 0,
-        easing: "easeOutExpo",
-        duration: 950,
-        delay: (el, i) => 70 * i
-    });
+    if (window.anime) {
+        anime.timeline({ loop: false })
+            .add({
+                targets: '.anim1 .letter',
+                scale: [4, 1],
+                opacity: [0, 1],
+                translateZ: 0,
+                easing: "easeOutExpo",
+                duration: 950,
+                delay: (el, i) => 70 * i
+            });
+    }
+}
+
+const projectsSection = document.getElementById("projects");
+
+if (projectsSection) {
+    const filterGroup = projectsSection.querySelector(".project-filter__group");
+    const projectCards = Array.from(projectsSection.querySelectorAll(".cards .card-wrapper"));
+    let hasPreparedCardsForFiltering = false;
+
+    if (filterGroup && projectCards.length > 0) {
+        const normalizeTag = (tag) => tag.trim().toLowerCase();
+        const allTags = new Map();
+        const tagCounts = new Map();
+
+        projectCards.forEach((card) => {
+            const tagMeta = Array.from(card.querySelectorAll(".tag"))
+                .map((tagElement) => {
+                    const label = tagElement.textContent.trim();
+                    const iconElement = tagElement.querySelector("img");
+
+                    if (!label) {
+                        return null;
+                    }
+
+                    return {
+                        label,
+                        normalized: normalizeTag(label),
+                        iconSrc: iconElement ? iconElement.getAttribute("src") : null
+                    };
+                })
+                .filter(Boolean);
+
+            const normalizedTags = Array.from(new Set(tagMeta.map((tag) => tag.normalized)));
+            card.dataset.tags = normalizedTags.join(",");
+
+            normalizedTags.forEach((normalizedTag) => {
+                if (!allTags.has(normalizedTag)) {
+                    const originalTag = tagMeta.find((tag) => tag.normalized === normalizedTag);
+
+                    allTags.set(normalizedTag, {
+                        label: originalTag ? originalTag.label : normalizedTag,
+                        iconSrc: originalTag ? originalTag.iconSrc : null
+                    });
+                }
+
+                tagCounts.set(normalizedTag, (tagCounts.get(normalizedTag) || 0) + 1);
+            });
+        });
+
+        let activeFilter = null;
+
+        const prepareCardsForFiltering = () => {
+            if (hasPreparedCardsForFiltering) {
+                return;
+            }
+
+            projectCards.forEach((card) => {
+                card.removeAttribute("data-aos");
+                card.classList.remove("aos-init", "aos-animate");
+                card.style.opacity = "1";
+                card.style.transform = "none";
+            });
+
+            if (window.AOS && typeof window.AOS.refreshHard === "function") {
+                window.AOS.refreshHard();
+            }
+
+            hasPreparedCardsForFiltering = true;
+        };
+
+        const applyProjectFilter = () => {
+            projectCards.forEach((card) => {
+                const cardTags = card.dataset.tags ? card.dataset.tags.split(",") : [];
+                const shouldShow = !activeFilter || cardTags.includes(activeFilter);
+                const isHidden = card.classList.contains("is-filtered-out");
+
+                card.setAttribute("aria-hidden", String(!shouldShow));
+
+                if (shouldShow) {
+                    if (isHidden) {
+                        card.classList.remove("is-filtered-out");
+                        card.classList.add("is-filter-transition");
+                        requestAnimationFrame(() => {
+                            card.classList.remove("is-filter-transition");
+                        });
+                    }
+
+                    return;
+                }
+
+                if (isHidden) {
+                    return;
+                }
+
+                card.classList.add("is-filter-transition");
+                window.setTimeout(() => {
+                    card.classList.add("is-filtered-out");
+                    card.classList.remove("is-filter-transition");
+                }, 180);
+            });
+        };
+
+        Array.from(allTags.entries())
+            .filter(([normalizedTag]) => (tagCounts.get(normalizedTag) || 0) > 1)
+            .sort((a, b) => a[1].label.localeCompare(b[1].label))
+            .forEach(([normalizedTag, tagData]) => {
+                const label = tagData.label;
+                const chip = document.createElement("button");
+                chip.type = "button";
+                chip.className = "project-filter__chip";
+                chip.setAttribute("aria-pressed", "false");
+
+                if (tagData.iconSrc) {
+                    const icon = document.createElement("img");
+                    icon.className = "project-filter__chip-icon";
+                    icon.src = tagData.iconSrc;
+                    icon.alt = "";
+                    chip.appendChild(icon);
+                }
+
+                const chipText = document.createElement("span");
+                chipText.className = "project-filter__chip-text";
+                chipText.textContent = label;
+                chip.appendChild(chipText);
+
+                chip.addEventListener("click", () => {
+                    prepareCardsForFiltering();
+
+                    const isAlreadyActive = activeFilter === normalizedTag;
+                    activeFilter = isAlreadyActive ? null : normalizedTag;
+
+                    filterGroup.querySelectorAll(".project-filter__chip").forEach((button) => {
+                        button.classList.remove("is-active");
+                        button.setAttribute("aria-pressed", "false");
+                    });
+
+                    if (!isAlreadyActive) {
+                        chip.classList.add("is-active");
+                        chip.setAttribute("aria-pressed", "true");
+                    }
+
+                    applyProjectFilter();
+                });
+
+                filterGroup.appendChild(chip);
+            });
+    }
+}

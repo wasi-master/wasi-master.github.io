@@ -166,6 +166,7 @@ const projectsSection = document.getElementById("projects");
 
 if (projectsSection) {
     const filterGroup = projectsSection.querySelector(".project-filter__group");
+    const docsFilterGroup = projectsSection.querySelector(".project-filter__group--docs");
     const projectCards = Array.from(projectsSection.querySelectorAll(".cards .card-wrapper"));
     let hasPreparedCardsForFiltering = false;
 
@@ -173,9 +174,11 @@ if (projectsSection) {
         const normalizeTag = (tag) => tag.trim().toLowerCase();
         const allTags = new Map();
         const tagCounts = new Map();
+        const allDocTags = new Map();
+        const docTagCounts = new Map();
 
         projectCards.forEach((card) => {
-            const tagMeta = Array.from(card.querySelectorAll(".tag"))
+            const tagMeta = Array.from(card.querySelectorAll(".tags:not(.docs-tags) .tag"))
                 .map((tagElement) => {
                     const label = tagElement.textContent.trim();
                     const iconElement = tagElement.querySelector("img");
@@ -192,8 +195,26 @@ if (projectsSection) {
                 })
                 .filter(Boolean);
 
+            const docTagMeta = Array.from(card.querySelectorAll(".docs-tags .tag"))
+                .map((tagElement) => {
+                    const label = tagElement.textContent.trim();
+
+                    if (!label) {
+                        return null;
+                    }
+
+                    return {
+                        label,
+                        normalized: normalizeTag(label)
+                    };
+                })
+                .filter(Boolean);
+
             const normalizedTags = Array.from(new Set(tagMeta.map((tag) => tag.normalized)));
+            const normalizedDocTags = Array.from(new Set(docTagMeta.map((tag) => tag.normalized)));
+
             card.dataset.tags = normalizedTags.join(",");
+            card.dataset.docTags = normalizedDocTags.join(",");
 
             normalizedTags.forEach((normalizedTag) => {
                 if (!allTags.has(normalizedTag)) {
@@ -207,9 +228,22 @@ if (projectsSection) {
 
                 tagCounts.set(normalizedTag, (tagCounts.get(normalizedTag) || 0) + 1);
             });
+
+            normalizedDocTags.forEach((normalizedTag) => {
+                if (!allDocTags.has(normalizedTag)) {
+                    const originalTag = docTagMeta.find((tag) => tag.normalized === normalizedTag);
+
+                    allDocTags.set(normalizedTag, {
+                        label: originalTag ? originalTag.label : normalizedTag
+                    });
+                }
+
+                docTagCounts.set(normalizedTag, (docTagCounts.get(normalizedTag) || 0) + 1);
+            });
         });
 
         let activeFilter = null;
+        let activeDocFilter = null;
 
         const prepareCardsForFiltering = () => {
             if (hasPreparedCardsForFiltering) {
@@ -230,10 +264,18 @@ if (projectsSection) {
             hasPreparedCardsForFiltering = true;
         };
 
+        const cardMatchesFilters = (card) => {
+            const cardTags = card.dataset.tags ? card.dataset.tags.split(",") : [];
+            const cardDocTags = card.dataset.docTags ? card.dataset.docTags.split(",") : [];
+            const matchesMainFilter = !activeFilter || cardTags.includes(activeFilter);
+            const matchesDocFilter = !activeDocFilter || cardDocTags.includes(activeDocFilter);
+
+            return matchesMainFilter && matchesDocFilter;
+        };
+
         const applyProjectFilter = () => {
             projectCards.forEach((card) => {
-                const cardTags = card.dataset.tags ? card.dataset.tags.split(",") : [];
-                const shouldShow = !activeFilter || cardTags.includes(activeFilter);
+                const shouldShow = cardMatchesFilters(card);
                 const isHidden = card.classList.contains("is-filtered-out");
 
                 card.setAttribute("aria-hidden", String(!shouldShow));
@@ -306,5 +348,43 @@ if (projectsSection) {
 
                 filterGroup.appendChild(chip);
             });
+
+        if (docsFilterGroup) {
+            Array.from(allDocTags.entries())
+                .filter(([normalizedTag]) => (docTagCounts.get(normalizedTag) || 0) > 0)
+                .sort((a, b) => a[1].label.localeCompare(b[1].label))
+                .forEach(([normalizedTag, tagData]) => {
+                    const chip = document.createElement("button");
+                    chip.type = "button";
+                    chip.className = "project-filter__chip";
+                    chip.setAttribute("aria-pressed", "false");
+
+                    const chipText = document.createElement("span");
+                    chipText.className = "project-filter__chip-text";
+                    chipText.textContent = tagData.label;
+                    chip.appendChild(chipText);
+
+                    chip.addEventListener("click", () => {
+                        prepareCardsForFiltering();
+
+                        const isAlreadyActive = activeDocFilter === normalizedTag;
+                        activeDocFilter = isAlreadyActive ? null : normalizedTag;
+
+                        docsFilterGroup.querySelectorAll(".project-filter__chip").forEach((button) => {
+                            button.classList.remove("is-active");
+                            button.setAttribute("aria-pressed", "false");
+                        });
+
+                        if (!isAlreadyActive) {
+                            chip.classList.add("is-active");
+                            chip.setAttribute("aria-pressed", "true");
+                        }
+
+                        applyProjectFilter();
+                    });
+
+                    docsFilterGroup.appendChild(chip);
+                });
+        }
     }
 }

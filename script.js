@@ -125,6 +125,43 @@ if (textWrapper) {
     }
 }
 
+const projectButtons = document.querySelectorAll("#projects .card .button");
+
+projectButtons.forEach((button) => {
+    if (button.querySelector(".button__label")) {
+        return;
+    }
+
+    const labelText = Array.from(button.childNodes)
+        .filter((node) => node.nodeType === Node.TEXT_NODE)
+        .map((node) => node.textContent)
+        .join(" ")
+        .replace(/\s+/g, " ")
+        .trim();
+
+    if (!labelText) {
+        return;
+    }
+
+    Array.from(button.childNodes).forEach((node) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+            node.remove();
+        }
+    });
+
+    const label = document.createElement("span");
+    label.className = "button__label";
+    label.textContent = labelText;
+
+    const extIcon = button.querySelector(".ext");
+
+    if (extIcon) {
+        button.insertBefore(label, extIcon);
+    } else {
+        button.appendChild(label);
+    }
+});
+
 const projectsSection = document.getElementById("projects");
 
 if (projectsSection) {

@@ -1,3 +1,5 @@
+import argparse
+import json
 import os
 import re
 import math
@@ -49,7 +51,7 @@ def build_session() -> requests.Session:
     )
     adapter = HTTPAdapter(max_retries=retries)
     session.mount("https://", adapter)
-    session.headers.update({"User-Agent": "wasi-master-stats-updater"})
+    session.headers.update({"User-Agent": "wasi-master-portfolio-stats-updater"})
 
     github_api_key = os.environ.get("GITHUB_API_KEY", "").strip()
     github_token = os.environ.get("GITHUB_TOKEN", "").strip()
@@ -171,25 +173,23 @@ def extract_all_counts(text: str) -> list[int]:
             values.append(parsed)
     return values
 
-
 def format_count(value: int) -> str:
     if value <= 10_000:
         return str(value)
 
     if value >= 1_000_000:
-        scaled = math.floor((value / 1_000_000) * 10) / 10
-        suffix = "M"
+        scaled = math.floor(value / 1_000_000)
+        return f"{scaled}M+"
+
+    scaled = value / 1_000
+
+    if scaled < 100:
+        scaled = math.floor(scaled * 10) / 10
+        if scaled.is_integer():
+            return f"{int(scaled)}K+"
+        return f"{scaled:.1f}K+"
     else:
-        scaled = math.floor((value / 1_000) * 10) / 10
-        suffix = "K"
-
-    if float(scaled).is_integer():
-        amount = str(int(scaled))
-    else:
-        amount = f"{scaled:.1f}".rstrip("0").rstrip(".")
-
-    return f"{amount}{suffix}+"
-
+        return f"{math.floor(scaled)}K+"
 
 def parse_github_tooltip(text: str) -> tuple[int | None, int | None]:
     if not text:
@@ -397,22 +397,41 @@ def update_index(index_path: Path) -> dict[str, int | bool]:
 
 
 def main() -> None:
-    result = update_index(Path("./index.html"))
-    print(
-        "Finished: "
-        f"cards={result['cards_total']}, "
-        f"updated={result['updated']}, "
-        f"text_updated={result['text_updated']}, "
-        f"untouched={result['untouched']}, "
-        f"failed={result['failed']}, "
-        f"html_changed={result['html_changed']}"
-    )
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--json", action="store_true", help="Output results as JSON")
+    args = parser.parse_args()
 
-    if result["fail_messages"]:
-        unique_fail_messages = sorted(set(result["fail_messages"]))
-        print("Failures:")
-        for message in unique_fail_messages:
-            print(f"- {message}")
+    result = update_index(Path("./index.html"))
+
+    if args.json:
+        output = {
+            "summary": {
+                "cards": result["cards_total"],
+                "updated": result["updated"],
+                "text_updated": result["text_updated"],
+                "untouched": result["untouched"],
+                "failed": result["failed"],
+                "html_changed": result["html_changed"],
+            },
+            "failures": sorted(set(result["fail_messages"])) if result["fail_messages"] else []
+        }
+        print(json.dumps(output, indent=2))
+    else:
+        print(
+            "Finished: "
+            f"cards={result['cards_total']}, "
+            f"updated={result['updated']}, "
+            f"text_updated={result['text_updated']}, "
+            f"untouched={result['untouched']}, "
+            f"failed={result['failed']}, "
+            f"html_changed={result['html_changed']}"
+        )
+
+        if result["fail_messages"]:
+            unique_fail_messages = sorted(set(result["fail_messages"]))
+            print("Failures:")
+            for message in unique_fail_messages:
+                print(f"- {message}")
 
 
 if __name__ == "__main__":

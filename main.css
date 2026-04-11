@@ -5,6 +5,28 @@
     padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 .skip-link {
     position: absolute;
     top: 0;
@@ -40,10 +62,24 @@ body {
     background: #090909;
     color: #dddddd;
     font-family: "Poppins", sans-serif;
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
 }
 
 header {
     height: 100vh;
+    min-height: 28rem;
+}
+
+.hero {
+    position: relative;
+    height: 100%;
+    min-height: inherit;
+}
+
+main {
+    padding-inline: clamp(0.75rem, 3vw, 1.5rem);
 }
 
 p::selection {
@@ -157,11 +193,12 @@ img.emoji {
 }
 
 .hero-text__title h1 {
-    font-size: 5rem;
+    font-size: clamp(2.25rem, 8vw, 5rem);
     font-weight: 700;
-    letter-spacing: 2px;
+    letter-spacing: 0.04em;
     white-space: nowrap;
     color: #fff;
+    line-height: 1.1;
 }
 
 .anim1 .letter {
@@ -176,10 +213,11 @@ img.emoji {
 }
 
 .hero-text__tagline {
-    font-size: 1.5rem;
+    font-size: clamp(1.05rem, 3.5vw, 1.5rem);
     font-weight: 400;
     color: #fff;
-    margin-bottom: 10rem;
+    margin-bottom: clamp(2rem, 18vh, 10rem);
+    margin-top: 0.75rem;
 }
 
 #container {
@@ -197,21 +235,36 @@ img.emoji {
 }
 
 .section-title {
-    font-size: 3rem;
+    font-size: clamp(1.75rem, 5vw, 3rem);
     font-weight: 400;
     text-align: center;
     white-space: nowrap;
     color: #ffffff;
-    margin-top: 6rem;
+    margin-top: clamp(3rem, 10vw, 6rem);
     margin-bottom: 2rem;
+    line-height: 1.2;
+    padding-inline: 0.5rem;
+}
+
+@media (max-width: 520px) {
+    .section-title {
+        white-space: normal;
+    }
 }
 
 .section-subtitle {
-    font-size: 1.5rem;
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
     font-weight: 300;
     text-align: center;
     white-space: nowrap;
     color: #ffffff;
+    padding-inline: 0.5rem;
+}
+
+@media (max-width: 520px) {
+    .section-subtitle {
+        white-space: normal;
+    }
 }
 
 .cards {
@@ -364,7 +417,7 @@ img.emoji {
     background-color: #0a0a0a;
     color: #eeeeee;
     padding: 1rem;
-    border-radius: 4px;
+    border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     text-align: left;
     padding: 2rem;
@@ -376,6 +429,11 @@ img.emoji {
     color: #ffffff;
     transform: scale(1.03) !important;
     border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.card:focus-within {
+    border-color: rgba(3, 177, 252, 0.45);
+    box-shadow: 0 0 0 1px rgba(3, 177, 252, 0.15);
 }
 
 @media (prefers-reduced-motion: reduce) {

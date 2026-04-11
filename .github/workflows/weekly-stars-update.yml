@@ -1,0 +1,122 @@
+name: Weekly Stars and Stats Update
+
+on:
+  schedule:
+    # Every Friday at 07:00 UTC
+    - cron: "0 7 * * 5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install updater dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install requests beautifulsoup4 rich
+
+      - name: Run updater with JSON output
+        id: updater
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PEPY_API_KEY: ${{ secrets.PEPY_API_KEY }}
+        run: |
+          set +e
+          python updater.py --json > updater_output.json
+          exit_code=$?
+
+          if [ ! -s updater_output.json ]; then
+            echo '{}' > updater_output.json
+          fi
+
+          echo "exit_code=$exit_code" >> "$GITHUB_OUTPUT"
+
+          {
+            echo "updater_json<<EOF"
+            cat updater_output.json
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+          echo "Updater JSON output:"
+          cat updater_output.json
+
+          if [ "$exit_code" -ne 0 ]; then
+            echo "::warning::updater.py exited with code $exit_code. Continuing workflow by design."
+          fi
+
+          exit 0
+
+      - name: Report updater result to Actions summary
+        if: always()
+        shell: bash
+        run: |
+          echo "## Weekly Portfolio Stats Update" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "### Raw updater JSON" >> "$GITHUB_STEP_SUMMARY"
+          echo '```json' >> "$GITHUB_STEP_SUMMARY"
+          cat updater_output.json >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+
+          if jq -e . >/dev/null 2>&1 < updater_output.json; then
+            cards=$(jq -r '.summary.cards // "n/a"' updater_output.json)
+            updated=$(jq -r '.summary.updated // "n/a"' updater_output.json)
+            text_updated=$(jq -r '.summary.text_updated // "n/a"' updater_output.json)
+            untouched=$(jq -r '.summary.untouched // "n/a"' updater_output.json)
+            failed=$(jq -r '.summary.failed // "n/a"' updater_output.json)
+            html_changed=$(jq -r '.summary.html_changed // "n/a"' updater_output.json)
+
+            {
+              echo "### Parsed summary"
+              echo "- cards: $cards"
+              echo "- updated: $updated"
+              echo "- text_updated: $text_updated"
+              echo "- untouched: $untouched"
+              echo "- failed: $failed"
+              echo "- html_changed: $html_changed"
+            } >> "$GITHUB_STEP_SUMMARY"
+
+            failure_count=$(jq -r '(.failures // []) | length' updater_output.json)
+            if [ "$failure_count" -gt 0 ]; then
+              echo "" >> "$GITHUB_STEP_SUMMARY"
+              echo "### Failure details" >> "$GITHUB_STEP_SUMMARY"
+              jq -r '.failures[] | "- \(.)"' updater_output.json >> "$GITHUB_STEP_SUMMARY"
+              echo "::warning::$failure_count partial failure(s) reported by updater.py"
+            fi
+          else
+            echo "- Could not parse updater_output.json" >> "$GITHUB_STEP_SUMMARY"
+            echo "::warning::updater_output.json is not valid JSON"
+          fi
+
+      - name: Commit and push changed files
+        if: always()
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if git diff --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git add index.html
+          git commit -m "chore: weekly update project stats"
+
+          if ! git push; then
+            echo "::warning::Failed to push changes. Keeping workflow successful by design."
+            exit 0
+          fi

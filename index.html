@@ -8,17 +8,11 @@
 <link href="main.css" rel="stylesheet"/>
 <link rel="canonical" href="https://wasi-master.github.io/"/>
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" media="(min-width: 768px)" rel="stylesheet"/>
-<link as="style" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'" rel="preload"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&amp;family=Poppins:wght@300;400;500;600;700&amp;family=Raleway:wght@300;400;600&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'" rel="preload"/>
 <noscript>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&amp;display=swap" rel="stylesheet"/>
-</noscript>
-<link as="style" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'" rel="preload"/>
-<noscript>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&amp;display=swap" rel="stylesheet"/>
-</noscript>
-<link as="style" href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'" rel="preload"/>
-<noscript>
-<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&amp;family=Poppins:wght@300;400;500;600;700&amp;family=Raleway:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
 </noscript>
 <title>Wasi Master's Personal Website</title>
 <meta content="Bangladeshi. I've been interested in computers and technology all my life. Worked on open source and private projects in Python, Java, Javascript, C/C++, C# etc. I'm also interested in photography and have been taking professional photos since 2015!" name="description"/>
@@ -29,7 +23,6 @@
 <link href="/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"/>
 <link href="/site.webmanifest" rel="manifest"/>
 <link color="#5bbad5" href="/safari-pinned-tab.svg" rel="mask-icon"/>
-<meta content="Wasi Master's Website" name="apple-mobile-web-app-title"/>
 <meta content="Wasi Master's Website" name="application-name"/>
 <meta content="#000000" name="msapplication-TileColor"/>
 <!-- Google / Search Engine Tags -->
@@ -59,7 +52,6 @@
 <meta content="Arian Mollik Wasi" name="author"/>
 <meta content="Arian Mollik Wasi" name="copyright"/>
 <meta content="Wasi Master Himself" name="generator"/>
-<meta content="Wasi Master's Website" name="application-name"/>
 <meta content="general" name="rating"/>
 <meta content="never" name="expires"/>
 <script type="text/javascript">
@@ -80,7 +72,7 @@
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
 <header>
-<hero class="hero">
+<div class="hero">
 <div class="hero-background">
 <div aria-hidden="true" class="hero-waves">
 <svg class="waves-svg" preserveAspectRatio="xMidYMax slice" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
@@ -95,16 +87,17 @@
 <div class="hero-text">
 <div class="hero-text__title">
 <h1 class="anim1">Arian Mollik Wasi</h1>
+<p class="sr-only">Programmer, photographer, open source contributor, and traveller.</p>
 </div>
 <div class="hero-text__tagline">
-<div id="container" style="opacity: 0">
+<div id="container" style="opacity: 0" aria-hidden="true">
 <span id="text1"> </span>
 <span id="text2"> </span>
 </div>
 </div>
 </div>
 </div>
-</hero>
+</div>
 </header>
 <main id="main" tabindex="-1">
 <section id="projects">
@@ -1060,6 +1053,7 @@
 <h2>PC Specs
 </h2></div>
 <table class="table" data-aos="fade-up">
+<caption class="sr-only">Desktop computer hardware specifications</caption>
 <thead>
 <tr>
 <th>Item Type</th>
@@ -1266,17 +1260,17 @@
         threshold: 0.75,
                 };
 
-                const ovserver = new IntersectionObserver((entries, observer) => {
+                const observer = new IntersectionObserver((entries, obs) => {
             entries.map((entry) => {
                 if (entry.isIntersecting && entry.intersectionRatio >= 0.75) {
                     circle.initial(entry.target);
-                    observer.unobserve(entry.target);
+                    obs.unobserve(entry.target);
                 }
             });
                 }, config);
 
                 elements.map((item) => {
-            ovserver.observe(item);
+            observer.observe(item);
                 });
             } else {
             // if the browser does not support IntersectionObserver

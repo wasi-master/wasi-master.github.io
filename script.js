@@ -3,6 +3,8 @@ const elts = {
     text2: document.getElementById("text2")
 };
 
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 // The strings to morph between. You can change these to anything you want!
 const texts = [
     "I'm a Photographer",
@@ -21,8 +23,14 @@ let time = new Date();
 let morph = 0;
 let cooldown = cooldownTime;
 
-elts.text1.textContent = texts[textIndex % texts.length];
-elts.text2.textContent = texts[(textIndex + 1) % texts.length];
+if (prefersReducedMotion) {
+    elts.text1.textContent = "Programmer · Photographer · Open source contributor";
+    elts.text2.textContent = "";
+    elts.text2.style.display = "none";
+} else {
+    elts.text1.textContent = texts[textIndex % texts.length];
+    elts.text2.textContent = texts[(textIndex + 1) % texts.length];
+}
 
 function doMorph() {
     morph -= cooldown;
@@ -85,8 +93,7 @@ function animate() {
     }
 }
 
-var container = document.getElementById('container');
-console.log(container);
+var container = document.getElementById("container");
 
 function fadeIn(element) {
     var op = 0.1; // initial opacity
@@ -100,21 +107,26 @@ function fadeIn(element) {
 }
 
 // Start the animation.
-setTimeout(function() {
-    animate();
-    fadeIn(container);
-}, 1400);
-
+if (prefersReducedMotion) {
+    if (container) {
+        container.style.opacity = "1";
+    }
+} else {
+    setTimeout(function() {
+        animate();
+        fadeIn(container);
+    }, 1400);
+}
 
 // Wrap every letter in a span
-var textWrapper = document.querySelector('.anim1');
-if (textWrapper) {
+var textWrapper = document.querySelector(".anim1");
+if (textWrapper && !prefersReducedMotion) {
     textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
 
     if (window.anime) {
         anime.timeline({ loop: false })
             .add({
-                targets: '.anim1 .letter',
+                targets: ".anim1 .letter",
                 scale: [4, 1],
                 opacity: [0, 1],
                 translateZ: 0,
@@ -422,3 +434,10 @@ if (projectsSection) {
         }
     }
 }
+
+document.querySelector(".skip-link")?.addEventListener("click", () => {
+    const mainEl = document.getElementById("main");
+    if (mainEl) {
+        requestAnimationFrame(() => mainEl.focus());
+    }
+});

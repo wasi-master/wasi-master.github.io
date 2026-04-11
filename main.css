@@ -5,6 +5,37 @@
     padding: 0;
 }
 
+.skip-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+    padding: 0.65rem 1rem;
+    background: #0066ff;
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 0 0 8px 0;
+    transform: translateY(-120%);
+    transition: transform 0.2s ease;
+}
+
+.skip-link:focus {
+    outline: 3px solid #fff;
+    outline-offset: 2px;
+}
+
+.skip-link:focus-visible {
+    transform: translateY(0);
+}
+
+#main:focus-visible {
+    outline: 2px solid #03b1fc;
+    outline-offset: 0.35rem;
+}
+
 body {
     background: #090909;
     color: #dddddd;
@@ -23,6 +54,12 @@ p::selection {
 a:not(.button) {
     text-decoration: none;
     color: #03b1fc;
+}
+
+a:not(.button):focus-visible {
+    outline: 2px solid #03b1fc;
+    outline-offset: 3px;
+    border-radius: 2px;
 }
 
 .weak {
@@ -250,6 +287,11 @@ img.emoji {
     box-shadow: 0 0 0 1px rgba(3, 177, 252, 0.2);
 }
 
+.project-filter__chip:focus-visible {
+    outline: 2px solid #03b1fc;
+    outline-offset: 2px;
+}
+
 .card-wrapper.is-filtered-out {
     display: none;
 }
@@ -336,6 +378,16 @@ img.emoji {
     border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .card {
+        transition: none !important;
+    }
+
+    .card:hover {
+        transform: none !important;
+    }
+}
+
 .card>.title {
     font-size: 1.5rem;
     font-weight: 500;
@@ -414,6 +466,13 @@ img.emoji {
     box-shadow: 0 5px 10px rgba(255, 255, 255, 0.4);
 }
 
+.card > .button:focus-visible {
+    outline: 2px solid #03b1fc;
+    outline-offset: 3px;
+    color: #ffffff;
+    border-color: rgba(3, 177, 252, 0.9);
+}
+
 .card>.button>.ext {
     display: inline-flex;
     width: 0;
@@ -471,7 +530,7 @@ img.emoji {
     margin-right: 4px;
     display: block;
     width: 16px;
-    height: 16px
+    height: 16px;
 }
 
 /* .tag:before {

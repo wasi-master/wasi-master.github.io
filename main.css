@@ -357,6 +357,7 @@ img.emoji {
 
 .cards .card-wrapper {
     transition: opacity 0.2s ease, transform 0.2s ease;
+    min-width: 0; /* Prevent grid items from expanding beyond their track size */
 }
 
 .cards-section {
@@ -711,4 +712,159 @@ footer .weak {
     font-weight: 300;
     color: #999999;
     margin: 0.5rem;
+}
+
+/* ============================================================
+   Testimonials scroll section (inside highlighted project cards)
+   ============================================================ */
+
+.testimonials-scroll {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    position: relative;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+}
+
+.testimonials-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #606060;
+    margin-bottom: 0.6rem;
+    font-family: "Raleway", sans-serif;
+}
+
+.testimonials-track {
+    display: flex;
+    gap: 0.65rem;
+    width: max-content;
+    animation: testimonials-marquee 28s linear infinite;
+    will-change: transform;
+}
+
+/* Pause on card hover or focus to let users read */
+.card:hover .testimonials-track,
+.card:focus-within .testimonials-track {
+    animation-play-state: paused;
+}
+
+@keyframes testimonials-marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .testimonials-track {
+        animation: none;
+    }
+
+    .testimonials-scroll {
+        overflow-x: auto;
+        -webkit-mask-image: none;
+        mask-image: none;
+        scrollbar-width: thin;
+        scrollbar-color: #333 transparent;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Hide the cloned duplicate cards when motion is reduced */
+    .testimonials-track [aria-hidden="true"] {
+        display: none;
+    }
+}
+
+.testimonial-card {
+    flex-shrink: 0;
+    width: 200px;
+    background: #111111;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 8px;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+}
+
+.testimonial-card__quote {
+    font-family: "Raleway", sans-serif;
+    font-size: 0.78rem;
+    color: #b4b4b4;
+    line-height: 1.5;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.testimonial-card__author {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.testimonial-card__avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: hsl(var(--avatar-hue, 210), 52%, 24%);
+    border: 1px solid hsl(var(--avatar-hue, 210), 52%, 36%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    user-select: none;
+    overflow: hidden;
+}
+
+/* Initials shown when no <img> child is present */
+.testimonial-card__avatar::before {
+    content: attr(data-initials);
+    font-size: 0.58rem;
+    font-weight: 700;
+    color: #ffffff;
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 0.02em;
+}
+
+/* Hide initials pseudo-element when a real image is loaded */
+.testimonial-card__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.testimonial-card__avatar img ~ *,
+.testimonial-card__avatar:has(img)::before {
+    display: none;
+}
+
+.testimonial-card__author-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    gap: 0.05rem;
+}
+
+.testimonial-card__author-name {
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: #d4d4d4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.testimonial-card__author-tagline {
+    font-size: 0.65rem;
+    color: #686868;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: "Raleway", sans-serif;
 }

@@ -441,3 +441,16 @@ document.querySelector(".skip-link")?.addEventListener("click", () => {
         requestAnimationFrame(() => mainEl.focus());
     }
 });
+
+// Duplicate testimonial cards for seamless infinite marquee
+// Only duplicate when motion is allowed (reduced-motion users get a plain scrollable strip)
+if (!prefersReducedMotion) {
+    document.querySelectorAll(".testimonials-track").forEach(function (track) {
+        const originalCards = Array.from(track.children);
+        originalCards.forEach(function (card) {
+            const clone = card.cloneNode(true);
+            clone.setAttribute("aria-hidden", "true");
+            track.appendChild(clone);
+        });
+    });
+}

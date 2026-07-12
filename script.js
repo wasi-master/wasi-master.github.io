@@ -118,10 +118,18 @@ if (prefersReducedMotion) {
     }, 1400);
 }
 
-// Wrap every letter in a span
+// Wrap every letter in a span, keeping words together in .word spans
 var textWrapper = document.querySelector(".anim1");
 if (textWrapper && !prefersReducedMotion) {
-    textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+    const words = textWrapper.textContent.trim().split(/\s+/);
+    textWrapper.innerHTML = words
+        .map(word => {
+            const letters = word.split("")
+                .map(char => `<span class='letter'>${char}</span>`)
+                .join("");
+            return `<span class='word'>${letters}</span>`;
+        })
+        .join(" ");
 
     if (window.anime) {
         anime.timeline({ loop: false })

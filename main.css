@@ -206,6 +206,11 @@ img.emoji {
     line-height: 1em;
 }
 
+.word {
+    display: inline-block;
+    white-space: nowrap;
+}
+
 @media (max-width: 768px) {
     .hero-text__title h1 {
         white-space: normal;

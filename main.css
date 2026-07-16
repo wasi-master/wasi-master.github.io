@@ -801,7 +801,7 @@ img.emoji {
 .about-logo-card {
     background: var(--surface-glass);
     border: 1px solid var(--border-glass);
-    padding: 2.5rem;
+    padding: 2.25rem 1.75rem;
     border-radius: 20px;
     text-align: center;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -846,6 +846,73 @@ img.emoji {
     font-weight: 500;
     letter-spacing: 0.05em;
     text-transform: uppercase;
+}
+
+.about-details-list {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    text-align: left;
+}
+
+.about-details-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 0.85rem;
+}
+
+.about-details-item:last-child {
+    margin-bottom: 0;
+}
+
+.detail-icon {
+    color: var(--accent-cyan);
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+}
+
+.detail-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.35;
+}
+
+.detail-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 0.15rem;
+}
+
+.detail-value {
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.detail-value a {
+    color: var(--text-primary);
+    text-decoration: none;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.3);
+    transition: color var(--transition-smooth), border-color var(--transition-smooth);
+}
+
+.detail-value a:hover {
+    color: var(--accent-cyan);
+    border-bottom-color: var(--accent-cyan);
+}
+
+.detail-value.interactive {
+    cursor: help;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.3);
+    transition: color var(--transition-smooth), border-color var(--transition-smooth);
+}
+
+.detail-value.interactive:hover {
+    color: var(--accent-cyan);
+    border-bottom-color: var(--accent-cyan);
 }
 
 @media (max-width: 820px) {

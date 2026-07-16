@@ -218,6 +218,7 @@ if (projectsSection) {
             const docTagMeta = Array.from(card.querySelectorAll(".docs-tags .tag"))
                 .map((tagElement) => {
                     const label = tagElement.textContent.trim();
+                    const iconElement = tagElement.querySelector("img");
 
                     if (!label) {
                         return null;
@@ -225,7 +226,8 @@ if (projectsSection) {
 
                     return {
                         label,
-                        normalized: normalizeTag(label)
+                        normalized: normalizeTag(label),
+                        iconSrc: iconElement ? iconElement.getAttribute("src") : null
                     };
                 })
                 .filter(Boolean);
@@ -254,7 +256,8 @@ if (projectsSection) {
                     const originalTag = docTagMeta.find((tag) => tag.normalized === normalizedTag);
 
                     allDocTags.set(normalizedTag, {
-                        label: originalTag ? originalTag.label : normalizedTag
+                        label: originalTag ? originalTag.label : normalizedTag,
+                        iconSrc: originalTag ? originalTag.iconSrc : null
                     });
                 }
 
@@ -412,6 +415,14 @@ if (projectsSection) {
                     chip.type = "button";
                     chip.className = "project-filter__chip";
                     chip.setAttribute("aria-pressed", "false");
+
+                    if (tagData.iconSrc) {
+                        const icon = document.createElement("img");
+                        icon.className = "project-filter__chip-icon";
+                        icon.src = tagData.iconSrc;
+                        icon.alt = "";
+                        chip.appendChild(icon);
+                    }
 
                     const chipText = document.createElement("span");
                     chipText.className = "project-filter__chip-text";

@@ -6,18 +6,18 @@
     --surface-glass-hover: rgba(255, 255, 255, 0.06);
     --border-glass: rgba(255, 255, 255, 0.08);
     --border-glass-hover: rgba(255, 255, 255, 0.2);
-    
+
     /* Accents */
     --accent-blue: #007aff;
     --accent-cyan: #03b1fc;
     --accent-violet: #a855f7;
     --accent-glow: rgba(3, 177, 252, 0.15);
-    
+
     /* Text */
     --text-primary: #ffffff;
     --text-secondary: #a0a0b0;
     --text-muted: #707080;
-    
+
     /* Transitions */
     --transition-smooth: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
@@ -662,7 +662,6 @@ img.emoji {
     padding: 0.25rem 0.5rem;
     display: inline-flex;
     align-items: center;
-    height: 100%;
     color: var(--text-secondary);
     font-weight: 500;
 }
@@ -854,7 +853,7 @@ img.emoji {
         grid-template-columns: 1fr;
         gap: 2.5rem;
     }
-    
+
     .about-logo-card {
         max-width: 280px;
     }

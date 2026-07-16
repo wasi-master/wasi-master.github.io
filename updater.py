@@ -4,7 +4,7 @@ import os
 import re
 import math
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import urlparse, parse_qs
 
 import requests
 from bs4 import BeautifulSoup, NavigableString
@@ -21,6 +21,7 @@ from urllib3.util.retry import Retry
 
 GITHUB_API_BASE = "https://api.github.com/repos"
 PEPY_API_BASE = "https://api.pepy.tech/api/v2/projects"
+VSCODE_MARKETPLACE_API = "https://marketplace.visualstudio.com/_apis/public/gallery/extensionquery"
 REQUEST_TIMEOUT_SECONDS = 12
 DEFAULT_PEPY_API_KEY = "ZbKqii6xOIiQlAGytUm+tBKXD9pSH+gM"
 BLOCKED_GITHUB_SEGMENTS = {
@@ -95,6 +96,18 @@ def extract_pypi_package(url: str) -> str | None:
     return None
 
 
+def extract_vscode_extension(url: str) -> str | None:
+    parsed = urlparse(url)
+    if "marketplace.visualstudio.com" not in parsed.netloc.lower():
+        return None
+
+    query = parse_qs(parsed.query)
+    item_names = query.get("itemName")
+    if item_names:
+        return item_names[0]
+    return None
+
+
 def fetch_github_stars_forks(session: requests.Session, repo: str) -> tuple[tuple[int, int] | None, str | None]:
     try:
         response = session.get(
@@ -137,6 +150,63 @@ def fetch_pepy_downloads(session: requests.Session, package: str) -> tuple[int |
         return None, "Pepy request failed"
     except (TypeError, ValueError):
         return None, "Pepy response parse failed"
+
+
+def fetch_vscode_downloads(session: requests.Session, extension_id: str) -> tuple[int | None, str | None]:
+    headers = {
+        "Content-Type": "application/json",
+        "Accept": "application/json;api-version=3.0-preview.1"
+    }
+    payload = {
+        "filters": [
+            {
+                "criteria": [
+                    {
+                        "filterType": 7,
+                        "value": extension_id
+                    }
+                ]
+            }
+        ],
+        "flags": 914
+    }
+    try:
+        response = session.post(
+            VSCODE_MARKETPLACE_API,
+            json=payload,
+            headers=headers,
+            timeout=REQUEST_TIMEOUT_SECONDS,
+        )
+        if response.status_code != 200:
+            return None, f"VS Code Marketplace API HTTP {response.status_code}"
+        
+        data = response.json()
+        results = data.get("results", [])
+        if not results:
+            return None, "VS Code Marketplace empty results"
+        
+        extensions = results[0].get("extensions", [])
+        if not extensions:
+            return None, "VS Code Marketplace extension not found"
+        
+        extension = extensions[0]
+        statistics = extension.get("statistics", [])
+        
+        installs = 0
+        update_count = 0
+        for stat in statistics:
+            name = stat.get("statisticName", "").lower()
+            val = stat.get("value", 0)
+            if name == "install":
+                installs = val
+            elif name == "updatecount":
+                update_count = val
+                
+        return int(installs + update_count), None
+    except requests.RequestException:
+        return None, "VS Code Marketplace request failed"
+    except (TypeError, ValueError, IndexError, KeyError):
+        return None, "VS Code Marketplace response parse failed"
 
 
 def extract_count(text: str) -> int | None:
@@ -282,6 +352,7 @@ def update_index(index_path: Path) -> dict[str, int | bool]:
 
     github_cache: dict[str, tuple[tuple[int, int] | None, str | None]] = {}
     pypi_cache: dict[str, tuple[int | None, str | None]] = {}
+    vscode_cache: dict[str, tuple[int | None, str | None]] = {}
 
     updated = 0
     text_updated = 0
@@ -308,6 +379,7 @@ def update_index(index_path: Path) -> dict[str, int | bool]:
 
             github_button = None
             pypi_button = None
+            vscode_button = None
             for button in card.select("a.button"):
                 href = (button.get("href") or "").strip()
                 if not href:
@@ -320,6 +392,10 @@ def update_index(index_path: Path) -> dict[str, int | bool]:
                     continue
                 if pypi_button is None and extract_pypi_package(href):
                     pypi_button = button
+                    downloads_candidates.append(parse_download_tooltip(button.get("data-tippy-content", "")))
+                    continue
+                if vscode_button is None and extract_vscode_extension(href):
+                    vscode_button = button
                     downloads_candidates.append(parse_download_tooltip(button.get("data-tippy-content", "")))
 
             if github_button is not None:
@@ -342,6 +418,19 @@ def update_index(index_path: Path) -> dict[str, int | bool]:
                     if package not in pypi_cache:
                         pypi_cache[package] = fetch_pepy_downloads(session, package)
                     downloads, error = pypi_cache[package]
+                    if downloads is None:
+                        failed += 1
+                        if error:
+                            fail_messages.append(f"{package}: {error}")
+                    else:
+                        downloads_candidates.append(downloads)
+
+            if vscode_button is not None:
+                package = extract_vscode_extension((vscode_button.get("href") or "").strip())
+                if package:
+                    if package not in vscode_cache:
+                        vscode_cache[package] = fetch_vscode_downloads(session, package)
+                    downloads, error = vscode_cache[package]
                     if downloads is None:
                         failed += 1
                         if error:
@@ -372,6 +461,13 @@ def update_index(index_path: Path) -> dict[str, int | bool]:
                 pypi_tip = f"{format_count(resolved_downloads)} Downloads on PyPI"
                 if pypi_button.get("data-tippy-content") != pypi_tip:
                     pypi_button["data-tippy-content"] = pypi_tip
+                    updated += 1
+                    card_changed = True
+
+            if vscode_button is not None and resolved_downloads is not None:
+                vscode_tip = f"{format_count(resolved_downloads)} Downloads on VS Code Marketplace"
+                if vscode_button.get("data-tippy-content") != vscode_tip:
+                    vscode_button["data-tippy-content"] = vscode_tip
                     updated += 1
                     card_changed = True
 

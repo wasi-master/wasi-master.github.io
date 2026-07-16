@@ -362,7 +362,7 @@ if (projectsSection) {
         };
 
         Array.from(allTags.entries())
-            .filter(([normalizedTag]) => (tagCounts.get(normalizedTag) || 0) > 1)
+            .filter(([normalizedTag]) => (tagCounts.get(normalizedTag) || 0) > 1 && normalizedTag !== "furo")
             .sort((a, b) => a[1].label.localeCompare(b[1].label))
             .forEach(([normalizedTag, tagData]) => {
                 const label = tagData.label;
@@ -408,7 +408,7 @@ if (projectsSection) {
 
         if (docsFilterGroup) {
             Array.from(allDocTags.entries())
-                .filter(([normalizedTag]) => (docTagCounts.get(normalizedTag) || 0) > 0)
+                .filter(([normalizedTag]) => (docTagCounts.get(normalizedTag) || 0) > 0 && normalizedTag !== "furo")
                 .sort((a, b) => a[1].label.localeCompare(b[1].label))
                 .forEach(([normalizedTag, tagData]) => {
                     const chip = document.createElement("button");

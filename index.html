@@ -1215,36 +1215,15 @@
 <div class="about-container" data-aos="fade-up">
 <div class="about-text">
 <p class="prose">
-                My name is Arian Mollik Wasi, also known on the internet as Wasi Master. I was born on
-                <a class="underline" href="https://www.calculatestuff.com/miscellaneous/age-calculator?date_of_birth=2007-04-18" target="_blank">
-                    18 April 2007
-                </a>
-                in Bangladesh and I'm a hobbyist programmer and photographer. I fell in love with computers ever
-                since I
-                used one, I really like technology. I wrote my first line of code when I was 11 years old and
-                started
-                working on my first large project on April 2020. I am fluent in English and my native language is
-                Bengali, I
-                can also speak a moderate amount of Hindi. Although I have used a huge chunk of programming
-                languages that
-                exist today, I would say I am most proficient in Python and second most would be probably HTML
-                and/or CSS
-                and/or JavaScript. As for photography, my father bought me a Canon PowerShot series camera in 2015
-                and I
-                didn't really use it professionally then (nor do I now), it was just something that I had and used
-                from time
-                to time to take nature photos. In 2020 I bought a Canon EOS M50 and with the Viltox speed-booster
-                thing, I
-                can use any EF-M, and EF lens on it. I have since been taking photography more seriously and I do
-                use this
-                camera more often and take it to places more. I mostly shoot portraits so I bought a 50mm f/1.8
-                (which works
-                like a 35mm f/1.2 if talking in APS-C terms) to take my photography to the next level. If you want
-                to
-                contact me for some reason you can send me an email at
-                <a class="underline" href="mailto:arianmollik323@gmail.com"> arianmollik323@gmail.com </a>
-                but keep in mind that I do not check my email every day so you may have to wait a few days for a
-                reply
+                My name is Arian Mollik Wasi, also known on the internet as Wasi Master. I'm a hobbyist programmer and photographer.
+                I fell in love with computers ever since I used one, and I really like technology.
+                I wrote my first line of code when I was 11 years old and started working on my first large project in April 2020.
+                Although I have used a huge chunk of programming languages that exist today, I would say I am most proficient in Python
+                and second most would be probably the Web Dev Trio of HTML, CSS, and JavaScript.
+                As for photography, my father bought me a Canon PowerShot series camera in 2015 and I didn't really use it professionally then (nor do I now),
+                it was just something that I had and used from time to time to take photos of whatever I wanted.
+                In 2020 I bought a Canon EOS M50 and with the Viltrox speed-booster, I can use any EF-M and EF lens on it.
+                I have since been taking photography more seriously and I do use this camera more often and take it to places more.
             </p>
 </div>
 <div class="about-logo-wrapper">
@@ -1253,6 +1232,38 @@
 <div class="about-logo-info">
 <h3>Wasi Master</h3>
 <p>Programmer &amp; Photographer</p>
+</div>
+<div class="about-details-list">
+<div class="about-details-item">
+<i data-feather="calendar" class="detail-icon"></i>
+<div class="detail-text">
+<span class="detail-label">Born</span>
+<span class="detail-value interactive" id="birth-date">18 April 2007</span>
+</div>
+</div>
+<div class="about-details-item">
+<i data-feather="map-pin" class="detail-icon"></i>
+<div class="detail-text">
+<span class="detail-label">Location</span>
+<span class="detail-value">Bangladesh</span>
+</div>
+</div>
+<div class="about-details-item">
+<i data-feather="globe" class="detail-icon"></i>
+<div class="detail-text">
+<span class="detail-label">Languages</span>
+<span class="detail-value">English, Bengali, Hindi</span>
+</div>
+</div>
+<div class="about-details-item">
+<i data-feather="mail" class="detail-icon"></i>
+<div class="detail-text">
+<span class="detail-label">Contact</span>
+<span class="detail-value">
+<a href="mailto:arianmollik323@gmail.com">arianmollik323@gmail.com</a>
+</span>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1339,6 +1350,31 @@
     </script>
 <script>
         tippy(".button[data-tippy-content]", { });
+        (function () {
+            const birthDate = new Date(2007, 3, 18); // 18 April 2007
+            const today = new Date();
+            let years = today.getFullYear() - birthDate.getFullYear();
+            let months = today.getMonth() - birthDate.getMonth();
+            let days = today.getDate() - birthDate.getDate();
+
+            if (days < 0) {
+                months -= 1;
+                const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+                days += prevMonth.getDate();
+            }
+            if (months < 0) {
+                years -= 1;
+                months += 12;
+            }
+
+            const ageStr = `${years} years, ${months} months, and ${days} days`;
+            const birthDateEl = document.getElementById("birth-date");
+            if (birthDateEl) {
+                tippy(birthDateEl, {
+                    content: ageStr,
+                });
+            }
+        })();
     </script>
 <script>
         feather.replace({

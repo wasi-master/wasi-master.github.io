@@ -35,7 +35,7 @@ jobs:
           PEPY_API_KEY: ${{ secrets.PEPY_API_KEY }}
         run: |
           set +e
-          python updater.py --json > updater_output.json
+          python updater.py --json --no-concurrency > updater_output.json
           exit_code=$?
 
           if [ ! -s updater_output.json ]; then

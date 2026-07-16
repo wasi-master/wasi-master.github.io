@@ -5,6 +5,7 @@ import re
 import math
 from pathlib import Path
 from urllib.parse import urlparse, parse_qs
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import requests
 from bs4 import BeautifulSoup, NavigableString
@@ -42,7 +43,7 @@ BLOCKED_GITHUB_SEGMENTS = {
 }
 
 
-def build_session() -> requests.Session:
+def build_session(pool_size: int = 10) -> requests.Session:
     session = requests.Session()
     retries = Retry(
         total=3,
@@ -50,7 +51,11 @@ def build_session() -> requests.Session:
         status_forcelist=[429, 500, 502, 503, 504],
         allowed_methods={"GET"},
     )
-    adapter = HTTPAdapter(max_retries=retries)
+    adapter = HTTPAdapter(
+        max_retries=retries,
+        pool_connections=pool_size,
+        pool_maxsize=pool_size,
+    )
     session.mount("https://", adapter)
     session.headers.update({"User-Agent": "wasi-master-portfolio-stats-updater"})
 
@@ -345,7 +350,7 @@ def update_card_stats(card, stars: int | None = None, forks: int | None = None, 
     return updates
 
 
-def update_index(index_path: Path) -> dict[str, int | bool]:
+def update_index(index_path: Path, no_concurrency: bool = False) -> dict[str, int | bool]:
     html_before = index_path.read_text(encoding="utf-8")
     soup = BeautifulSoup(html_before, "html.parser")
     cards = soup.select(".card")
@@ -360,7 +365,32 @@ def update_index(index_path: Path) -> dict[str, int | bool]:
     failed = 0
     fail_messages: list[str] = []
 
-    session = build_session()
+    # Gather targets
+    github_targets = set()
+    pypi_targets = set()
+    vscode_targets = set()
+
+    for card in cards:
+        for button in card.select("a.button"):
+            href = (button.get("href") or "").strip()
+            if not href:
+                continue
+            repo = extract_github_repo(href)
+            if repo:
+                github_targets.add(repo)
+                continue
+            package = extract_pypi_package(href)
+            if package:
+                pypi_targets.add(package)
+                continue
+            extension = extract_vscode_extension(href)
+            if extension:
+                vscode_targets.add(extension)
+
+    total_requests = len(github_targets) + len(pypi_targets) + len(vscode_targets)
+    pool_size = 1 if no_concurrency else min(16, max(1, total_requests))
+    session = build_session(pool_size=pool_size)
+
     with Progress(
         TextColumn("[bold blue]{task.description}"),
         BarColumn(),
@@ -369,7 +399,52 @@ def update_index(index_path: Path) -> dict[str, int | bool]:
         TimeElapsedColumn(),
         TimeRemainingColumn(),
     ) as progress:
-        task = progress.add_task("Processing cards...", total=len(cards))
+        fetch_task = progress.add_task("Fetching stats...", total=total_requests)
+
+        if no_concurrency:
+            for repo in github_targets:
+                github_cache[repo] = fetch_github_stars_forks(session, repo)
+                progress.advance(fetch_task)
+            for package in pypi_targets:
+                pypi_cache[package] = fetch_pepy_downloads(session, package)
+                progress.advance(fetch_task)
+            for ext in vscode_targets:
+                vscode_cache[ext] = fetch_vscode_downloads(session, ext)
+                progress.advance(fetch_task)
+        else:
+            with ThreadPoolExecutor(max_workers=pool_size) as executor:
+                futures = {}
+                for repo in github_targets:
+                    f = executor.submit(fetch_github_stars_forks, session, repo)
+                    futures[f] = ("github", repo)
+                for package in pypi_targets:
+                    f = executor.submit(fetch_pepy_downloads, session, package)
+                    futures[f] = ("pypi", package)
+                for ext in vscode_targets:
+                    f = executor.submit(fetch_vscode_downloads, session, ext)
+                    futures[f] = ("vscode", ext)
+
+                for future in as_completed(futures):
+                    category, key = futures[future]
+                    try:
+                        result_data = future.result()
+                        if category == "github":
+                            github_cache[key] = result_data
+                        elif category == "pypi":
+                            pypi_cache[key] = result_data
+                        elif category == "vscode":
+                            vscode_cache[key] = result_data
+                    except Exception as e:
+                        error_msg = f"Thread exception: {e}"
+                        if category == "github":
+                            github_cache[key] = (None, error_msg)
+                        elif category == "pypi":
+                            pypi_cache[key] = (None, error_msg)
+                        elif category == "vscode":
+                            vscode_cache[key] = (None, error_msg)
+                    progress.advance(fetch_task)
+
+        # Now update cards using the cached data
         for card in cards:
             current = get_card_stat_values(card)
 
@@ -401,9 +476,7 @@ def update_index(index_path: Path) -> dict[str, int | bool]:
             if github_button is not None:
                 repo = extract_github_repo((github_button.get("href") or "").strip())
                 if repo:
-                    if repo not in github_cache:
-                        github_cache[repo] = fetch_github_stars_forks(session, repo)
-                    github_stats, error = github_cache[repo]
+                    github_stats, error = github_cache.get(repo, (None, "Not fetched"))
                     if github_stats is None:
                         failed += 1
                         if error:
@@ -415,9 +488,7 @@ def update_index(index_path: Path) -> dict[str, int | bool]:
             if pypi_button is not None:
                 package = extract_pypi_package((pypi_button.get("href") or "").strip())
                 if package:
-                    if package not in pypi_cache:
-                        pypi_cache[package] = fetch_pepy_downloads(session, package)
-                    downloads, error = pypi_cache[package]
+                    downloads, error = pypi_cache.get(package, (None, "Not fetched"))
                     if downloads is None:
                         failed += 1
                         if error:
@@ -428,9 +499,7 @@ def update_index(index_path: Path) -> dict[str, int | bool]:
             if vscode_button is not None:
                 package = extract_vscode_extension((vscode_button.get("href") or "").strip())
                 if package:
-                    if package not in vscode_cache:
-                        vscode_cache[package] = fetch_vscode_downloads(session, package)
-                    downloads, error = vscode_cache[package]
+                    downloads, error = vscode_cache.get(package, (None, "Not fetched"))
                     if downloads is None:
                         failed += 1
                         if error:
@@ -474,8 +543,6 @@ def update_index(index_path: Path) -> dict[str, int | bool]:
             if not card_changed:
                 untouched += 1
 
-            progress.advance(task)
-
     html_after = str(soup)
     changed = (updated > 0) or (text_updated > 0)
     if changed:
@@ -495,9 +562,10 @@ def update_index(index_path: Path) -> dict[str, int | bool]:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--json", action="store_true", help="Output results as JSON")
+    parser.add_argument("--no-concurrency", action="store_true", help="Disable concurrent fetching (run sequentially)")
     args = parser.parse_args()
 
-    result = update_index(Path("./index.html"))
+    result = update_index(Path("./index.html"), no_concurrency=args.no_concurrency)
 
     if args.json:
         output = {

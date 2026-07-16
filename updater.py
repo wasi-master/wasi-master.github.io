@@ -362,14 +362,14 @@ def update_index(index_path: Path) -> dict[str, int | bool]:
 
             card_changed = False
             if github_button is not None and resolved_stars is not None and resolved_forks is not None:
-                github_tip = f"{format_count(resolved_stars)} Stars, {format_count(resolved_forks)} Forks"
+                github_tip = f"{format_count(resolved_stars)} Stars, {format_count(resolved_forks)} Forks on GitHub"
                 if github_button.get("data-tippy-content") != github_tip:
                     github_button["data-tippy-content"] = github_tip
                     updated += 1
                     card_changed = True
 
             if pypi_button is not None and resolved_downloads is not None:
-                pypi_tip = f"{format_count(resolved_downloads)} Downloads"
+                pypi_tip = f"{format_count(resolved_downloads)} Downloads on PyPI"
                 if pypi_button.get("data-tippy-content") != pypi_tip:
                     pypi_button["data-tippy-content"] = pypi_tip
                     updated += 1

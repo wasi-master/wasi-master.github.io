@@ -688,11 +688,6 @@ img.emoji {
     height: 14px;
 }
 
-.tag > img[src*="github.svg"],
-.project-filter__chip-icon[src*="github.svg"] {
-    filter: none;
-}
-
 /* .tag:before {
     content: "#";
 } */

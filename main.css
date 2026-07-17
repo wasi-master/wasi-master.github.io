@@ -186,9 +186,12 @@ img.emoji {
     overflow: hidden;
 }
 .hero-waves svg {
-    width: 100%;
+    width: calc(100% + 240px);
+    margin-left: -120px;
     height: 100%;
     display: block;
+    transform: scaleY(0.85);
+    transform-origin: bottom;
 }
 .hero-waves svg rect {
     fill: transparent !important;
@@ -201,15 +204,15 @@ img.emoji {
     transform-origin: 50% 50%;
     will-change: transform;
 }
-.wave--1 { fill: var(--accent-blue) !important; opacity: 0.25; animation: wave1 12s ease-in-out infinite; }
-.wave--2 { fill: var(--accent-cyan) !important; opacity: 0.2; animation: wave2 14s ease-in-out infinite; }
-.wave--3 { fill: var(--accent-violet) !important; opacity: 0.15; animation: wave3 16s ease-in-out infinite; }
-.wave--4 { fill: var(--accent-cyan) !important; opacity: 0.18; animation: wave2 18s ease-in-out infinite reverse; }
-.wave--5 { fill: var(--accent-blue) !important; opacity: 0.12; animation: wave1 22s ease-in-out infinite reverse; }
+.wave--1 { fill: var(--accent-blue) !important; opacity: 0.25; animation: wave1 7s ease-in-out infinite; }
+.wave--2 { fill: var(--accent-cyan) !important; opacity: 0.2; animation: wave2 8s ease-in-out infinite; }
+.wave--3 { fill: var(--accent-violet) !important; opacity: 0.15; animation: wave3 9s ease-in-out infinite; }
+.wave--4 { fill: var(--accent-cyan) !important; opacity: 0.18; animation: wave2 10s ease-in-out infinite reverse; }
+.wave--5 { fill: var(--accent-blue) !important; opacity: 0.12; animation: wave1 12s ease-in-out infinite reverse; }
 
-@keyframes wave1 { 0% { transform: translateX(0) translateY(0); } 50% { transform: translateX(-40px) translateY(12px); } 100% { transform: translateX(0) translateY(0); } }
-@keyframes wave2 { 0% { transform: translateX(0) translateY(0); } 50% { transform: translateX(40px) translateY(8px); } 100% { transform: translateX(0) translateY(0); } }
-@keyframes wave3 { 0% { transform: translateX(0) translateY(0); } 50% { transform: translateX(-20px) translateY(14px); } 100% { transform: translateX(0) translateY(0); } }
+@keyframes wave1 { 0% { transform: translateX(0) translateY(0); } 50% { transform: translateX(-80px) translateY(16px); } 100% { transform: translateX(0) translateY(0); } }
+@keyframes wave2 { 0% { transform: translateX(0) translateY(0); } 50% { transform: translateX(80px) translateY(12px); } 100% { transform: translateX(0) translateY(0); } }
+@keyframes wave3 { 0% { transform: translateX(0) translateY(0); } 50% { transform: translateX(-40px) translateY(18px); } 100% { transform: translateX(0) translateY(0); } }
 
 @media (prefers-reduced-motion: reduce) {
     .wave { animation: none !important; }

@@ -945,3 +945,64 @@ footer .weak {
     color: var(--text-muted);
     margin: 0.5rem;
 }
+
+/* Other Projects Collapsible Section */
+.other-projects-header {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.other-projects-toggle {
+    background: none;
+    border: none;
+    font-family: "Raleway", sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.5rem 2rem;
+    border-radius: 8px;
+    transition: color var(--transition-smooth), background-color var(--transition-smooth), transform var(--transition-smooth);
+}
+
+.other-projects-toggle:hover {
+    color: var(--text-primary);
+    background-color: var(--surface-glass-hover);
+}
+
+.other-projects-toggle:focus-visible {
+    outline: 2px solid var(--accent-cyan);
+    outline-offset: 4px;
+}
+
+.other-projects-toggle .collapse-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--text-secondary);
+    transition: transform var(--transition-smooth), color var(--transition-smooth);
+}
+
+.other-projects-toggle:hover .collapse-icon {
+    color: var(--text-primary);
+}
+
+.other-projects-toggle[aria-expanded="false"] .collapse-icon {
+    transform: rotate(180deg);
+}
+
+/* Collapsible behavior */
+.cards-section__wrapper#other-projects-wrapper {
+    display: contents;
+}
+
+.cards-section__wrapper#other-projects-wrapper.is-collapsed .card-wrapper {
+    display: none !important;
+}

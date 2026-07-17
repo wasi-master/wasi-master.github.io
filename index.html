@@ -126,13 +126,13 @@
                         </p>
 <div class="stats">
 <span class="stat">
-<i data-feather="star"> </i> 4233 Stars</span>
+<i data-feather="star"> </i> 4234 Stars</span>
 <span class="stat">
 <img alt="" height="16" src="./fork.svg" width="16"/> 226 Forks</span>
 <span class="stat">
 <i data-feather="download"> </i> 1M+ Downloads</span>
 </div>
-<a class="button" data-tippy-content="4233 Stars, 226 Forks on GitHub" href="https://github.com/wasi-master/13ft" target="_blank">
+<a class="button" data-tippy-content="4234 Stars, 226 Forks on GitHub" href="https://github.com/wasi-master/13ft" target="_blank">
 <i data-feather="github"> </i>
                             GitHub
                             <i class="ext" data-feather="external-link"> </i>
@@ -371,8 +371,13 @@
 </div>
 </div>
 <div class="cards-section" data-section="other">
-<h3 class="cards-section__title">Other Projects</h3>
-<div class="cards-section__wrapper">
+<div class="other-projects-header cards-section__title">
+<button aria-controls="other-projects-wrapper" aria-expanded="false" class="other-projects-toggle" type="button">
+        Other Projects
+        <i class="collapse-icon" data-feather="chevron-up"></i>
+</button>
+</div>
+<div class="cards-section__wrapper is-collapsed" id="other-projects-wrapper">
 <div class="card-wrapper" data-aos="fade-down-right">
 <div class="card">
 <p class="title">sponsorblock.py</p>
@@ -571,7 +576,6 @@
 </div>
 </div>
 </div>
-
 <div class="card-wrapper" data-aos="fade-left">
 <div class="card">
 <p class="title">Google TUI</p>

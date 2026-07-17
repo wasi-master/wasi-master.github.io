@@ -460,3 +460,24 @@ document.querySelector(".skip-link")?.addEventListener("click", () => {
         requestAnimationFrame(() => mainEl.focus());
     }
 });
+
+// Collapsible Other Projects Section
+const otherProjectsToggle = document.querySelector(".other-projects-toggle");
+const otherProjectsWrapper = document.getElementById("other-projects-wrapper");
+
+if (otherProjectsToggle && otherProjectsWrapper) {
+    otherProjectsToggle.addEventListener("click", () => {
+        const isExpanded = otherProjectsToggle.getAttribute("aria-expanded") === "true";
+        const newExpandedState = !isExpanded;
+        
+        otherProjectsToggle.setAttribute("aria-expanded", String(newExpandedState));
+        otherProjectsWrapper.classList.toggle("is-collapsed", !newExpandedState);
+
+        // Refresh AOS when expanding so animation coordinates are calculated correctly
+        if (newExpandedState && window.AOS && typeof window.AOS.refresh === "function") {
+            requestAnimationFrame(() => {
+                window.AOS.refresh();
+            });
+        }
+    });
+}

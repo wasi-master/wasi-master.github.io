@@ -120,20 +120,49 @@ if (prefersReducedMotion) {
 
 var textWrapper = document.querySelector(".anim1");
 if (textWrapper && !prefersReducedMotion) {
-    textWrapper.classList.add("js-anim");
-    // Force a reflow to ensure the initial class styles are applied
-    textWrapper.offsetHeight;
+    const originalHTML = textWrapper.innerHTML;
     
-    setTimeout(() => {
-        textWrapper.classList.add("animated");
-    }, 300);
+    // Disable background gradient on parent during animation to prevent ghost outlines
+    textWrapper.style.background = "none";
+    textWrapper.style.webkitTextFillColor = "initial";
+    
+    const words = textWrapper.textContent.trim().split(/\s+/);
+    textWrapper.innerHTML = words
+        .map(word => {
+            const letters = word.split("")
+                .map(char => `<span class="letter">${char}</span>`)
+                .join("");
+            return `<span class="word">${letters}</span>`;
+        })
+        .join(" ");
 
-    textWrapper.addEventListener("transitionend", function handler(e) {
-        if (e.propertyName === "transform") {
-            textWrapper.classList.remove("js-anim", "animated");
-            textWrapper.removeEventListener("transitionend", handler);
-        }
+    const letters = textWrapper.querySelectorAll(".letter");
+    const parentRect = textWrapper.getBoundingClientRect();
+    const totalWidth = parentRect.width;
+    
+    letters.forEach(letter => {
+        const letterRect = letter.getBoundingClientRect();
+        const letterOffset = letterRect.left - parentRect.left;
+        
+        letter.style.setProperty('--x-offset', `${letterOffset}px`);
+        letter.style.setProperty('--parent-width', `${totalWidth}px`);
+        letter.style.backgroundSize = `${2 * totalWidth}px auto`;
     });
+
+    // Trigger staggered transitions for each letter
+    letters.forEach((letter, index) => {
+        setTimeout(() => {
+            letter.classList.add("animated");
+        }, 150 + index * 45);
+    });
+
+    // Restore original HTML after transitions end to clean up the DOM and activate gradient shimmer
+    const totalDuration = 150 + letters.length * 45 + 800 + 100;
+    setTimeout(() => {
+        textWrapper.innerHTML = originalHTML;
+        textWrapper.style.background = ""; // Restore background gradient
+        textWrapper.style.webkitTextFillColor = "";
+    }, totalDuration);
 }
 
 const projectButtons = document.querySelectorAll("#projects .card .button");

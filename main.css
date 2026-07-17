@@ -1003,6 +1003,6 @@ footer .weak {
     display: contents;
 }
 
-.cards-section__wrapper#other-projects-wrapper.is-collapsed .card-wrapper {
+#projects:not(.is-filtering) .cards-section__wrapper#other-projects-wrapper.is-collapsed .card-wrapper {
     display: none !important;
 }

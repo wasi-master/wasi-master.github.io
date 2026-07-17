@@ -290,7 +290,7 @@ if (projectsSection) {
         const cardMatchesFilters = (card) => {
             const cardTags = card.dataset.tags ? card.dataset.tags.split(",") : [];
             const cardDocTags = card.dataset.docTags ? card.dataset.docTags.split(",") : [];
-            const matchesMainFilter = !activeFilter || cardTags.includes(activeFilter);
+            const matchesMainFilter = !activeFilter || activeFilter.some((t) => cardTags.includes(t));
             const matchesDocFilter = !activeDocFilter || cardDocTags.includes(activeDocFilter);
 
             return matchesMainFilter && matchesDocFilter;
@@ -298,6 +298,7 @@ if (projectsSection) {
 
         const updateSectionVisibility = () => {
             const isFiltering = activeFilter !== null || activeDocFilter !== null;
+            projectsSection.classList.toggle("is-filtering", isFiltering);
             const sections = projectsSection.querySelectorAll(".cards-section");
             
             sections.forEach((section) => {
@@ -361,50 +362,56 @@ if (projectsSection) {
             updateSectionVisibility();
         };
 
-        Array.from(allTags.entries())
-            .filter(([normalizedTag]) => (tagCounts.get(normalizedTag) || 0) > 1 && normalizedTag !== "furo")
-            .sort((a, b) => a[1].label.localeCompare(b[1].label))
-            .forEach(([normalizedTag, tagData]) => {
-                const label = tagData.label;
-                const chip = document.createElement("button");
-                chip.type = "button";
-                chip.className = "project-filter__chip";
-                chip.setAttribute("aria-pressed", "false");
+        const FILTER_CHIPS = [
+            { label: "Python", tags: ["python"], iconSrc: "icons/python.svg" },
+            { label: "JavaScript/TypeScript", tags: ["javascript", "typescript"], iconSrc: "icons/javascript.svg" },
+            { label: "CLI/TUI/Terminal", tags: ["cli", "tui", "terminal"], iconSrc: "icons/terminal.svg" },
+            { label: "Extension/Plugin", tags: ["extension", "plugin", "vscode"], iconSrc: "icons/extension.svg" },
+            { label: "Bot/Discord", tags: ["bot", "discord"], iconSrc: "icons/discord.svg" },
+            { label: "Web", tags: ["web"], iconSrc: "icons/web.svg" },
+            { label: "APIs", tags: ["apis", "api"], iconSrc: "icons/json.svg" }
+        ];
 
-                if (tagData.iconSrc) {
-                    const icon = document.createElement("img");
-                    icon.className = "project-filter__chip-icon";
-                    icon.src = tagData.iconSrc;
-                    icon.alt = "";
-                    chip.appendChild(icon);
-                }
+        FILTER_CHIPS.forEach((chipData) => {
+            const chip = document.createElement("button");
+            chip.type = "button";
+            chip.className = "project-filter__chip";
+            chip.setAttribute("aria-pressed", "false");
 
-                const chipText = document.createElement("span");
-                chipText.className = "project-filter__chip-text";
-                chipText.textContent = label;
-                chip.appendChild(chipText);
+            if (chipData.iconSrc) {
+                const icon = document.createElement("img");
+                icon.className = "project-filter__chip-icon";
+                icon.src = chipData.iconSrc;
+                icon.alt = "";
+                chip.appendChild(icon);
+            }
 
-                chip.addEventListener("click", () => {
-                    prepareCardsForFiltering();
+            const chipText = document.createElement("span");
+            chipText.className = "project-filter__chip-text";
+            chipText.textContent = chipData.label;
+            chip.appendChild(chipText);
 
-                    const isAlreadyActive = activeFilter === normalizedTag;
-                    activeFilter = isAlreadyActive ? null : normalizedTag;
+            chip.addEventListener("click", () => {
+                prepareCardsForFiltering();
 
-                    filterGroup.querySelectorAll(".project-filter__chip").forEach((button) => {
-                        button.classList.remove("is-active");
-                        button.setAttribute("aria-pressed", "false");
-                    });
+                const isAlreadyActive = activeFilter === chipData.tags;
+                activeFilter = isAlreadyActive ? null : chipData.tags;
 
-                    if (!isAlreadyActive) {
-                        chip.classList.add("is-active");
-                        chip.setAttribute("aria-pressed", "true");
-                    }
-
-                    applyProjectFilter();
+                filterGroup.querySelectorAll(".project-filter__chip").forEach((button) => {
+                    button.classList.remove("is-active");
+                    button.setAttribute("aria-pressed", "false");
                 });
 
-                filterGroup.appendChild(chip);
+                if (!isAlreadyActive) {
+                    chip.classList.add("is-active");
+                    chip.setAttribute("aria-pressed", "true");
+                }
+
+                applyProjectFilter();
             });
+
+            filterGroup.appendChild(chip);
+        });
 
         if (docsFilterGroup) {
             Array.from(allDocTags.entries())

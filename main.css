@@ -16,7 +16,7 @@
     /* Text */
     --text-primary: #ffffff;
     --text-secondary: #a0a0b0;
-    --text-muted: #707080;
+    --text-muted: #808090;
 
     /* Transitions */
     --transition-smooth: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -255,15 +255,15 @@ img.emoji {
         -webkit-text-fill-color: transparent;
     }
 }
-
-.anim1 .letter {
-    display: inline-block;
-    line-height: 1em;
+.js-anim {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.word {
-    display: inline-block;
-    white-space: nowrap;
+.js-anim.animated {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 @media (max-width: 768px) {

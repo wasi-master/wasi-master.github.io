@@ -140,6 +140,9 @@ if (textWrapper && !prefersReducedMotion) {
     const parentRect = textWrapper.getBoundingClientRect();
     const totalWidth = parentRect.width;
     
+    // Get the exact elapsed time since page load to synchronize animation clocks
+    const timeElapsed = performance.now() / 1000;
+
     letters.forEach(letter => {
         const letterRect = letter.getBoundingClientRect();
         const letterOffset = letterRect.left - parentRect.left;
@@ -147,6 +150,7 @@ if (textWrapper && !prefersReducedMotion) {
         letter.style.setProperty('--x-offset', `${letterOffset}px`);
         letter.style.setProperty('--parent-width', `${totalWidth}px`);
         letter.style.backgroundSize = `${2 * totalWidth}px auto`;
+        letter.style.animationDelay = `${-timeElapsed}s`; // Phase-lock the animation clock!
     });
 
     // Trigger staggered transitions for each letter

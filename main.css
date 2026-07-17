@@ -280,7 +280,7 @@ img.emoji {
         background-position: calc(0px - var(--x-offset)) center;
     }
     100% {
-        background-position: calc(2 * var(--parent-width) - var(--x-offset)) center;
+        background-position: calc(-2 * var(--parent-width) - var(--x-offset)) center;
     }
 }
 

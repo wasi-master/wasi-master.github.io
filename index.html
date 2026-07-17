@@ -1315,11 +1315,352 @@
                 </div>
             </div>
         </section> -->
-<!-- <section id="testimonials">
+<section id="testimonials">
             <div class="section-title" data-aos="fade-up">
-                <h2>Testimonials</h3>
+                <h2>Testimonials</h2>
             </div>
-        </section> -->
+
+            <div class="testimonials-container" data-aos="fade-up">
+                <div class="testimonials-slider">
+                    <!-- Testimonial 1: Will McGugan -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-card__header">
+                            <div class="testimonial-card__avatar-wrapper">
+                                <img class="testimonial-card__avatar" src="icons/willmcgugan.jpg" alt="Will McGugan" onerror="this.parentElement.classList.add('has-fallback')">
+                                <div class="testimonial-card__avatar-fallback">WM</div>
+                            </div>
+                            <div class="testimonial-card__author-info">
+                                <h4 class="testimonial-card__author-name">Will McGugan</h4>
+                                <a href="https://twitter.com/willmcgugan" target="_blank" class="testimonial-card__author-handle">@willmcgugan</a>
+                                <span class="testimonial-card__author-badge">Creator of Rich & Textual • PSF Fellow</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-card__body">
+                            <p class="testimonial-card__highlight">"If you are in the Python world, I'd recommend giving <strong class="testimonial-card__mention">@wasi_master</strong> a follow."</p>
+                            <p class="testimonial-card__text">"He built Typesplainer in 2 days. Wouldn't be surprised if he comes up with more amazing projects."</p>
+                        </div>
+                        <div class="testimonial-card__footer">
+                            <span class="testimonial-card__tag">Typesplainer</span>
+                            <a href="https://twitter.com/willmcgugan/status/1504030317643980800" target="_blank" class="testimonial-card__source" aria-label="View on Twitter">
+                                <img src="icons/twitter.svg" class="testimonial-card__source-icon" alt=""> Twitter
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 2: Nelson Minar -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-card__header">
+                            <div class="testimonial-card__avatar-wrapper">
+                                <img class="testimonial-card__avatar" src="icons/nelsonminar.jpg" alt="Nelson Minar" onerror="this.parentElement.classList.add('has-fallback')">
+                                <div class="testimonial-card__avatar-fallback testimonial-card__avatar-fallback--orange">NM</div>
+                            </div>
+                            <div class="testimonial-card__author-info">
+                                <h4 class="testimonial-card__author-name">Nelson Minar</h4>
+                                <a href="https://www.reddit.com/user/NelsonMinar" target="_blank" class="testimonial-card__author-handle">u/NelsonMinar</a>
+                                <span class="testimonial-card__author-badge">Early Google Software Engineer</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-card__body">
+                            <p class="testimonial-card__highlight">"Congratulations! That's a very impressive project. Really professional work."</p>
+                            <p class="testimonial-card__text">"You didn't just write some useful code, you've made a whole product. Fancy UI, packaged properly on <strong>GitHub</strong> and <strong>PyPI</strong>, even a bunch of illustration GIFs."</p>
+                        </div>
+                        <div class="testimonial-card__footer">
+                            <span class="testimonial-card__tag">pypi-command-line</span>
+                            <a href="https://www.reddit.com/r/Python/comments/q8rrx7/comment/hgre2hq/" target="_blank" class="testimonial-card__source" aria-label="View on Reddit">
+                                <img src="icons/reddit.svg" class="testimonial-card__source-icon" alt=""> Reddit
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 3: Hacker News Front Page -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-card__header">
+                            <div class="testimonial-card__avatar-wrapper">
+                                <img class="testimonial-card__avatar" src="icons/hackernews.svg" alt="Hacker News" onerror="this.parentElement.classList.add('has-fallback')">
+                                <div class="testimonial-card__avatar-fallback testimonial-card__avatar-fallback--hn">HN</div>
+                            </div>
+                            <div class="testimonial-card__author-info">
+                                <h4 class="testimonial-card__author-name">Hacker News</h4>
+                                <a href="https://news.ycombinator.com/item?id=41294067" target="_blank" class="testimonial-card__author-handle">Front Page #1</a>
+                                <span class="testimonial-card__author-badge">Community Spotlight</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-card__body">
+                            <p class="testimonial-card__highlight">"#1 on Hacker News Front Page — 618 points, 263 comments"</p>
+                            <p class="testimonial-card__text">[<strong>13ft</strong> reached #1 on the Hacker News front page, generating massive discussion about paywall bypassing, self-hosting, and web accessibility.]</p>
+                        </div>
+                        <div class="testimonial-card__footer">
+                            <span class="testimonial-card__tag">13ft</span>
+                            <a href="https://news.ycombinator.com/item?id=41294067" target="_blank" class="testimonial-card__source" aria-label="View on Hacker News">
+                                <img src="icons/hackernews.svg" class="testimonial-card__source-icon" alt=""> Hacker News
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 4: Simon Willison -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-card__header">
+                            <div class="testimonial-card__avatar-wrapper">
+                                <img class="testimonial-card__avatar" src="icons/simonwillison.jpg" alt="Simon Willison" onerror="this.parentElement.classList.add('has-fallback')">
+                                <div class="testimonial-card__avatar-fallback testimonial-card__avatar-fallback--blue">SW</div>
+                            </div>
+                            <div class="testimonial-card__author-info">
+                                <h4 class="testimonial-card__author-name">Simon Willison</h4>
+                                <a href="https://simonwillison.net" target="_blank" class="testimonial-card__author-handle">@simonw</a>
+                                <span class="testimonial-card__author-badge">Django Co-creator • Datasette Creator</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-card__body">
+                            <p class="testimonial-card__highlight">"A Python module that produces human-readable English descriptions of Python type definitions"</p>
+                            <p class="testimonial-card__text">"typesplainer — A Python module that produces human-readable English descriptions of Python type definitions — also available as a web interface."</p>
+                        </div>
+                        <div class="testimonial-card__footer">
+                            <span class="testimonial-card__tag">Typesplainer</span>
+                            <a href="https://simonwillison.net/2022/Mar/15/typesplainer/" target="_blank" class="testimonial-card__source" aria-label="View Simon Willison's Blog">
+                                <img src="icons/web.svg" class="testimonial-card__source-icon" alt=""> Blog/Web
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 5: Raymond Hettinger -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-card__header">
+                            <div class="testimonial-card__avatar-wrapper">
+                                <img class="testimonial-card__avatar" src="icons/raymondh.jpg" alt="Raymond Hettinger" onerror="this.parentElement.classList.add('has-fallback')">
+                                <div class="testimonial-card__avatar-fallback">RH</div>
+                            </div>
+                            <div class="testimonial-card__author-info">
+                                <h4 class="testimonial-card__author-name">Raymond Hettinger</h4>
+                                <a href="https://twitter.com/raymondh" target="_blank" class="testimonial-card__author-handle">@raymondh</a>
+                                <span class="testimonial-card__author-badge">Python Core Developer • PSF Fellow</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-card__body">
+                            <p class="testimonial-card__highlight">"Oooh, that's pretty!"</p>
+                            <p class="testimonial-card__text">[Praise for Typesplainer's human-readable typing description design on Twitter, highlighting the aesthetic and intuitive presentation of Python type definitions.]</p>
+                        </div>
+                        <div class="testimonial-card__footer">
+                            <span class="testimonial-card__tag">Typesplainer</span>
+                            <a href="https://x.com/raymondh/status/1514304785389953040" target="_blank" class="testimonial-card__source" aria-label="View on Twitter">
+                                <img src="icons/twitter.svg" class="testimonial-card__source-icon" alt=""> Twitter
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 6: Python Bytes Podcast -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-card__header">
+                            <div class="testimonial-card__avatar-wrapper">
+                                <img class="testimonial-card__avatar" src="icons/pythonbytes.webp" alt="Python Bytes Podcast" onerror="this.parentElement.classList.add('has-fallback')">
+                                <div class="testimonial-card__avatar-fallback testimonial-card__avatar-fallback--blue">PB</div>
+                            </div>
+                            <div class="testimonial-card__author-info">
+                                <h4 class="testimonial-card__author-name">Python Bytes Podcast</h4>
+                                <a href="https://www.youtube.com/@pythonbytespodcast" target="_blank" class="testimonial-card__author-handle">Live Stream Ep. 275</a>
+                                <span class="testimonial-card__author-badge">Michael Kennedy & Brian Okken</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-card__body">
+                            <p class="testimonial-card__highlight">"This is really cool... way more legible and internalizable."</p>
+                            <p class="testimonial-card__text">"The description is something like 'dictionary that maps a list of sets...' — that's way more legible and internalizable than how many brackets deep we were in that type information."</p>
+                        </div>
+                        <div class="testimonial-card__footer">
+                            <span class="testimonial-card__tag">Typesplainer</span>
+                            <a href="https://youtu.be/zrtdG-VsblU?t=328" target="_blank" class="testimonial-card__source" aria-label="View on YouTube">
+                                <img src="icons/youtube.svg" class="testimonial-card__source-icon" alt=""> YouTube
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 7: Zeno Rocha -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-card__header">
+                            <div class="testimonial-card__avatar-wrapper">
+                                <img class="testimonial-card__avatar" src="icons/zenorocha.jpg" alt="Zeno Rocha" onerror="this.parentElement.classList.add('has-fallback')">
+                                <div class="testimonial-card__avatar-fallback">ZR</div>
+                            </div>
+                            <div class="testimonial-card__author-info">
+                                <h4 class="testimonial-card__author-name">Zeno Rocha</h4>
+                                <a href="https://twitter.com/draculatheme" target="_blank" class="testimonial-card__author-handle">@draculatheme</a>
+                                <span class="testimonial-card__author-badge">Creator of Dracula Theme • CEO of Resend</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-card__body">
+                            <p class="testimonial-card__highlight">"This awesome theme was built by <strong class="testimonial-card__mention">@wasi_master</strong>. It looks amazing indeed ;)"</p>
+                            <p class="testimonial-card__text">[Official endorsement for the Dracula Theme for Code::Blocks, celebrating the aesthetic execution and professional standard.]</p>
+                        </div>
+                        <div class="testimonial-card__footer">
+                            <span class="testimonial-card__tag">Dracula</span>
+                            <a href="https://twitter.com/draculatheme/status/1499977741294194690" target="_blank" class="testimonial-card__source" aria-label="View on Twitter">
+                                <img src="icons/twitter.svg" class="testimonial-card__source-icon" alt=""> Twitter
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 8: Will McGugan (Reflection on Age 14) -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-card__header">
+                            <div class="testimonial-card__avatar-wrapper">
+                                <img class="testimonial-card__avatar" src="icons/willmcgugan.jpg" alt="Will McGugan" onerror="this.parentElement.classList.add('has-fallback')">
+                                <div class="testimonial-card__avatar-fallback">WM</div>
+                            </div>
+                            <div class="testimonial-card__author-info">
+                                <h4 class="testimonial-card__author-name">Will McGugan</h4>
+                                <a href="https://twitter.com/willmcgugan" target="_blank" class="testimonial-card__author-handle">@willmcgugan</a>
+                                <span class="testimonial-card__author-badge">Creator of Rich • PSF Fellow</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-card__body">
+                            <p class="testimonial-card__highlight">"The author is 14 years old — blown me away. He's done a very good job of it."</p>
+                            <p class="testimonial-card__text">"I found this project on reddit and it's called PyPI command line. It's notable because the author is 14 years old — blown me away. Someone could be that young, he's done a very good job of it."</p>
+                        </div>
+                        <div class="testimonial-card__footer">
+                            <span class="testimonial-card__tag">pypi-command-line</span>
+                            <a href="https://youtu.be/ICp8eD6uENI?t=2013" target="_blank" class="testimonial-card__source" aria-label="View on YouTube">
+                                <img src="icons/youtube.svg" class="testimonial-card__source-icon" alt=""> YouTube
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 9: Henry Schreiner III -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-card__header">
+                            <div class="testimonial-card__avatar-wrapper">
+                                <img class="testimonial-card__avatar" src="icons/henryschreiner.jpg" alt="Henry Schreiner III" onerror="this.parentElement.classList.add('has-fallback')">
+                                <div class="testimonial-card__avatar-fallback">HS</div>
+                            </div>
+                            <div class="testimonial-card__author-info">
+                                <h4 class="testimonial-card__author-name">Henry Schreiner III</h4>
+                                <a href="https://twitter.com/HenrySchreiner3" target="_blank" class="testimonial-card__author-handle">@HenrySchreiner3</a>
+                                <span class="testimonial-card__author-badge">Princeton RSE • PyPA Core Contributor</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-card__body">
+                            <p class="testimonial-card__highlight">"I asked for a new feature, and it's already in... Thanks, <strong class="testimonial-card__mention">@wasi_master</strong>!"</p>
+                            <p class="testimonial-card__text">"'pipx run pypi-command-line wheels &lt;package&gt;' prints all wheels for the latest release of a package (in beautiful Rich styling, of course)."</p>
+                        </div>
+                        <div class="testimonial-card__footer">
+                            <span class="testimonial-card__tag">pypi-command-line</span>
+                            <a href="https://twitter.com/HenrySchreiner3/status/1451210681827659781" target="_blank" class="testimonial-card__source" aria-label="View on Twitter">
+                                <img src="icons/twitter.svg" class="testimonial-card__source-icon" alt=""> Twitter
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 10: Rhet Turnbull -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-card__header">
+                            <div class="testimonial-card__avatar-wrapper">
+                                <img class="testimonial-card__avatar" src="icons/rhetturnbull.jpg" alt="Rhet Turnbull" onerror="this.parentElement.classList.add('has-fallback')">
+                                <div class="testimonial-card__avatar-fallback">RT</div>
+                            </div>
+                            <div class="testimonial-card__author-info">
+                                <h4 class="testimonial-card__author-name">Rhet Turnbull</h4>
+                                <a href="https://github.com/RhetTbull" target="_blank" class="testimonial-card__author-handle">@RhetTbull</a>
+                                <span class="testimonial-card__author-badge">Python Developer • Creator of osxphotos</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-card__body">
+                            <p class="testimonial-card__highlight">"Thank you for the very useful utility! It's especially impressive given your age."</p>
+                            <p class="testimonial-card__text">"First, just wanted to say thank you for the very useful utility! It's especially impressive given your age. Well done!"</p>
+                        </div>
+                        <div class="testimonial-card__footer">
+                            <span class="testimonial-card__tag">pypi-command-line</span>
+                            <a href="https://github.com/wasi-master/pypi-command-line/issues/8" target="_blank" class="testimonial-card__source" aria-label="View on GitHub">
+                                <img src="icons/github.svg" class="testimonial-card__source-icon" alt=""> GitHub
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 11: Zambyte -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-card__header">
+                            <div class="testimonial-card__avatar-wrapper">
+                                <img class="testimonial-card__avatar" src="icons/zambyte.jpeg" alt="Zambyte" onerror="this.parentElement.classList.add('has-fallback')">
+                                <div class="testimonial-card__avatar-fallback testimonial-card__avatar-fallback--orange">ZB</div>
+                            </div>
+                            <div class="testimonial-card__author-info">
+                                <h4 class="testimonial-card__author-name">Robby Zambito</h4>
+                                <a href="https://news.ycombinator.com/user?id=Zambyte" target="_blank" class="testimonial-card__author-handle">Zambyte</a>
+                                <span class="testimonial-card__author-badge">Hacker News Community</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-card__body">
+                            <p class="testimonial-card__highlight">"This is awesome! People who use Kagi can also set up a regex redirect..."</p>
+                            <p class="testimonial-card__text">"This is awesome! People who use Kagi can also set up a regex redirect to automatically use this for problematic sites."</p>
+                        </div>
+                        <div class="testimonial-card__footer">
+                            <span class="testimonial-card__tag">13ft</span>
+                            <a href="https://news.ycombinator.com/item?id=41294883" target="_blank" class="testimonial-card__source" aria-label="View on Hacker News">
+                                <img src="icons/hackernews.svg" class="testimonial-card__source-icon" alt=""> Hacker News
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 12: Warkred -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-card__header">
+                            <div class="testimonial-card__avatar-wrapper">
+                                <img class="testimonial-card__avatar" src="icons/warkred.png" alt="Warkred" onerror="this.parentElement.classList.add('has-fallback')">
+                                <div class="testimonial-card__avatar-fallback testimonial-card__avatar-fallback--orange">WK</div>
+                            </div>
+                            <div class="testimonial-card__author-info">
+                                <h4 class="testimonial-card__author-name">Warkred</h4>
+                                <a href="https://www.reddit.com/user/Warkred" target="_blank" class="testimonial-card__author-handle">u/Warkred</a>
+                                <span class="testimonial-card__author-badge">Python Subreddit Community</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-card__body">
+                            <p class="testimonial-card__highlight">"Damn, I've seen professionals writing worse docs after years of experience."</p>
+                            <p class="testimonial-card__text">"Damn, I've seen professionals writing worst doc and stuff after years of experience. Well done Bobby!"</p>
+                        </div>
+                        <div class="testimonial-card__footer">
+                            <span class="testimonial-card__tag">pypi-command-line</span>
+                            <a href="https://www.reddit.com/r/Python/comments/q8rrx7/i_made_a_commandlineinterface_for_pypi_as_a_14/" target="_blank" class="testimonial-card__source" aria-label="View on Reddit">
+                                <img src="icons/reddit.svg" class="testimonial-card__source-icon" alt=""> Reddit
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 13: Adam Johnson -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-card__header">
+                            <div class="testimonial-card__avatar-wrapper">
+                                <img class="testimonial-card__avatar" src="icons/adamjohnson.jpg" alt="Adam Johnson" onerror="this.parentElement.classList.add('has-fallback')">
+                                <div class="testimonial-card__avatar-fallback">AJ</div>
+                            </div>
+                            <div class="testimonial-card__author-info">
+                                <h4 class="testimonial-card__author-name">Adam Johnson</h4>
+                                <a href="https://twitter.com/AdamChainz" target="_blank" class="testimonial-card__author-handle">@AdamChainz</a>
+                                <span class="testimonial-card__author-badge">Django Core Contributor • Python Author</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-card__body">
+                            <p class="testimonial-card__highlight">"Nice one <strong class="testimonial-card__mention">@wasi_master</strong> !"</p>
+                            <p class="testimonial-card__text">[Praise for Typesplainer's Python typing parsing on Twitter, sharing the tool with the Python typing community.]</p>
+                        </div>
+                        <div class="testimonial-card__footer">
+                            <span class="testimonial-card__tag">Typesplainer</span>
+                            <a href="https://twitter.com/AdamChainz/status/1503046388141154306" target="_blank" class="testimonial-card__source" aria-label="View on Twitter">
+                                <img src="icons/twitter.svg" class="testimonial-card__source-icon" alt=""> Twitter
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonials-controls">
+                    <button class="testimonials-arrow testimonials-arrow--prev" aria-label="Previous testimonials" type="button">
+                        <i data-feather="chevron-left"></i>
+                    </button>
+                    <div class="testimonials-dots" role="tablist" aria-label="Testimonial slides">
+                        <!-- Generated dynamically in JS -->
+                    </div>
+                    <button class="testimonials-arrow testimonials-arrow--next" aria-label="Next testimonials" type="button">
+                        <i data-feather="chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
 <section id="pc-specs">
 <div class="section-title" data-aos="fade-up">
 <h2>PC Specs</h2>
@@ -1337,7 +1678,7 @@
 <td>
 <strong><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-laptop"><path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16"></path></svg> Laptop</strong>
 </td>
-<td>Macbook Air M2 2022 16/256</td>
+<td>Apple Macbook Air M2 2022 16/256</td>
 </tr>
 <tr>
 <td>

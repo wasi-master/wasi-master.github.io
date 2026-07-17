@@ -488,3 +488,116 @@ if (otherProjectsToggle && otherProjectsWrapper) {
         }
     });
 }
+
+// Testimonials Carousel Slider
+const testimonialsSlider = document.querySelector(".testimonials-slider");
+const testimonialsDotsContainer = document.querySelector(".testimonials-dots");
+const testimonialsPrevBtn = document.querySelector(".testimonials-arrow--prev");
+const testimonialsNextBtn = document.querySelector(".testimonials-arrow--next");
+
+if (testimonialsSlider && testimonialsDotsContainer) {
+    const getCardsPerViewport = () => {
+        const card = testimonialsSlider.querySelector(".testimonial-card");
+        if (!card) return 1;
+        const sliderWidth = testimonialsSlider.clientWidth;
+        return Math.max(1, Math.round(sliderWidth / card.offsetWidth));
+    };
+
+    const setupDots = () => {
+        // Clear previous dots
+        testimonialsDotsContainer.innerHTML = "";
+
+        const totalCards = testimonialsSlider.querySelectorAll(".testimonial-card").length;
+        const cardsPerViewport = getCardsPerViewport();
+        const totalPages = Math.ceil(totalCards / cardsPerViewport);
+
+        for (let i = 0; i < totalPages; i++) {
+            const dot = document.createElement("button");
+            dot.type = "button";
+            dot.className = "testimonials-dot";
+            if (i === 0) dot.classList.add("is-active");
+            dot.setAttribute("role", "tab");
+            dot.setAttribute("aria-selected", i === 0 ? "true" : "false");
+            dot.setAttribute("aria-label", `Go to page ${i + 1}`);
+
+            dot.addEventListener("click", () => {
+                const sliderWidth = testimonialsSlider.clientWidth;
+                testimonialsSlider.scrollTo({
+                    left: i * sliderWidth,
+                    behavior: "smooth"
+                });
+            });
+
+            testimonialsDotsContainer.appendChild(dot);
+        }
+    };
+
+    const updateActiveDot = () => {
+        const sliderWidth = testimonialsSlider.clientWidth;
+        if (sliderWidth <= 0) return;
+
+        const maxScroll = testimonialsSlider.scrollWidth - sliderWidth;
+        const isAtEnd = testimonialsSlider.scrollLeft >= maxScroll - 10;
+        const dots = testimonialsDotsContainer.querySelectorAll(".testimonials-dot");
+
+        const pageIndex = isAtEnd && dots.length > 0
+            ? dots.length - 1
+            : Math.round(testimonialsSlider.scrollLeft / sliderWidth);
+
+        dots.forEach((dot, idx) => {
+            if (idx === pageIndex) {
+                dot.classList.add("is-active");
+                dot.setAttribute("aria-selected", "true");
+            } else {
+                dot.classList.remove("is-active");
+                dot.setAttribute("aria-selected", "false");
+            }
+        });
+
+        // Toggle state of prev/next buttons
+        if (testimonialsPrevBtn) {
+            testimonialsPrevBtn.disabled = testimonialsSlider.scrollLeft <= 5;
+        }
+        if (testimonialsNextBtn) {
+            testimonialsNextBtn.disabled = isAtEnd;
+        }
+    };
+
+    // Listen to scroll events to update indicators dynamically
+    let scrollTimeout;
+    testimonialsSlider.addEventListener("scroll", () => {
+        window.cancelAnimationFrame(scrollTimeout);
+        scrollTimeout = window.requestAnimationFrame(updateActiveDot);
+    });
+
+    // Arrow navigation
+    if (testimonialsPrevBtn) {
+        testimonialsPrevBtn.addEventListener("click", () => {
+            const sliderWidth = testimonialsSlider.clientWidth;
+            testimonialsSlider.scrollBy({
+                left: -sliderWidth,
+                behavior: "smooth"
+            });
+        });
+    }
+
+    if (testimonialsNextBtn) {
+        testimonialsNextBtn.addEventListener("click", () => {
+            const sliderWidth = testimonialsSlider.clientWidth;
+            testimonialsSlider.scrollBy({
+                left: sliderWidth,
+                behavior: "smooth"
+            });
+        });
+    }
+
+    // Recalculate dots and page index on window resize
+    window.addEventListener("resize", () => {
+        setupDots();
+        updateActiveDot();
+    });
+
+    // Initial setup
+    setupDots();
+    updateActiveDot();
+}

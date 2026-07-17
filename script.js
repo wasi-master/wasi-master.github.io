@@ -118,31 +118,22 @@ if (prefersReducedMotion) {
     }, 1400);
 }
 
-// Wrap every letter in a span, keeping words together in .word spans
 var textWrapper = document.querySelector(".anim1");
 if (textWrapper && !prefersReducedMotion) {
-    const words = textWrapper.textContent.trim().split(/\s+/);
-    textWrapper.innerHTML = words
-        .map(word => {
-            const letters = word.split("")
-                .map(char => `<span class='letter'>${char}</span>`)
-                .join("");
-            return `<span class='word'>${letters}</span>`;
-        })
-        .join(" ");
+    textWrapper.classList.add("js-anim");
+    // Force a reflow to ensure the initial class styles are applied
+    textWrapper.offsetHeight;
+    
+    setTimeout(() => {
+        textWrapper.classList.add("animated");
+    }, 300);
 
-    if (window.anime) {
-        anime.timeline({ loop: false })
-            .add({
-                targets: ".anim1 .letter",
-                scale: [4, 1],
-                opacity: [0, 1],
-                translateZ: 0,
-                easing: "easeOutExpo",
-                duration: 950,
-                delay: (el, i) => 70 * i
-            });
-    }
+    textWrapper.addEventListener("transitionend", function handler(e) {
+        if (e.propertyName === "transform") {
+            textWrapper.classList.remove("js-anim", "animated");
+            textWrapper.removeEventListener("transitionend", handler);
+        }
+    });
 }
 
 const projectButtons = document.querySelectorAll("#projects .card .button");

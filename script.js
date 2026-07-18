@@ -73,7 +73,7 @@ function doCooldown() {
 
 // Animation loop, which is called every frame.
 function animate() {
-    requestAnimationFrame(animate);
+    morphRafId = requestAnimationFrame(animate);
 
     let newTime = new Date();
     let shouldIncrementIndex = cooldown > 0;
@@ -106,14 +106,48 @@ function fadeIn(element) {
     }, 10);
 }
 
-// Start the animation.
+// Start the animation, pausing the rAF loop while the hero is off-screen.
+let morphRafId = null;
+let morphRunning = false;
+let morphStarted = false;
+let heroVisible = true;
+
+function startMorph() {
+    if (morphRunning) return;
+    morphRunning = true;
+    time = new Date(); // reset the clock so dt doesn't jump after a pause
+    morphRafId = requestAnimationFrame(animate);
+}
+
+function stopMorph() {
+    if (!morphRunning) return;
+    morphRunning = false;
+    cancelAnimationFrame(morphRafId);
+}
+
 if (prefersReducedMotion) {
     if (container) {
         container.style.opacity = "1";
     }
 } else {
+    const heroEl = document.querySelector(".hero");
+    if (heroEl && "IntersectionObserver" in window) {
+        new IntersectionObserver((entries) => {
+            heroVisible = entries[0].isIntersecting;
+            if (!morphStarted) return;
+            if (heroVisible) {
+                startMorph();
+            } else {
+                stopMorph();
+            }
+        }).observe(heroEl);
+    }
+
     setTimeout(function() {
-        animate();
+        morphStarted = true;
+        if (heroVisible) {
+            startMorph();
+        }
         fadeIn(container);
     }, 1400);
 }

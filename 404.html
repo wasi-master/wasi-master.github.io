@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>404 — Page Not Found | Wasi Master</title>
+<meta name="robots" content="noindex"/>
+<meta name="theme-color" content="#07070a"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
+<style>
+    /* Kept self-contained (no /main.css) so a broken or renamed asset path can never
+       take the error page down with it. Tokens mirror :root in main.css. */
+    @font-face {
+        font-family: "Poppins";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("/fonts/poppins-latin-400.woff2") format("woff2");
+    }
+    @font-face {
+        font-family: "Poppins";
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url("/fonts/poppins-latin-700.woff2") format("woff2");
+    }
+
+    :root {
+        --bg-dark: #07070a;
+        --surface-glass: rgba(255, 255, 255, 0.03);
+        --surface-glass-hover: rgba(255, 255, 255, 0.06);
+        --border-glass: rgba(255, 255, 255, 0.08);
+        --border-glass-hover: rgba(255, 255, 255, 0.2);
+        --accent-blue: #007aff;
+        --accent-cyan: #03b1fc;
+        --text-primary: #ffffff;
+        --text-secondary: #a0a0b0;
+        --text-muted: #808090;
+        --transition-smooth: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        background-color: var(--bg-dark);
+    }
+
+    body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: "Poppins", sans-serif;
+        color: var(--text-primary);
+        background: radial-gradient(circle at 50% 0%, #0d122b 0%, #07070a 70%);
+        padding: 2rem 1.5rem 6rem;
+        position: relative;
+        overflow-x: hidden;
+    }
+
+    main {
+        text-align: center;
+        max-width: 640px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .code {
+        font-size: clamp(5rem, 18vw, 9rem);
+        font-weight: 700;
+        line-height: 1;
+        background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    h1 {
+        font-size: clamp(1.2rem, 4vw, 1.6rem);
+        margin-top: 0.75rem;
+    }
+
+    .message {
+        color: var(--text-secondary);
+        margin-top: 1rem;
+        line-height: 1.7;
+    }
+
+    .path {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.9em;
+        color: var(--text-primary);
+        background: var(--surface-glass);
+        border: 1px solid var(--border-glass);
+        border-radius: 6px;
+        padding: 0.1rem 0.45rem;
+        word-break: break-all;
+    }
+
+    .suggestions {
+        margin-top: 1.5rem;
+    }
+
+    .suggestions h2 {
+        font-size: 1rem;
+        font-weight: 400;
+        color: var(--text-muted);
+    }
+
+    .suggestions ul {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.6rem;
+        margin-top: 0.9rem;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 0.55rem 1.2rem;
+        border-radius: 999px;
+        background: var(--surface-glass);
+        border: 1px solid var(--border-glass);
+        color: var(--text-primary);
+        text-decoration: none;
+        font-size: 0.95rem;
+        transition: background var(--transition-smooth), border-color var(--transition-smooth), transform var(--transition-smooth);
+    }
+
+    .btn:hover {
+        background: var(--surface-glass-hover);
+        border-color: var(--border-glass-hover);
+        transform: translateY(-2px);
+    }
+
+    .btn--primary {
+        background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+        border: none;
+        font-weight: 700;
+        margin-top: 2rem;
+    }
+
+    .btn--primary:hover {
+        /* .btn:hover outranks .btn--primary, so restate the gradient here */
+        background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+        border: none;
+        filter: brightness(1.15);
+    }
+
+    .waves {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    .waves svg {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+</style>
+</head>
+<body>
+<main>
+<p class="code" aria-hidden="true">404</p>
+<h1>Page not found</h1>
+<p class="message" id="message">
+        The page <span class="path" id="attempted-path"></span> doesn't exist.
+    </p>
+<div class="suggestions" id="suggestions" hidden>
+<h2 id="suggestions-heading"></h2>
+<ul id="suggestions-list"></ul>
+</div>
+<a class="btn btn--primary" href="https://wasi-master.github.io/">Take me to the main site</a>
+<noscript>
+<p class="message">
+            If you were looking for one of my project documentation sites, head to the
+            <a href="https://wasi-master.github.io/#projects" style="color:#03b1fc">projects section</a>
+            and follow the documentation links from there.
+        </p>
+</noscript>
+</main>
+<div class="waves" aria-hidden="true">
+<svg viewBox="0 0 1920 540" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 199L45.7 191.5C91.3 184 182.7 169 274.2 158.7C365.7 148.3 457.3 142.7 548.8 156.5C640.3 170.3 731.7 203.7 823 221.2C914.3 238.7 1005.7 240.3 1097 243.7C1188.3 247 1279.7 252 1371.2 239.3C1462.7 226.7 1554.3 196.3 1645.8 195.5C1737.3 194.7 1828.7 223.3 1874.3 237.7L1920 252L1920 541L0 541Z" fill="#0066ff" opacity="0.35"></path>
+<path d="M0 319L45.7 313.7C91.3 308.3 182.7 297.7 274.2 278.3C365.7 259 457.3 231 548.8 230.7C640.3 230.3 731.7 257.7 823 263.2C914.3 268.7 1005.7 252.3 1097 235.7C1188.3 219 1279.7 202 1371.2 196C1462.7 190 1554.3 195 1645.8 208C1737.3 221 1828.7 242 1874.3 252.5L1920 263L1920 541L0 541Z" fill="#008cff" opacity="0.45"></path>
+<path d="M0 476L45.7 469C91.3 462 182.7 448 274.2 450.3C365.7 452.7 457.3 471.3 548.8 470.3C640.3 469.3 731.7 448.7 823 444.8C914.3 441 1005.7 454 1097 456.7C1188.3 459.3 1279.7 451.7 1371.2 447.2C1462.7 442.7 1554.3 441.3 1645.8 444.3C1737.3 447.3 1828.7 454.7 1874.3 458.3L1920 462L1920 541L0 541Z" fill="#4facf7" opacity="0.6"></path>
+</svg>
+</div>
+<script>
+    (async function () {
+        var pathEl = document.getElementById("attempted-path");
+        var messageEl = document.getElementById("message");
+        var suggestionsEl = document.getElementById("suggestions");
+        var headingEl = document.getElementById("suggestions-heading");
+        var listEl = document.getElementById("suggestions-list");
+
+        var rawPath = window.location.pathname;
+        pathEl.textContent = rawPath;
+
+        var segments = rawPath.split("/").filter(Boolean);
+        if (segments.length === 0 || segments[0] === "404.html") return;
+
+        var slug = decodeURIComponent(segments[0]).toLowerCase();
+
+        // This 404 page is served by the root user-site repo, but the domain also
+        // hosts per-project GitHub Pages sites at /<repo>/. Discover which project
+        // docs actually exist by reading the documentation links out of the main
+        // page's projects section, so this list never needs manual updating.
+        var projects = [];
+        try {
+            var res = await fetch("/", { headers: { Accept: "text/html" } });
+            var doc = new DOMParser().parseFromString(await res.text(), "text/html");
+            var seen = {};
+            doc.querySelectorAll("#projects a[href]").forEach(function (a) {
+                var match = (a.getAttribute("href") || "").match(
+                    /^https?:\/\/wasi-master\.github\.io\/([^\/#?]+)/
+                );
+                if (!match || match[1] === "assets") return;
+                var projectSlug = match[1];
+                if (seen[projectSlug]) return;
+                seen[projectSlug] = true;
+                var card = a.closest(".card");
+                var title = card && card.querySelector(".title");
+                projects.push({
+                    slug: projectSlug,
+                    title: title ? title.textContent.trim() : projectSlug
+                });
+            });
+        } catch (err) {
+            /* Main page unreachable — the generic message and home button still work. */
+        }
+        if (projects.length === 0) return;
+
+        function levenshtein(a, b) {
+            var prev = [], curr = [], i, j;
+            for (j = 0; j <= b.length; j++) prev[j] = j;
+            for (i = 1; i <= a.length; i++) {
+                curr[0] = i;
+                for (j = 1; j <= b.length; j++) {
+                    curr[j] = Math.min(
+                        prev[j] + 1,
+                        curr[j - 1] + 1,
+                        prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)
+                    );
+                }
+                var swap = prev; prev = curr; curr = swap;
+            }
+            return prev[b.length];
+        }
+
+        function render(heading, items) {
+            headingEl.textContent = heading;
+            listEl.innerHTML = "";
+            items.forEach(function (p) {
+                var li = document.createElement("li");
+                var a = document.createElement("a");
+                a.className = "btn";
+                a.href = "https://wasi-master.github.io/" + p.slug + "/";
+                a.textContent = p.title;
+                li.appendChild(a);
+                listEl.appendChild(li);
+            });
+            suggestionsEl.hidden = false;
+        }
+
+        var exact = projects.filter(function (p) { return p.slug.toLowerCase() === slug; });
+        if (exact.length) {
+            // The project site exists; only this particular page within it doesn't.
+            messageEl.innerHTML =
+                'The page <span class="path"></span> doesn’t exist in the ' +
+                "documentation of <strong>" + exact[0].title + "</strong>.";
+            messageEl.querySelector(".path").textContent = rawPath;
+            render("Start from the documentation home instead:", exact);
+            return;
+        }
+
+        var maxDistance = Math.max(2, Math.floor(slug.length / 3));
+        var close = projects
+            .map(function (p) { return { project: p, distance: levenshtein(slug, p.slug.toLowerCase()) }; })
+            .filter(function (s) { return s.distance <= maxDistance; })
+            .sort(function (x, y) { return x.distance - y.distance; })
+            .slice(0, 3)
+            .map(function (s) { return s.project; });
+
+        if (close.length) {
+            render("Did you mean one of these project docs?", close);
+        } else {
+            render("Documentation hosted on this domain:", projects);
+        }
+    })();
+</script>
+</body>
+</html>

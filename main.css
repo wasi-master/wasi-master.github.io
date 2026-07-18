@@ -726,7 +726,7 @@ a:not(.button):focus-visible {
 }
 
 .table {
-    font-family: "Raleway", sans-serif;
+    font-family: "Poppins", sans-serif;
     border-collapse: collapse;
     width: 100%;
     max-width: 900px;
@@ -794,7 +794,7 @@ a:not(.button):focus-visible {
 .prose {
     font-size: 1.05rem;
     line-height: 1.85;
-    font-family: "Raleway", sans-serif;
+    font-family: "Poppins", sans-serif;
     color: var(--text-secondary);
 }
 
@@ -1197,7 +1197,7 @@ footer .weak {
     font-weight: 600;
     color: var(--text-primary);
     line-height: 1.45;
-    font-family: "Raleway", sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 .testimonial-card__text {
@@ -1205,7 +1205,7 @@ footer .weak {
     color: var(--text-secondary);
     line-height: 1.5;
     font-style: italic;
-    font-family: "Raleway", sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 .testimonial-card__mention {

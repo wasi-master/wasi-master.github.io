@@ -25,6 +25,8 @@ PEPY_API_BASE = "https://api.pepy.tech/api/v2/projects"
 PYPISTATS_API_BASE = "https://pypistats.org/api/packages"
 # Package shown in the Impact section's "downloads a day" highlight pill
 IMPACT_DAILY_PACKAGE = "rich-rst"
+# Account whose total star count feeds the Impact section's stars tile
+IMPACT_STARS_USER = "wasi-master"
 VSCODE_MARKETPLACE_API = "https://marketplace.visualstudio.com/_apis/public/gallery/extensionquery"
 REQUEST_TIMEOUT_SECONDS = 12
 BLOCKED_GITHUB_SEGMENTS = {
@@ -232,6 +234,32 @@ def fetch_pypistats_last_day(session: requests.Session, package: str) -> tuple[i
         return None, "pypistats response parse failed"
 
 
+def fetch_pypistats_last_month(session: requests.Session, package: str) -> tuple[int | None, str | None]:
+    try:
+        response = session.get(
+            f"{PYPISTATS_API_BASE}/{package}/recent",
+            timeout=REQUEST_TIMEOUT_SECONDS,
+        )
+        if response.status_code != 200:
+            return None, f"pypistats API HTTP {response.status_code}"
+        data = response.json()
+        return int(data["data"]["last_month"]), None
+    except requests.RequestException:
+        return None, "pypistats request failed"
+    except (TypeError, ValueError, KeyError):
+        return None, "pypistats response parse failed"
+
+
+def format_star_count(value: int) -> str:
+    if value >= 1_000_000:
+        scaled = math.floor(value / 100_000) / 10
+        return f"{int(scaled)}M" if float(scaled).is_integer() else f"{scaled:.1f}M"
+    if value >= 1_000:
+        scaled = math.floor(value / 100) / 10
+        return f"{int(scaled)}k" if float(scaled).is_integer() else f"{scaled:.1f}k"
+    return str(value)
+
+
 def extract_count(text: str) -> int | None:
     values = extract_all_counts(text)
     return values[0] if values else None
@@ -294,6 +322,81 @@ def format_daily_count(value: int) -> str:
     return str(value)
 
 
+def fetch_total_github_stars(session: requests.Session, user: str) -> tuple[int | None, str | None]:
+    """Sum stars across all of a user's own (non-fork) repositories."""
+    total = 0
+    page = 1
+    try:
+        while True:
+            response = session.get(
+                f"https://api.github.com/users/{user}/repos",
+                params={"per_page": 100, "page": page, "type": "owner"},
+                timeout=REQUEST_TIMEOUT_SECONDS,
+            )
+            if response.status_code != 200:
+                if response.status_code == 403 and "X-RateLimit-Remaining" in response.headers:
+                    return None, "GitHub API rate limit reached"
+                return None, f"GitHub API HTTP {response.status_code}"
+            repos = response.json()
+            if not repos:
+                break
+            total += sum(
+                int(repo.get("stargazers_count", 0))
+                for repo in repos
+                if not repo.get("fork", False)
+            )
+            if len(repos) < 100:
+                break
+            page += 1
+        return total, None
+    except requests.RequestException:
+        return None, "GitHub request failed"
+    except (TypeError, ValueError):
+        return None, "GitHub response parse failed"
+
+
+def update_contrib_section(soup, session: requests.Session) -> tuple[int, list[str]]:
+    """Update star/download chips in the Contributions section.
+
+    Same monotonic rule as the Impact section: values only move upward, so a
+    failed fetch or a genuinely lower number keeps the previous figure.
+    """
+    updates = 0
+    failures: list[str] = []
+    section = soup.select_one("#contributions")
+    if section is None:
+        return updates, failures
+
+    for stat in section.select(".contrib-card__stat[data-stars-repo]"):
+        repo = (stat.get("data-stars-repo") or "").strip()
+        if not repo:
+            continue
+        result, error = fetch_github_stars_forks(session, repo)
+        if result is None:
+            failures.append(f"{repo} (contrib stars): {error}")
+            continue
+        stars = result[0]
+        current = extract_count(stat.get_text(" ", strip=True)) or 0
+        if stars > current:
+            stat.string = f"{format_star_count(stars)} \u2605"
+            updates += 1
+
+    for stat in section.select(".contrib-card__stat[data-downloads-pkg]"):
+        package = (stat.get("data-downloads-pkg") or "").strip()
+        if not package:
+            continue
+        downloads, error = fetch_pypistats_last_month(session, package)
+        if downloads is None:
+            failures.append(f"{package} (contrib downloads): {error}")
+            continue
+        current = extract_count(stat.get_text(" ", strip=True)) or 0
+        if downloads > current:
+            stat.string = f"{format_count(downloads)} downloads/mo"
+            updates += 1
+
+    return updates, failures
+
+
 def update_impact_section(soup, pypi_cache: dict, session: requests.Session) -> tuple[int, list[str]]:
     """Update the Impact section's aggregate numbers.
 
@@ -329,6 +432,29 @@ def update_impact_section(soup, pypi_cache: dict, session: requests.Session) -> 
             except ValueError:
                 current_target = 0
             new_target = total // multiplier
+            if new_target > current_target:
+                counter["data-target"] = str(new_target)
+                updates += 1
+            break
+
+    # GitHub stars tile: total across all own repos, floored to the nearest
+    # hundred so the "+" stays honest.
+    stars, stars_error = fetch_total_github_stars(session, IMPACT_STARS_USER)
+    if stars is None:
+        failures.append(f"{IMPACT_STARS_USER} (total stars): {stars_error}")
+    else:
+        for card in impact.select(".impact-card"):
+            label = card.select_one(".impact-card__label")
+            if label is None or "github stars" not in label.get_text(strip=True).lower():
+                continue
+            counter = card.select_one(".impact-counter")
+            if counter is None:
+                break
+            try:
+                current_target = int(float(counter.get("data-target", "0")))
+            except ValueError:
+                current_target = 0
+            new_target = (stars // 100) * 100
             if new_target > current_target:
                 counter["data-target"] = str(new_target)
                 updates += 1
@@ -639,8 +765,13 @@ def update_index(index_path: Path, no_concurrency: bool = False) -> dict[str, in
         failed += len(impact_failures)
         fail_messages.extend(impact_failures)
 
+    contrib_updated, contrib_failures = update_contrib_section(soup, session)
+    if contrib_failures:
+        failed += len(contrib_failures)
+        fail_messages.extend(contrib_failures)
+
     html_after = str(soup)
-    changed = (updated > 0) or (text_updated > 0) or (impact_updated > 0)
+    changed = (updated > 0) or (text_updated > 0) or (impact_updated > 0) or (contrib_updated > 0)
     if changed:
         index_path.write_text(html_after, encoding="utf-8")
 
@@ -649,6 +780,7 @@ def update_index(index_path: Path, no_concurrency: bool = False) -> dict[str, in
         "updated": updated,
         "text_updated": text_updated,
         "impact_updated": impact_updated,
+        "contrib_updated": contrib_updated,
         "untouched": untouched,
         "failed": failed,
         "fail_messages": fail_messages,
@@ -671,6 +803,7 @@ def main() -> None:
                 "updated": result["updated"],
                 "text_updated": result["text_updated"],
                 "impact_updated": result["impact_updated"],
+                "contrib_updated": result["contrib_updated"],
                 "untouched": result["untouched"],
                 "failed": result["failed"],
                 "html_changed": result["html_changed"],
@@ -685,6 +818,7 @@ def main() -> None:
             f"updated={result['updated']}, "
             f"text_updated={result['text_updated']}, "
             f"impact_updated={result['impact_updated']}, "
+            f"contrib_updated={result['contrib_updated']}, "
             f"untouched={result['untouched']}, "
             f"failed={result['failed']}, "
             f"html_changed={result['html_changed']}"

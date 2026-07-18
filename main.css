@@ -1971,3 +1971,136 @@ footer .weak {
         display: none !important;
     }
 }
+
+/* ==========================================================================
+   Contributions to Other Projects
+   ========================================================================== */
+#contributions {
+    margin-top: clamp(4rem, 10vw, 8rem);
+    margin-bottom: clamp(4rem, 10vw, 8rem);
+}
+
+.contrib-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-top: -1.5rem;
+    margin-bottom: 2.5rem;
+    padding-inline: 1rem;
+}
+
+.contrib-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.contrib-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.contrib-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--surface-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-glass);
+    border-radius: 16px;
+    padding: 1.75rem 1.6rem 1.5rem;
+    text-decoration: none;
+    transition: all var(--transition-smooth);
+}
+
+.contrib-card:hover {
+    background-color: var(--surface-glass-hover);
+    border-color: var(--border-glass-hover);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4), 0 0 20px var(--accent-glow);
+}
+
+/* The pip/Python card gets a subtle gradient edge to stand out. The inner
+   layer must be near-opaque or the border-box gradient floods the card. */
+.contrib-card--flagship {
+    background:
+        linear-gradient(rgba(13, 15, 26, 0.96), rgba(13, 15, 26, 0.96)) padding-box,
+        linear-gradient(135deg, rgba(3, 177, 252, 0.55), rgba(168, 85, 247, 0.55)) border-box;
+    border: 1px solid transparent;
+}
+
+.contrib-card--flagship:hover {
+    background:
+        linear-gradient(rgba(18, 21, 36, 0.96), rgba(18, 21, 36, 0.96)) padding-box,
+        linear-gradient(135deg, rgba(3, 177, 252, 0.8), rgba(168, 85, 247, 0.8)) border-box;
+}
+
+.contrib-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.9rem;
+}
+
+.contrib-card__name {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    overflow-wrap: anywhere;
+}
+
+.contrib-card__stat {
+    flex-shrink: 0;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--accent-cyan);
+    background: rgba(3, 177, 252, 0.1);
+    border: 1px solid rgba(3, 177, 252, 0.25);
+    border-radius: 999px;
+    padding: 0.22rem 0.7rem;
+    white-space: nowrap;
+}
+
+.contrib-card__what {
+    font-size: 0.93rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    flex-grow: 1;
+}
+
+.contrib-card__what code {
+    font-size: 0.85em;
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 5px;
+    padding: 0.1em 0.35em;
+}
+
+.contrib-card__impact {
+    margin-top: 1rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--border-glass);
+    font-size: 0.9rem;
+    line-height: 1.55;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.contrib-card__impact::before {
+    content: "\2192\00a0";
+    color: var(--accent-cyan);
+    font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .contrib-card {
+        transition: none !important;
+    }
+
+    .contrib-card:hover {
+        transform: none !important;
+        box-shadow: none !important;
+    }
+}

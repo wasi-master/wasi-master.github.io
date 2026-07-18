@@ -7,7 +7,7 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="main.css" rel="stylesheet"/>
 <link href="https://wasi-master.github.io/" rel="canonical"/>
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" media="(min-width: 768px)" rel="stylesheet"/>
+<link href="vendor/aos.css" media="(min-width: 768px)" rel="stylesheet"/>
 <link href="https://www.clarity.ms" rel="preconnect"/>
 <link crossorigin="" href="https://h.clarity.ms" rel="preconnect"/>
 <link href="https://www.googletagmanager.com" rel="preconnect"/>
@@ -1890,7 +1890,7 @@ window.addEventListener('load', function() {
             </p>
 </div>
 </footer>
-<script src="https://unpkg.com/feather-icons@4.29.2/dist/feather.min.js"></script>
+<script src="vendor/feather.min.js"></script>
 <script>
         // AOS is desktop-only (its stylesheet is media-gated to min-width: 768px),
         // so skip loading the script entirely on smaller viewports. If the viewport
@@ -1904,7 +1904,7 @@ window.addEventListener('load', function() {
                 if (aosLoaded) return;
                 aosLoaded = true;
                 var aosScript = document.createElement("script");
-                aosScript.src = "https://unpkg.com/aos@2.3.1/dist/aos.js";
+                aosScript.src = "vendor/aos.js";
                 aosScript.onload = function () {
                     AOS.init({
                         disable: window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -1921,8 +1921,8 @@ window.addEventListener('load', function() {
             }
         })();
     </script>
-<script src="https://unpkg.com/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-<script src="https://unpkg.com/tippy.js@6.3.7/dist/tippy-bundle.umd.min.js"></script>
+<script src="vendor/popper.min.js"></script>
+<script src="vendor/tippy-bundle.umd.min.js"></script>
 <!-- Circular progress bar: only used by the Skills section, which is currently commented out.
 <script src="https://cdn.jsdelivr.net/gh/tomik23/circular-progress-bar@1.1.9/dist/circularProgressBar.min.js"></script>
 -->

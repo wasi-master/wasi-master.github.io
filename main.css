@@ -2104,3 +2104,34 @@ footer .weak {
         box-shadow: none !important;
     }
 }
+
+/* Highlighted stats on project cards. Classes live on the .stat element
+   itself so updater.py's text-node rewrites leave them intact. */
+.card>.stats>.stat.stat--pop {
+    color: #bfe9ff;
+    background: rgba(3, 177, 252, 0.09);
+    border-color: rgba(3, 177, 252, 0.3);
+}
+
+.card:hover>.stats>.stat.stat--pop {
+    background: rgba(3, 177, 252, 0.14);
+    border-color: rgba(3, 177, 252, 0.45);
+}
+
+.card>.stats>.stat.stat--hero {
+    color: #ffffff;
+    font-weight: 600;
+    background: linear-gradient(135deg, rgba(3, 177, 252, 0.16), rgba(0, 122, 255, 0.16));
+    border-color: rgba(3, 177, 252, 0.5);
+    box-shadow: 0 0 10px rgba(3, 177, 252, 0.15);
+}
+
+.card:hover>.stats>.stat.stat--hero {
+    background: linear-gradient(135deg, rgba(3, 177, 252, 0.24), rgba(0, 122, 255, 0.24));
+    border-color: rgba(3, 177, 252, 0.7);
+    box-shadow: 0 0 14px rgba(3, 177, 252, 0.3);
+}
+
+.card>.stats>.stat.stat--hero>svg {
+    color: var(--accent-cyan);
+}

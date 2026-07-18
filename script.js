@@ -96,14 +96,8 @@ function animate() {
 var container = document.getElementById("container");
 
 function fadeIn(element) {
-    var op = 0.1; // initial opacity
-    var timer = setInterval(function() {
-        if (op >= 1) {
-            clearInterval(timer);
-        }
-        element.style.opacity = op;
-        op += op * 0.1;
-    }, 10);
+    // Opacity transition is handled by CSS (#container in main.css)
+    element.style.opacity = "1";
 }
 
 // Start the animation, pausing the rAF loop while the hero is off-screen.
@@ -426,7 +420,7 @@ if (projectsSection) {
             { label: "CLI/TUI/Terminal", tags: ["cli", "tui", "terminal"], iconSrc: "icons/terminal.svg" },
             { label: "Extension/Plugin", tags: ["extension", "plugin", "vscode"], iconSrc: "icons/extension.svg" },
             { label: "Bot/Discord", tags: ["bot", "discord"], iconSrc: "icons/discord.svg" },
-            { label: "Web", tags: ["web"], iconSrc: "icons/web.svg" },
+            { label: "Web", tags: ["web"], iconSrc: "icons/web.svg?v=2" },
             { label: "APIs", tags: ["apis", "api"], iconSrc: "icons/json.svg" }
         ];
 
@@ -649,10 +643,14 @@ if (testimonialsSlider && testimonialsDotsContainer) {
         });
     }
 
-    // Recalculate dots and page index on window resize
+    // Recalculate dots and page index on window resize (debounced)
+    let resizeTimeout;
     window.addEventListener("resize", () => {
-        setupDots();
-        updateActiveDot();
+        window.clearTimeout(resizeTimeout);
+        resizeTimeout = window.setTimeout(() => {
+            setupDots();
+            updateActiveDot();
+        }, 150);
     });
 
     // Initial setup

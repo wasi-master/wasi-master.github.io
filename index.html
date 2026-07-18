@@ -8,15 +8,12 @@
 <link href="main.css" rel="stylesheet"/>
 <link href="https://wasi-master.github.io/" rel="canonical"/>
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" media="(min-width: 768px)" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://www.clarity.ms" rel="preconnect"/>
 <link crossorigin="" href="https://h.clarity.ms" rel="preconnect"/>
 <link href="https://www.googletagmanager.com" rel="preconnect"/>
-<link as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Raleway:wght@400;500;600&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'" rel="preload"/>
-<noscript>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Raleway:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
-</noscript>
+<link as="font" crossorigin="" href="fonts/poppins-latin-400.woff2" rel="preload" type="font/woff2"/>
+<link as="font" crossorigin="" href="fonts/poppins-latin-700.woff2" rel="preload" type="font/woff2"/>
+<link as="font" crossorigin="" href="fonts/raleway-latin.woff2" rel="preload" type="font/woff2"/>
 <title>Wasi Master's Personal Website</title>
 <meta content="Bangladeshi. I've been interested in computers and technology all my life. Worked on open source and private projects in Python, Java, Javascript, C/C++, C# etc. I'm also interested in photography and have been taking photos as a hobby since 2015!" name="description"/>
 <meta content="Wasi Master, Master, Wasi, Arian Mollik Wasi, Arian, Mollik, Wasi, Dev, Developer, Programmer, Coder, Photographer, Camera, Bangladesh, Personal Website, Personal, Website" name="keywords"/>
@@ -69,7 +66,8 @@
   "email": "mailto:arianmollik323@gmail.com",
   "sameAs": [
     "https://github.com/wasi-master",
-    "https://twitter.com/wasi_master"
+    "https://twitter.com/wasi_master",
+    "https://pypi.org/user/WasiMaster/"
   ],
   "knowsLanguage": ["English", "Bengali", "Hindi"],
   "knowsAbout": ["Python", "JavaScript", "Open Source Software", "Photography"]
@@ -100,7 +98,7 @@ window.addEventListener('load', function() {
 <div class="hero">
 <div class="hero-background">
 <div aria-hidden="true" class="hero-waves">
-<svg class="waves-svg" preserveaspectratio="xMidYMax slice" viewbox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+<svg class="waves-svg" preserveAspectRatio="xMidYMax slice" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
 <rect fill="#090910" height="1080" width="1920" x="0" y="0"></rect>
 <path class="wave wave--1" d="M0 739L45.7 731.5C91.3 724 182.7 709 274.2 698.7C365.7 688.3 457.3 682.7 548.8 696.5C640.3 710.3 731.7 743.7 823 761.2C914.3 778.7 1005.7 780.3 1097 783.7C1188.3 787 1279.7 792 1371.2 779.3C1462.7 766.7 1554.3 736.3 1645.8 735.5C1737.3 734.7 1828.7 763.3 1874.3 777.7L1920 792L1920 1081L1874.3 1081C1828.7 1081 1737.3 1081 1645.8 1081C1554.3 1081 1462.7 1081 1371.2 1081C1279.7 1081 1188.3 1081 1097 1081C1005.7 1081 914.3 1081 823 1081C731.7 1081 640.3 1081 548.8 1081C457.3 1081 365.7 1081 274.2 1081C182.7 1081 91.3 1081 45.7 1081L0 1081Z" fill="#0066ff"></path>
 <path class="wave wave--2" d="M0 859L45.7 853.7C91.3 848.3 182.7 837.7 274.2 818.3C365.7 799 457.3 771 548.8 770.7C640.3 770.3 731.7 797.7 823 803.2C914.3 808.7 1005.7 792.3 1097 775.7C1188.3 759 1279.7 742 1371.2 736C1462.7 730 1554.3 735 1645.8 748C1737.3 761 1828.7 782 1874.3 792.5L1920 803L1920 1081L1874.3 1081C1828.7 1081 1737.3 1081 1645.8 1081C1554.3 1081 1462.7 1081 1371.2 1081C1279.7 1081 1188.3 1081 1097 1081C1005.7 1081 914.3 1081 823 1081C731.7 1081 640.3 1081 548.8 1081C457.3 1081 365.7 1081 274.2 1081C182.7 1081 91.3 1081 45.7 1081L0 1081Z" fill="#007aff"></path>
@@ -153,7 +151,7 @@ window.addEventListener('load', function() {
 <span class="stat">
 <i data-feather="star"> </i> 4234 Stars</span>
 <span class="stat">
-<img alt="" height="16" src="./fork.svg" width="16"/> 226 Forks</span>
+<img loading="lazy" decoding="async" alt="" height="16" src="./fork.svg" width="16"/> 226 Forks</span>
 <span class="stat">
 <i data-feather="download"> </i> 1M+ Downloads</span>
 </div>
@@ -174,14 +172,14 @@ window.addEventListener('load', function() {
 </a>
 <div class="tags">
 <span class="tags-text"> Tags: </span>
-<div class="tag"><img alt="" src="icons/python.svg"/>Python</div>
-<div class="tag"><img alt="" src="icons/flask.svg"/>Flask</div>
-<div class="tag"><img alt="" src="icons/home.svg"/>Self-hosted</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/python.svg"/>Python</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/flask.svg"/>Flask</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/home.svg"/>Self-hosted</div>
 </div>
 <div class="tags docs-tags">
 <span class="tags-text"> Documentation: </span>
-<div class="tag"><img alt="" src="icons/github-feather.svg"/>GitHub README</div>
-<div class="tag"><img alt="" src="icons/markdown.svg"/>Markdown</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/github-feather.svg"/>GitHub README</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/markdown.svg"/>Markdown</div>
 </div>
 </div>
 </div>
@@ -193,7 +191,7 @@ window.addEventListener('load', function() {
 <span class="stat">
 <i data-feather="star"> </i> 20 Stars</span>
 <span class="stat">
-<img alt="" height="16" src="./fork.svg" width="16"/> 7 Forks</span>
+<img loading="lazy" decoding="async" alt="" height="16" src="./fork.svg" width="16"/> 7 Forks</span>
 <span class="stat">
 <i data-feather="download"> </i> 460M+ Downloads</span>
 </div>
@@ -214,15 +212,15 @@ window.addEventListener('load', function() {
 </a>
 <div class="tags">
 <span class="tags-text"> Tags: </span>
-<div class="tag"><img alt="" src="icons/python.svg"/>Python</div>
-<div class="tag"><img alt="" src="icons/rich.svg"/>Rich</div>
-<div class="tag"><img alt="" src="icons/type.svg"/>reStructuredText</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/python.svg"/>Python</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/rich.svg"/>Rich</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/type.svg"/>reStructuredText</div>
 </div>
 <div class="tags docs-tags">
 <span class="tags-text"> Documentation: </span>
-<div class="tag"><img alt="" src="icons/readthedocs.svg"/>Read the Docs</div>
-<div class="tag"><img alt="" src="icons/sphinx.svg"/>Sphinx</div>
-<div class="tag"><img alt="" src="icons/type.svg"/>reStructuredText</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/readthedocs.svg"/>Read the Docs</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/sphinx.svg"/>Sphinx</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/type.svg"/>reStructuredText</div>
 </div>
 </div>
 </div>
@@ -238,7 +236,7 @@ window.addEventListener('load', function() {
 <span class="stat">
 <i data-feather="star"> </i> 245 Stars</span>
 <span class="stat">
-<img alt="" height="16" src="./fork.svg" width="16"/> 7 Forks</span>
+<img loading="lazy" decoding="async" alt="" height="16" src="./fork.svg" width="16"/> 7 Forks</span>
 <span class="stat">
 <i data-feather="download"> </i> 31.4K+ Downloads</span>
 </div>
@@ -259,17 +257,17 @@ window.addEventListener('load', function() {
 </a>
 <div class="tags">
 <span class="tags-text"> Tags: </span>
-<div class="tag"><img alt="" src="icons/python.svg"/> Python</div>
-<div class="tag"><img alt="" src="icons/terminal.svg"/> CLI</div>
-<div class="tag"><img alt="" src="icons/rich.svg"/> Rich</div>
-<div class="tag"><img alt="" src="icons/fast-forward.svg"/> Benchmarking</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/python.svg"/> Python</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/terminal.svg"/> CLI</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/rich.svg"/> Rich</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/fast-forward.svg"/> Benchmarking</div>
 </div>
 <div class="tags docs-tags">
 <span class="tags-text"> Documentation: </span>
-<div class="tag"><img alt="" src="icons/readthedocs.svg"/>Read the Docs</div>
-<div class="tag"><img alt="" src="icons/sphinx.svg"/>Sphinx</div>
-<div class="tag"><img alt="" src="icons/furo.svg"/>Furo</div>
-<div class="tag"><img alt="" src="icons/type.svg"/>reStructuredText</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/readthedocs.svg"/>Read the Docs</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/sphinx.svg"/>Sphinx</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/furo.svg"/>Furo</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/type.svg"/>reStructuredText</div>
 </div>
 </div>
 </div>
@@ -281,7 +279,7 @@ window.addEventListener('load', function() {
 <span class="stat">
 <i data-feather="star"> </i> 55 Stars</span>
 <span class="stat">
-<img alt="" height="16" src="./fork.svg" width="16"/>
+<img loading="lazy" decoding="async" alt="" height="16" src="./fork.svg" width="16"/>
                                 7 Forks
                             </span>
 <span class="stat">
@@ -304,16 +302,16 @@ window.addEventListener('load', function() {
 </a>
 <div class="tags">
 <span class="tags-text"> Tags: </span>
-<div class="tag"><img alt="" src="icons/python.svg"/>Python</div>
-<div class="tag"><img alt="" src="icons/terminal.svg"/>CLI</div>
-<div class="tag"><img alt="" src="icons/rich.svg"/>Rich</div>
-<div class="tag"><img alt="" src="icons/pypi.svg"/>PyPI</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/python.svg"/>Python</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/terminal.svg"/>CLI</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/rich.svg"/>Rich</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/pypi.svg"/>PyPI</div>
 </div>
 <div class="tags docs-tags">
 <span class="tags-text"> Documentation: </span>
-<div class="tag"><img alt="" src="icons/mkdocs.svg"/>MkDocs</div>
-<div class="tag"><img alt="" src="icons/mkdocs-material.svg"/>MkDocs Material</div>
-<div class="tag"><img alt="" src="icons/markdown.svg"/>Markdown</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/mkdocs.svg"/>MkDocs</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/mkdocs-material.svg"/>MkDocs Material</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/markdown.svg"/>Markdown</div>
 </div>
 </div>
 </div>
@@ -329,7 +327,7 @@ window.addEventListener('load', function() {
 <span class="stat">
 <i data-feather="star"> </i> 84 Stars</span>
 <span class="stat">
-<img alt="" height="16" src="./fork.svg" width="16"/>
+<img loading="lazy" decoding="async" alt="" height="16" src="./fork.svg" width="16"/>
                                 2 Forks
                             </span>
 <span class="stat">
@@ -352,10 +350,10 @@ window.addEventListener('load', function() {
 </a>
 <div class="tags">
 <span class="tags-text"> Tags: </span>
-<div class="tag"><img alt="" src="icons/python.svg"/>Python</div>
-<div class="tag"><img alt="" src="icons/terminal.svg"/>CLI</div>
-<div class="tag"><img alt="" src="icons/rich.svg"/>Rich</div>
-<div class="tag"><img alt="" src="icons/curly.svg"/>Typehints</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/python.svg"/>Python</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/terminal.svg"/>CLI</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/rich.svg"/>Rich</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/curly.svg"/>Typehints</div>
 </div>
 </div>
 </div>
@@ -371,7 +369,7 @@ window.addEventListener('load', function() {
 <span class="stat">
 <i data-feather="star"> </i> 27 Stars</span>
 <span class="stat">
-<img alt="" height="16" src="./fork.svg" width="16"/> 21 Forks</span>
+<img loading="lazy" decoding="async" alt="" height="16" src="./fork.svg" width="16"/> 21 Forks</span>
 </div>
 <a class="button" data-tippy-content="27 Stars, 21 Forks on GitHub" href="https://github.com/wasi-master/wm_bot" target="_blank">
 <i data-feather="github"> </i>
@@ -390,17 +388,17 @@ window.addEventListener('load', function() {
 </a>
 <div class="tags">
 <span class="tags-text"> Tags: </span>
-<div class="tag"><img alt="" src="icons/python.svg"/>Python</div>
-<div class="tag"><img alt="" src="icons/discord.svg"/>Discord</div>
-<div class="tag"><img alt="" src="icons/bot.svg"/>Bot</div>
-<div class="tag"><img alt="" src="icons/rich.svg"/>Rich</div>
-<div class="tag"><img alt="" src="icons/json.svg"/>APIs</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/python.svg"/>Python</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/discord.svg"/>Discord</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/bot.svg"/>Bot</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/rich.svg"/>Rich</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/json.svg"/>APIs</div>
 </div>
 <div class="tags docs-tags">
 <span class="tags-text"> Documentation: </span>
-<div class="tag"><img alt="" src="icons/github-feather.svg"/>GitHub Pages</div>
-<div class="tag"><img alt="" src="icons/jekyll.svg"/>Jekyll</div>
-<div class="tag"><img alt="" src="icons/markdown.svg"/>Markdown</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/github-feather.svg"/>GitHub Pages</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/jekyll.svg"/>Jekyll</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/markdown.svg"/>Markdown</div>
 </div>
 </div>
 </div>
@@ -423,7 +421,7 @@ window.addEventListener('load', function() {
 <span class="stat">
 <i data-feather="star"> </i> 28 Stars</span>
 <span class="stat">
-<img alt="" height="16" src="./fork.svg" width="16"/>
+<img loading="lazy" decoding="async" alt="" height="16" src="./fork.svg" width="16"/>
                                 2 Forks
                             </span>
 <span class="stat">
@@ -446,16 +444,16 @@ window.addEventListener('load', function() {
 </a>
 <div class="tags">
 <span class="tags-text"> Tags: </span>
-<div class="tag"><img alt="" src="icons/python.svg"/>Python</div>
-<div class="tag"><img alt="" src="icons/terminal.svg"/>CLI</div>
-<div class="tag"><img alt="" src="icons/youtube.svg"/>YouTube</div>
-<div class="tag"><img alt="" src="icons/json.svg"/>APIs</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/python.svg"/>Python</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/terminal.svg"/>CLI</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/youtube-mono.svg"/>YouTube</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/json.svg"/>APIs</div>
 </div>
 <div class="tags docs-tags">
 <span class="tags-text"> Documentation: </span>
-<div class="tag"><img alt="" src="icons/readthedocs.svg"/>Read the Docs</div>
-<div class="tag"><img alt="" src="icons/sphinx.svg"/>Sphinx</div>
-<div class="tag"><img alt="" src="icons/type.svg"/>reStructuredText</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/readthedocs.svg"/>Read the Docs</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/sphinx.svg"/>Sphinx</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/type.svg"/>reStructuredText</div>
 </div>
 </div>
 </div>
@@ -471,7 +469,7 @@ window.addEventListener('load', function() {
                                 21 Stars
                             </span>
 <span class="stat">
-<img alt="" height="16" src="./fork.svg" width="16"/>
+<img loading="lazy" decoding="async" alt="" height="16" src="./fork.svg" width="16"/>
                                 0 Forks
                             </span>
 </div>
@@ -487,10 +485,10 @@ window.addEventListener('load', function() {
 </a>
 <div class="tags">
 <span class="tags-text"> Tags: </span>
-<div class="tag"><img alt="" src="icons/python.svg"/>Python</div>
-<div class="tag"><img alt="" src="icons/web.svg"/>Web</div>
-<div class="tag"><img alt="" src="icons/rich.svg"/>Rich</div>
-<div class="tag"><img alt="" src="icons/curly.svg"/>Typehints</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/python.svg"/>Python</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/web.svg?v=2"/>Web</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/rich.svg"/>Rich</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/curly.svg"/>Typehints</div>
 </div>
 </div>
 </div>
@@ -502,7 +500,7 @@ window.addEventListener('load', function() {
 <span class="stat">
 <i data-feather="star"> </i> 16 Stars</span>
 <span class="stat">
-<img alt="" height="16" src="./fork.svg" width="16"/>
+<img loading="lazy" decoding="async" alt="" height="16" src="./fork.svg" width="16"/>
                                 8 Forks
                             </span>
 <span class="stat">
@@ -520,9 +518,9 @@ window.addEventListener('load', function() {
 </a>
 <div class="tags">
 <span class="tags-text"> Tags: </span>
-<div class="tag"><img alt="" src="icons/json.svg"/>JSON</div>
-<div class="tag"><img alt="" src="icons/vscode.svg"/>vscode</div>
-<div class="tag"><img alt="" src="icons/extension.svg"/>Extension</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/json.svg"/>JSON</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/vscode.svg"/>vscode</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/extension.svg"/>Extension</div>
 </div>
 </div>
 </div>
@@ -534,7 +532,7 @@ window.addEventListener('load', function() {
 <span class="stat">
 <i data-feather="star"> </i> 9 Stars</span>
 <span class="stat">
-<img alt="" height="16" src="./fork.svg" width="16"/>
+<img loading="lazy" decoding="async" alt="" height="16" src="./fork.svg" width="16"/>
                                 1 Forks
                             </span>
 <span class="stat">
@@ -557,15 +555,15 @@ window.addEventListener('load', function() {
 </a>
 <div class="tags">
 <span class="tags-text"> Tags: </span>
-<div class="tag"><img alt="" src="icons/python.svg"/>Python</div>
-<div class="tag"><img alt="" src="icons/terminal.svg"/>CLI</div>
-<div class="tag"><img alt="" src="icons/rich.svg"/>Rich</div>
-<div class="tag"><img alt="" src="icons/unicode.svg"/>Unicode</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/python.svg"/>Python</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/terminal.svg"/>CLI</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/rich.svg"/>Rich</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/unicode.svg"/>Unicode</div>
 </div>
 <div class="tags docs-tags">
 <span class="tags-text"> Documentation: </span>
-<div class="tag"><img alt="" src="icons/github-feather.svg"/>GitHub README</div>
-<div class="tag"><img alt="" src="icons/markdown.svg"/>Markdown</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/github-feather.svg"/>GitHub README</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/markdown.svg"/>Markdown</div>
 </div>
 </div>
 </div>
@@ -577,7 +575,7 @@ window.addEventListener('load', function() {
 <span class="stat">
 <i data-feather="star"> </i> 5 Stars</span>
 <span class="stat">
-<img alt="" height="16" src="./fork.svg" width="16"/>
+<img loading="lazy" decoding="async" alt="" height="16" src="./fork.svg" width="16"/>
                                 0 Forks
                             </span>
 <span class="stat">
@@ -600,15 +598,15 @@ window.addEventListener('load', function() {
 </a>
 <div class="tags">
 <span class="tags-text"> Tags: </span>
-<div class="tag"><img alt="" src="icons/python.svg"/>Python</div>
-<div class="tag"><img alt="" src="icons/terminal.svg"/>CLI</div>
-<div class="tag"><img alt="" src="icons/rich.svg"/>Rich</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/python.svg"/>Python</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/terminal.svg"/>CLI</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/rich.svg"/>Rich</div>
 </div>
 <div class="tags docs-tags">
 <span class="tags-text"> Documentation: </span>
-<div class="tag"><img alt="" src="icons/github-feather.svg"/>GitHub Pages</div>
-<div class="tag"><img alt="" src="icons/jekyll.svg"/>Jekyll</div>
-<div class="tag"><img alt="" src="icons/markdown.svg"/>Markdown</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/github-feather.svg"/>GitHub Pages</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/jekyll.svg"/>Jekyll</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/markdown.svg"/>Markdown</div>
 </div>
 </div>
 </div>
@@ -621,7 +619,7 @@ window.addEventListener('load', function() {
 <span class="stat">
 <i data-feather="star"> </i> 11 Stars</span>
 <span class="stat">
-<img alt="" height="16" src="./fork.svg" width="16"/>
+<img loading="lazy" decoding="async" alt="" height="16" src="./fork.svg" width="16"/>
                                 0 Forks
                             </span>
 <span class="stat">
@@ -644,15 +642,15 @@ window.addEventListener('load', function() {
 </a>
 <div class="tags">
 <span class="tags-text"> Tags: </span>
-<div class="tag"><img alt="" src="icons/python.svg"/>Python</div>
-<div class="tag"><img alt="" src="icons/terminal.svg"/>TUI</div>
-<div class="tag"><img alt="" src="icons/textual.svg"/>Textual</div>
-<div class="tag"><img alt="" src="icons/rich.svg"/>Rich</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/python.svg"/>Python</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/terminal.svg"/>TUI</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/textual.svg"/>Textual</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/rich.svg"/>Rich</div>
 </div>
 <div class="tags docs-tags">
 <span class="tags-text"> Documentation: </span>
-<div class="tag"><img alt="" src="icons/github-feather.svg"/>GitHub README</div>
-<div class="tag"><img alt="" src="icons/markdown.svg"/>Markdown</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/github-feather.svg"/>GitHub README</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/markdown.svg"/>Markdown</div>
 </div>
 </div>
 </div>
@@ -664,7 +662,7 @@ window.addEventListener('load', function() {
 <span class="stat">
 <i data-feather="star"> </i> 16 Stars</span>
 <span class="stat">
-<img alt="" height="16" src="./fork.svg" width="16"/>
+<img loading="lazy" decoding="async" alt="" height="16" src="./fork.svg" width="16"/>
                                 0 Forks
                             </span>
 <span class="stat">
@@ -687,15 +685,15 @@ window.addEventListener('load', function() {
 </a>
 <div class="tags">
 <span class="tags-text"> Tags: </span>
-<div class="tag"><img alt="" src="icons/python.svg"/>Python</div>
-<div class="tag"><img alt="" src="icons/terminal.svg"/>Terminal</div>
-<div class="tag"><img alt="" src="icons/rich.svg"/>Rich</div>
-<div class="tag"><img alt="" src="icons/droplet.svg"/>Figlet</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/python.svg"/>Python</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/terminal.svg"/>Terminal</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/rich.svg"/>Rich</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/droplet.svg"/>Figlet</div>
 </div>
 <div class="tags docs-tags">
 <span class="tags-text"> Documentation: </span>
-<div class="tag"><img alt="" src="icons/github-feather.svg"/>GitHub README</div>
-<div class="tag"><img alt="" src="icons/markdown.svg"/>Markdown</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/github-feather.svg"/>GitHub README</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/markdown.svg"/>Markdown</div>
 </div>
 </div>
 </div>
@@ -709,7 +707,7 @@ window.addEventListener('load', function() {
                                 1 Stars
                             </span>
 <span class="stat">
-<img alt="" height="16" src="./fork.svg" width="16"/>
+<img loading="lazy" decoding="async" alt="" height="16" src="./fork.svg" width="16"/>
                                 0 Forks
                             </span>
 <span class="stat">
@@ -732,14 +730,14 @@ window.addEventListener('load', function() {
 </a>
 <div class="tags">
 <span class="tags-text"> Tags: </span>
-<div class="tag"><img alt="" src="icons/python.svg"/>Python</div>
-<div class="tag"><img alt="" src="icons/terminal.svg"/>Terminal</div>
-<div class="tag"><img alt="" src="icons/rich.svg"/>Rich</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/python.svg"/>Python</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/terminal.svg"/>Terminal</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/rich.svg"/>Rich</div>
 </div>
 <div class="tags docs-tags">
 <span class="tags-text"> Documentation: </span>
-<div class="tag"><img alt="" src="icons/github-feather.svg"/>GitHub README</div>
-<div class="tag"><img alt="" src="icons/markdown.svg"/>Markdown</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/github-feather.svg"/>GitHub README</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/markdown.svg"/>Markdown</div>
 </div>
 </div>
 </div>
@@ -753,7 +751,7 @@ window.addEventListener('load', function() {
                                 8 Stars
                             </span>
 <span class="stat">
-<img alt="" height="16" src="./fork.svg" width="16"/>
+<img loading="lazy" decoding="async" alt="" height="16" src="./fork.svg" width="16"/>
                                 1 Forks
                             </span>
 <span class="stat">
@@ -776,14 +774,14 @@ window.addEventListener('load', function() {
 </a>
 <div class="tags">
 <span class="tags-text"> Tags: </span>
-<div class="tag"><img alt="" src="icons/python.svg"/>Python</div>
-<div class="tag"><img alt="" src="icons/terminal.svg"/>CLI</div>
-<div class="tag"><img alt="" src="icons/smile.svg"/>Meme</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/python.svg"/>Python</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/terminal.svg"/>CLI</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/smile.svg"/>Meme</div>
 </div>
 <div class="tags docs-tags">
 <span class="tags-text"> Documentation: </span>
-<div class="tag"><img alt="" src="icons/github-feather.svg"/>GitHub README</div>
-<div class="tag"><img alt="" src="icons/markdown.svg"/>Markdown</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/github-feather.svg"/>GitHub README</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/markdown.svg"/>Markdown</div>
 </div>
 </div>
 </div>
@@ -795,7 +793,7 @@ window.addEventListener('load', function() {
 <span class="stat">
 <i data-feather="star"> </i> 4 Stars</span>
 <span class="stat">
-<img alt="" height="16" src="./fork.svg" width="16"/>
+<img loading="lazy" decoding="async" alt="" height="16" src="./fork.svg" width="16"/>
                                 0 Forks
                             </span>
 <span class="stat">
@@ -818,16 +816,16 @@ window.addEventListener('load', function() {
 </a>
 <div class="tags">
 <span class="tags-text"> Tags: </span>
-<div class="tag"><img alt="" src="icons/python.svg"/>Python</div>
-<div class="tag"><img alt="" src="icons/terminal.svg"/>CLI</div>
-<div class="tag"><img alt="" src="icons/rich.svg"/>Rich</div>
-<div class="tag"><img alt="" src="icons/lint.svg"/>Linting</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/python.svg"/>Python</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/terminal.svg"/>CLI</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/rich.svg"/>Rich</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/lint.svg"/>Linting</div>
 </div>
 <div class="tags docs-tags">
 <span class="tags-text"> Documentation: </span>
-<div class="tag"><img alt="" src="icons/github-feather.svg"/>GitHub Pages</div>
-<div class="tag"><img alt="" src="icons/jekyll.svg"/>Jekyll</div>
-<div class="tag"><img alt="" src="icons/markdown.svg"/>Markdown</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/github-feather.svg"/>GitHub Pages</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/jekyll.svg"/>Jekyll</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/markdown.svg"/>Markdown</div>
 </div>
 </div>
 </div>
@@ -841,7 +839,7 @@ window.addEventListener('load', function() {
                                 2 Stars
                             </span>
 <span class="stat">
-<img alt="" height="16" src="./fork.svg" width="16"/>
+<img loading="lazy" decoding="async" alt="" height="16" src="./fork.svg" width="16"/>
                                 0 Forks
                             </span>
 </div>
@@ -857,13 +855,13 @@ window.addEventListener('load', function() {
 </a>
 <div class="tags">
 <span class="tags-text"> Tags: </span>
-<div class="tag"><img alt="" src="icons/python.svg"/>Python</div>
-<div class="tag"><img alt="" src="icons/flag.svg"/>CTF</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/python.svg"/>Python</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/flag.svg"/>CTF</div>
 </div>
 <div class="tags docs-tags">
 <span class="tags-text"> Documentation: </span>
-<div class="tag"><img alt="" src="icons/github-feather.svg"/>GitHub README</div>
-<div class="tag"><img alt="" src="icons/markdown.svg"/>Markdown</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/github-feather.svg"/>GitHub README</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/markdown.svg"/>Markdown</div>
 </div>
 </div>
 </div>
@@ -883,15 +881,15 @@ window.addEventListener('load', function() {
 </a>
 <div class="tags">
 <span class="tags-text"> Tags: </span>
-<div class="tag"><img alt="" src="icons/python.svg"/>Python</div>
-<div class="tag"><img alt="" src="icons/terminal.svg"/>CLI</div>
-<div class="tag"><img alt="" src="icons/rich.svg"/>Rich</div>
-<div class="tag"><img alt="" src="icons/type.svg"/>RST</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/python.svg"/>Python</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/terminal.svg"/>CLI</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/rich.svg"/>Rich</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/type.svg"/>RST</div>
 </div>
 <div class="tags docs-tags">
 <span class="tags-text"> Documentation: </span>
-<div class="tag"><img alt="" src="icons/github-feather.svg"/>GitHub README</div>
-<div class="tag"><img alt="" src="icons/markdown.svg"/>Markdown</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/github-feather.svg"/>GitHub README</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/markdown.svg"/>Markdown</div>
 </div>
 </div>
 </div>
@@ -905,7 +903,7 @@ window.addEventListener('load', function() {
                                 2 Stars
                             </span>
 <span class="stat">
-<img alt="" height="16" src="./fork.svg" width="16"/>
+<img loading="lazy" decoding="async" alt="" height="16" src="./fork.svg" width="16"/>
                                 0 Forks
                             </span>
 </div>
@@ -921,12 +919,12 @@ window.addEventListener('load', function() {
 </a>
 <div class="tags">
 <span class="tags-text"> Tags: </span>
-<div class="tag"><img alt="" src="icons/droplet.svg"/>Theme</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/droplet.svg"/>Theme</div>
 </div>
 <div class="tags docs-tags">
 <span class="tags-text"> Documentation: </span>
-<div class="tag"><img alt="" src="icons/github-feather.svg"/>GitHub README</div>
-<div class="tag"><img alt="" src="icons/markdown.svg"/>Markdown</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/github-feather.svg"/>GitHub README</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/markdown.svg"/>Markdown</div>
 </div>
 </div>
 </div>
@@ -946,15 +944,15 @@ window.addEventListener('load', function() {
 </a>
 <div class="tags">
 <span class="tags-text"> Tags: </span>
-<div class="tag"><img alt="" src="icons/python.svg"/>Python</div>
-<div class="tag"><img alt="" src="icons/terminal.svg"/>CLI</div>
-<div class="tag"><img alt="" src="icons/rich.svg"/>Rich</div>
-<div class="tag"><img alt="" src="icons/tree.svg"/>Tree</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/python.svg"/>Python</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/terminal.svg"/>CLI</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/rich.svg"/>Rich</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/tree.svg"/>Tree</div>
 </div>
 <div class="tags docs-tags">
 <span class="tags-text"> Documentation: </span>
-<div class="tag"><img alt="" src="icons/github-feather.svg"/>GitHub README</div>
-<div class="tag"><img alt="" src="icons/markdown.svg"/>Markdown</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/github-feather.svg"/>GitHub README</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/markdown.svg"/>Markdown</div>
 </div>
 </div>
 </div>
@@ -983,15 +981,15 @@ window.addEventListener('load', function() {
 </a>
 <div class="tags">
 <span class="tags-text"> Tags: </span>
-<div class="tag"><img alt="" src="icons/typescript.svg"/>TypeScript</div>
-<div class="tag"><img alt="" src="icons/vscode.svg"/>vscode</div>
-<div class="tag"><img alt="" src="icons/extension.svg"/>Extension</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/typescript.svg"/>TypeScript</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/vscode.svg"/>vscode</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/extension.svg"/>Extension</div>
 </div>
 <div class="tags docs-tags">
 <span class="tags-text"> Documentation: </span>
-<div class="tag"><img alt="" src="icons/github-feather.svg"/>GitHub Pages</div>
-<div class="tag"><img alt="" src="icons/jekyll.svg"/>Jekyll</div>
-<div class="tag"><img alt="" src="icons/markdown.svg"/>Markdown</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/github-feather.svg"/>GitHub Pages</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/jekyll.svg"/>Jekyll</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/markdown.svg"/>Markdown</div>
 </div>
 </div>
 </div>
@@ -1017,14 +1015,14 @@ window.addEventListener('load', function() {
 </a>
 <div class="tags">
 <span class="tags-text"> Tags: </span>
-<div class="tag"><img alt="" src="icons/typescript.svg"/>TypeScript</div>
-<div class="tag"><img alt="" src="icons/vscode.svg"/>vscode</div>
-<div class="tag"><img alt="" src="icons/extension.svg"/>Extension</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/typescript.svg"/>TypeScript</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/vscode.svg"/>vscode</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/extension.svg"/>Extension</div>
 </div>
 <div class="tags docs-tags">
 <span class="tags-text"> Documentation: </span>
-<div class="tag"><img alt="" src="icons/github-feather.svg"/>GitHub README</div>
-<div class="tag"><img alt="" src="icons/markdown.svg"/>Markdown</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/github-feather.svg"/>GitHub README</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/markdown.svg"/>Markdown</div>
 </div>
 </div>
 </div>
@@ -1049,15 +1047,15 @@ window.addEventListener('load', function() {
 </a>
 <div class="tags">
 <span class="tags-text"> Tags: </span>
-<div class="tag"><img alt="" src="icons/python.svg"/>Python</div>
-<div class="tag"><img alt="" src="icons/terminal.svg"/>CLI</div>
-<div class="tag"><img alt="" src="icons/rich.svg"/>Rich</div>
-<div class="tag"><img alt="" src="icons/rfc.svg"/>RFC</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/python.svg"/>Python</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/terminal.svg"/>CLI</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/rich.svg"/>Rich</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/rfc.svg"/>RFC</div>
 </div>
 <div class="tags docs-tags">
 <span class="tags-text"> Documentation: </span>
-<div class="tag"><img alt="" src="icons/github-feather.svg"/>GitHub README</div>
-<div class="tag"><img alt="" src="icons/markdown.svg"/>Markdown</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/github-feather.svg"/>GitHub README</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/markdown.svg"/>Markdown</div>
 </div>
 </div>
 </div>
@@ -1082,15 +1080,15 @@ window.addEventListener('load', function() {
 </a>
 <div class="tags">
 <span class="tags-text"> Tags: </span>
-<div class="tag"><img alt="" src="icons/python.svg"/>Python</div>
-<div class="tag"><img alt="" src="icons/terminal.svg"/>CLI</div>
-<div class="tag"><img alt="" src="icons/rich.svg"/>Rich</div>
-<div class="tag"><img alt="" src="icons/type.svg"/>RST</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/python.svg"/>Python</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/terminal.svg"/>CLI</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/rich.svg"/>Rich</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/type.svg"/>RST</div>
 </div>
 <div class="tags docs-tags">
 <span class="tags-text"> Documentation: </span>
-<div class="tag"><img alt="" src="icons/github-feather.svg"/>GitHub README</div>
-<div class="tag"><img alt="" src="icons/markdown.svg"/>Markdown</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/github-feather.svg"/>GitHub README</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/markdown.svg"/>Markdown</div>
 </div>
 </div>
 </div>
@@ -1104,7 +1102,7 @@ window.addEventListener('load', function() {
                                 1 Stars
                             </span>
 <span class="stat">
-<img alt="" height="16" src="./fork.svg" width="16"/>
+<img loading="lazy" decoding="async" alt="" height="16" src="./fork.svg" width="16"/>
                                 0 Forks
                             </span>
 </div>
@@ -1120,13 +1118,13 @@ window.addEventListener('load', function() {
 </a>
 <div class="tags">
 <span class="tags-text"> Tags: </span>
-<div class="tag"><img alt="" src="icons/python.svg"/>Python</div>
-<div class="tag"><img alt="" src="icons/terminal.svg"/>CLI</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/python.svg"/>Python</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/terminal.svg"/>CLI</div>
 </div>
 <div class="tags docs-tags">
 <span class="tags-text"> Documentation: </span>
-<div class="tag"><img alt="" src="icons/github-feather.svg"/>GitHub README</div>
-<div class="tag"><img alt="" src="icons/markdown.svg"/>Markdown</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/github-feather.svg"/>GitHub README</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/markdown.svg"/>Markdown</div>
 </div>
 </div>
 </div>
@@ -1140,7 +1138,7 @@ window.addEventListener('load', function() {
                                 0 Stars
                             </span>
 <span class="stat">
-<img alt="" height="16" src="./fork.svg" width="16"/>
+<img loading="lazy" decoding="async" alt="" height="16" src="./fork.svg" width="16"/>
                                 0 Forks
                             </span>
 </div>
@@ -1156,13 +1154,13 @@ window.addEventListener('load', function() {
 </a>
 <div class="tags">
 <span class="tags-text"> Tags: </span>
-<div class="tag"><img alt="" src="icons/python.svg"/>Python</div>
-<div class="tag"><img alt="" src="icons/matplotlib.svg"/>Matplotlib</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/python.svg"/>Python</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/matplotlib.svg"/>Matplotlib</div>
 </div>
 <div class="tags docs-tags">
 <span class="tags-text"> Documentation: </span>
-<div class="tag"><img alt="" src="icons/github-feather.svg"/>GitHub README</div>
-<div class="tag"><img alt="" src="icons/markdown.svg"/>Markdown</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/github-feather.svg"/>GitHub README</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/markdown.svg"/>Markdown</div>
 </div>
 </div>
 </div>
@@ -1176,7 +1174,7 @@ window.addEventListener('load', function() {
                                 0 Stars
                             </span>
 <span class="stat">
-<img alt="" height="16" src="./fork.svg" width="16"/>
+<img loading="lazy" decoding="async" alt="" height="16" src="./fork.svg" width="16"/>
                                 0 Forks
                             </span>
 </div>
@@ -1192,14 +1190,14 @@ window.addEventListener('load', function() {
 </a>
 <div class="tags">
 <span class="tags-text"> Tags: </span>
-<div class="tag"><img alt="" src="icons/javascript.svg"/>JavaScript</div>
-<div class="tag"><img alt="" src="icons/smile.svg"/>Game</div>
-<div class="tag"><img alt="" src="icons/smartphone.svg"/>Mobile</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/javascript.svg"/>JavaScript</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/smile.svg"/>Game</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/smartphone.svg"/>Mobile</div>
 </div>
 <div class="tags docs-tags">
 <span class="tags-text"> Documentation: </span>
-<div class="tag"><img alt="" src="icons/github-feather.svg"/>GitHub README</div>
-<div class="tag"><img alt="" src="icons/markdown.svg"/>Markdown</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/github-feather.svg"/>GitHub README</div>
+<div class="tag"><img loading="lazy" decoding="async" alt="" src="icons/markdown.svg"/>Markdown</div>
 </div>
 </div>
 </div>
@@ -1351,7 +1349,7 @@ window.addEventListener('load', function() {
                     <div class="testimonial-card">
                         <div class="testimonial-card__header">
                             <div class="testimonial-card__avatar-wrapper">
-                                <img class="testimonial-card__avatar" width="48" height="48" src="icons/willmcgugan.jpg" alt="Will McGugan" onerror="this.parentElement.classList.add('has-fallback')">
+                                <img loading="lazy" decoding="async" class="testimonial-card__avatar" width="48" height="48" src="icons/willmcgugan.jpg" alt="Will McGugan" onerror="this.parentElement.classList.add('has-fallback')">
                                 <div class="testimonial-card__avatar-fallback">WM</div>
                             </div>
                             <div class="testimonial-card__author-info">
@@ -1367,7 +1365,7 @@ window.addEventListener('load', function() {
                         <div class="testimonial-card__footer">
                             <span class="testimonial-card__tag">Typesplainer</span>
                             <a href="https://twitter.com/willmcgugan/status/1504030317643980800" target="_blank" class="testimonial-card__source" aria-label="View on Twitter">
-                                <img src="icons/twitter.svg" class="testimonial-card__source-icon" alt=""> Twitter
+                                <img loading="lazy" decoding="async" src="icons/twitter.svg" class="testimonial-card__source-icon" alt=""> Twitter
                             </a>
                         </div>
                     </div>
@@ -1376,7 +1374,7 @@ window.addEventListener('load', function() {
                     <div class="testimonial-card">
                         <div class="testimonial-card__header">
                             <div class="testimonial-card__avatar-wrapper">
-                                <img class="testimonial-card__avatar" width="48" height="48" src="icons/nelsonminar.jpg" alt="Nelson Minar" onerror="this.parentElement.classList.add('has-fallback')">
+                                <img loading="lazy" decoding="async" class="testimonial-card__avatar" width="48" height="48" src="icons/nelsonminar.jpg" alt="Nelson Minar" onerror="this.parentElement.classList.add('has-fallback')">
                                 <div class="testimonial-card__avatar-fallback testimonial-card__avatar-fallback--orange">NM</div>
                             </div>
                             <div class="testimonial-card__author-info">
@@ -1392,7 +1390,7 @@ window.addEventListener('load', function() {
                         <div class="testimonial-card__footer">
                             <span class="testimonial-card__tag">pypi-command-line</span>
                             <a href="https://www.reddit.com/r/Python/comments/q8rrx7/comment/hgre2hq/" target="_blank" class="testimonial-card__source" aria-label="View on Reddit">
-                                <img src="icons/reddit.svg" class="testimonial-card__source-icon" alt=""> Reddit
+                                <img loading="lazy" decoding="async" src="icons/reddit.svg" class="testimonial-card__source-icon" alt=""> Reddit
                             </a>
                         </div>
                     </div>
@@ -1401,7 +1399,7 @@ window.addEventListener('load', function() {
                     <div class="testimonial-card">
                         <div class="testimonial-card__header">
                             <div class="testimonial-card__avatar-wrapper">
-                                <img class="testimonial-card__avatar" width="48" height="48" src="icons/hackernews.svg" alt="Hacker News" onerror="this.parentElement.classList.add('has-fallback')">
+                                <img loading="lazy" decoding="async" class="testimonial-card__avatar" width="48" height="48" src="icons/hackernews.svg" alt="Hacker News" onerror="this.parentElement.classList.add('has-fallback')">
                                 <div class="testimonial-card__avatar-fallback testimonial-card__avatar-fallback--hn">HN</div>
                             </div>
                             <div class="testimonial-card__author-info">
@@ -1417,7 +1415,7 @@ window.addEventListener('load', function() {
                         <div class="testimonial-card__footer">
                             <span class="testimonial-card__tag">13ft</span>
                             <a href="https://news.ycombinator.com/item?id=41294067" target="_blank" class="testimonial-card__source" aria-label="View on Hacker News">
-                                <img src="icons/hackernews.svg" class="testimonial-card__source-icon" alt=""> Hacker News
+                                <img loading="lazy" decoding="async" src="icons/hackernews.svg" class="testimonial-card__source-icon" alt=""> Hacker News
                             </a>
                         </div>
                     </div>
@@ -1426,7 +1424,7 @@ window.addEventListener('load', function() {
                     <div class="testimonial-card">
                         <div class="testimonial-card__header">
                             <div class="testimonial-card__avatar-wrapper">
-                                <img class="testimonial-card__avatar" width="48" height="48" src="icons/simonwillison.jpg" alt="Simon Willison" onerror="this.parentElement.classList.add('has-fallback')">
+                                <img loading="lazy" decoding="async" class="testimonial-card__avatar" width="48" height="48" src="icons/simonwillison.jpg" alt="Simon Willison" onerror="this.parentElement.classList.add('has-fallback')">
                                 <div class="testimonial-card__avatar-fallback testimonial-card__avatar-fallback--blue">SW</div>
                             </div>
                             <div class="testimonial-card__author-info">
@@ -1442,7 +1440,7 @@ window.addEventListener('load', function() {
                         <div class="testimonial-card__footer">
                             <span class="testimonial-card__tag">Typesplainer</span>
                             <a href="https://simonwillison.net/2022/Mar/15/typesplainer/" target="_blank" class="testimonial-card__source" aria-label="View Simon Willison's Blog">
-                                <img src="icons/web.svg" class="testimonial-card__source-icon" alt=""> Blog/Web
+                                <img loading="lazy" decoding="async" src="icons/web.svg?v=2" class="testimonial-card__source-icon" alt=""> Blog/Web
                             </a>
                         </div>
                     </div>
@@ -1451,7 +1449,7 @@ window.addEventListener('load', function() {
                     <div class="testimonial-card">
                         <div class="testimonial-card__header">
                             <div class="testimonial-card__avatar-wrapper">
-                                <img class="testimonial-card__avatar" width="48" height="48" src="icons/raymondh.jpg" alt="Raymond Hettinger" onerror="this.parentElement.classList.add('has-fallback')">
+                                <img loading="lazy" decoding="async" class="testimonial-card__avatar" width="48" height="48" src="icons/raymondh.jpg" alt="Raymond Hettinger" onerror="this.parentElement.classList.add('has-fallback')">
                                 <div class="testimonial-card__avatar-fallback">RH</div>
                             </div>
                             <div class="testimonial-card__author-info">
@@ -1467,7 +1465,7 @@ window.addEventListener('load', function() {
                         <div class="testimonial-card__footer">
                             <span class="testimonial-card__tag">Typesplainer</span>
                             <a href="https://x.com/raymondh/status/1514304785389953040" target="_blank" class="testimonial-card__source" aria-label="View on Twitter">
-                                <img src="icons/twitter.svg" class="testimonial-card__source-icon" alt=""> Twitter
+                                <img loading="lazy" decoding="async" src="icons/twitter.svg" class="testimonial-card__source-icon" alt=""> Twitter
                             </a>
                         </div>
                     </div>
@@ -1476,7 +1474,7 @@ window.addEventListener('load', function() {
                     <div class="testimonial-card">
                         <div class="testimonial-card__header">
                             <div class="testimonial-card__avatar-wrapper">
-                                <img class="testimonial-card__avatar" width="48" height="48" src="icons/pythonbytes.webp" alt="Python Bytes Podcast" onerror="this.parentElement.classList.add('has-fallback')">
+                                <img loading="lazy" decoding="async" class="testimonial-card__avatar" width="48" height="48" src="icons/pythonbytes.webp" alt="Python Bytes Podcast" onerror="this.parentElement.classList.add('has-fallback')">
                                 <div class="testimonial-card__avatar-fallback testimonial-card__avatar-fallback--blue">PB</div>
                             </div>
                             <div class="testimonial-card__author-info">
@@ -1492,7 +1490,7 @@ window.addEventListener('load', function() {
                         <div class="testimonial-card__footer">
                             <span class="testimonial-card__tag">Typesplainer</span>
                             <a href="https://youtu.be/zrtdG-VsblU?t=328" target="_blank" class="testimonial-card__source" aria-label="View on YouTube">
-                                <img src="icons/youtube.svg" class="testimonial-card__source-icon" alt=""> YouTube
+                                <img loading="lazy" decoding="async" src="icons/youtube.svg" class="testimonial-card__source-icon" alt=""> YouTube
                             </a>
                         </div>
                     </div>
@@ -1501,7 +1499,7 @@ window.addEventListener('load', function() {
                     <div class="testimonial-card">
                         <div class="testimonial-card__header">
                             <div class="testimonial-card__avatar-wrapper">
-                                <img class="testimonial-card__avatar" width="48" height="48" src="icons/zenorocha.jpg" alt="Zeno Rocha" onerror="this.parentElement.classList.add('has-fallback')">
+                                <img loading="lazy" decoding="async" class="testimonial-card__avatar" width="48" height="48" src="icons/zenorocha.jpg" alt="Zeno Rocha" onerror="this.parentElement.classList.add('has-fallback')">
                                 <div class="testimonial-card__avatar-fallback">ZR</div>
                             </div>
                             <div class="testimonial-card__author-info">
@@ -1517,7 +1515,7 @@ window.addEventListener('load', function() {
                         <div class="testimonial-card__footer">
                             <span class="testimonial-card__tag">Dracula</span>
                             <a href="https://twitter.com/draculatheme/status/1499977741294194690" target="_blank" class="testimonial-card__source" aria-label="View on Twitter">
-                                <img src="icons/twitter.svg" class="testimonial-card__source-icon" alt=""> Twitter
+                                <img loading="lazy" decoding="async" src="icons/twitter.svg" class="testimonial-card__source-icon" alt=""> Twitter
                             </a>
                         </div>
                     </div>
@@ -1526,7 +1524,7 @@ window.addEventListener('load', function() {
                     <div class="testimonial-card">
                         <div class="testimonial-card__header">
                             <div class="testimonial-card__avatar-wrapper">
-                                <img class="testimonial-card__avatar" width="48" height="48" src="icons/willmcgugan.jpg" alt="Will McGugan" onerror="this.parentElement.classList.add('has-fallback')">
+                                <img loading="lazy" decoding="async" class="testimonial-card__avatar" width="48" height="48" src="icons/willmcgugan.jpg" alt="Will McGugan" onerror="this.parentElement.classList.add('has-fallback')">
                                 <div class="testimonial-card__avatar-fallback">WM</div>
                             </div>
                             <div class="testimonial-card__author-info">
@@ -1542,7 +1540,7 @@ window.addEventListener('load', function() {
                         <div class="testimonial-card__footer">
                             <span class="testimonial-card__tag">pypi-command-line</span>
                             <a href="https://youtu.be/ICp8eD6uENI?t=2013" target="_blank" class="testimonial-card__source" aria-label="View on YouTube">
-                                <img src="icons/youtube.svg" class="testimonial-card__source-icon" alt=""> YouTube
+                                <img loading="lazy" decoding="async" src="icons/youtube.svg" class="testimonial-card__source-icon" alt=""> YouTube
                             </a>
                         </div>
                     </div>
@@ -1551,7 +1549,7 @@ window.addEventListener('load', function() {
                     <div class="testimonial-card">
                         <div class="testimonial-card__header">
                             <div class="testimonial-card__avatar-wrapper">
-                                <img class="testimonial-card__avatar" width="48" height="48" src="icons/henryschreiner.jpg" alt="Henry Schreiner III" onerror="this.parentElement.classList.add('has-fallback')">
+                                <img loading="lazy" decoding="async" class="testimonial-card__avatar" width="48" height="48" src="icons/henryschreiner.jpg" alt="Henry Schreiner III" onerror="this.parentElement.classList.add('has-fallback')">
                                 <div class="testimonial-card__avatar-fallback">HS</div>
                             </div>
                             <div class="testimonial-card__author-info">
@@ -1567,7 +1565,7 @@ window.addEventListener('load', function() {
                         <div class="testimonial-card__footer">
                             <span class="testimonial-card__tag">pypi-command-line</span>
                             <a href="https://twitter.com/HenrySchreiner3/status/1451210681827659781" target="_blank" class="testimonial-card__source" aria-label="View on Twitter">
-                                <img src="icons/twitter.svg" class="testimonial-card__source-icon" alt=""> Twitter
+                                <img loading="lazy" decoding="async" src="icons/twitter.svg" class="testimonial-card__source-icon" alt=""> Twitter
                             </a>
                         </div>
                     </div>
@@ -1576,7 +1574,7 @@ window.addEventListener('load', function() {
                     <div class="testimonial-card">
                         <div class="testimonial-card__header">
                             <div class="testimonial-card__avatar-wrapper">
-                                <img class="testimonial-card__avatar" width="48" height="48" src="icons/rhetturnbull.jpg" alt="Rhet Turnbull" onerror="this.parentElement.classList.add('has-fallback')">
+                                <img loading="lazy" decoding="async" class="testimonial-card__avatar" width="48" height="48" src="icons/rhetturnbull.jpg" alt="Rhet Turnbull" onerror="this.parentElement.classList.add('has-fallback')">
                                 <div class="testimonial-card__avatar-fallback">RT</div>
                             </div>
                             <div class="testimonial-card__author-info">
@@ -1592,7 +1590,7 @@ window.addEventListener('load', function() {
                         <div class="testimonial-card__footer">
                             <span class="testimonial-card__tag">pypi-command-line</span>
                             <a href="https://github.com/wasi-master/pypi-command-line/issues/8" target="_blank" class="testimonial-card__source" aria-label="View on GitHub">
-                                <img src="icons/github.svg" class="testimonial-card__source-icon" alt=""> GitHub
+                                <img loading="lazy" decoding="async" src="icons/github.svg" class="testimonial-card__source-icon" alt=""> GitHub
                             </a>
                         </div>
                     </div>
@@ -1601,7 +1599,7 @@ window.addEventListener('load', function() {
                     <div class="testimonial-card">
                         <div class="testimonial-card__header">
                             <div class="testimonial-card__avatar-wrapper">
-                                <img class="testimonial-card__avatar" width="48" height="48" src="icons/zambyte.jpeg" alt="Zambyte" onerror="this.parentElement.classList.add('has-fallback')">
+                                <img loading="lazy" decoding="async" class="testimonial-card__avatar" width="48" height="48" src="icons/zambyte.jpeg" alt="Zambyte" onerror="this.parentElement.classList.add('has-fallback')">
                                 <div class="testimonial-card__avatar-fallback testimonial-card__avatar-fallback--orange">ZB</div>
                             </div>
                             <div class="testimonial-card__author-info">
@@ -1617,7 +1615,7 @@ window.addEventListener('load', function() {
                         <div class="testimonial-card__footer">
                             <span class="testimonial-card__tag">13ft</span>
                             <a href="https://news.ycombinator.com/item?id=41294883" target="_blank" class="testimonial-card__source" aria-label="View on Hacker News">
-                                <img src="icons/hackernews.svg" class="testimonial-card__source-icon" alt=""> Hacker News
+                                <img loading="lazy" decoding="async" src="icons/hackernews.svg" class="testimonial-card__source-icon" alt=""> Hacker News
                             </a>
                         </div>
                     </div>
@@ -1626,7 +1624,7 @@ window.addEventListener('load', function() {
                     <div class="testimonial-card">
                         <div class="testimonial-card__header">
                             <div class="testimonial-card__avatar-wrapper">
-                                <img class="testimonial-card__avatar" width="48" height="48" src="icons/warkred.png" alt="Warkred" onerror="this.parentElement.classList.add('has-fallback')">
+                                <img loading="lazy" decoding="async" class="testimonial-card__avatar" width="48" height="48" src="icons/warkred.png" alt="Warkred" onerror="this.parentElement.classList.add('has-fallback')">
                                 <div class="testimonial-card__avatar-fallback testimonial-card__avatar-fallback--orange">WK</div>
                             </div>
                             <div class="testimonial-card__author-info">
@@ -1642,7 +1640,7 @@ window.addEventListener('load', function() {
                         <div class="testimonial-card__footer">
                             <span class="testimonial-card__tag">pypi-command-line</span>
                             <a href="https://www.reddit.com/r/Python/comments/q8rrx7/i_made_a_commandlineinterface_for_pypi_as_a_14/" target="_blank" class="testimonial-card__source" aria-label="View on Reddit">
-                                <img src="icons/reddit.svg" class="testimonial-card__source-icon" alt=""> Reddit
+                                <img loading="lazy" decoding="async" src="icons/reddit.svg" class="testimonial-card__source-icon" alt=""> Reddit
                             </a>
                         </div>
                     </div>
@@ -1651,7 +1649,7 @@ window.addEventListener('load', function() {
                     <div class="testimonial-card">
                         <div class="testimonial-card__header">
                             <div class="testimonial-card__avatar-wrapper">
-                                <img class="testimonial-card__avatar" width="48" height="48" src="icons/adamjohnson.jpg" alt="Adam Johnson" onerror="this.parentElement.classList.add('has-fallback')">
+                                <img loading="lazy" decoding="async" class="testimonial-card__avatar" width="48" height="48" src="icons/adamjohnson.jpg" alt="Adam Johnson" onerror="this.parentElement.classList.add('has-fallback')">
                                 <div class="testimonial-card__avatar-fallback">AJ</div>
                             </div>
                             <div class="testimonial-card__author-info">
@@ -1667,7 +1665,7 @@ window.addEventListener('load', function() {
                         <div class="testimonial-card__footer">
                             <span class="testimonial-card__tag">Typesplainer</span>
                             <a href="https://twitter.com/AdamChainz/status/1503046388141154306" target="_blank" class="testimonial-card__source" aria-label="View on Twitter">
-                                <img src="icons/twitter.svg" class="testimonial-card__source-icon" alt=""> Twitter
+                                <img loading="lazy" decoding="async" src="icons/twitter.svg" class="testimonial-card__source-icon" alt=""> Twitter
                             </a>
                         </div>
                     </div>
@@ -1840,7 +1838,7 @@ window.addEventListener('load', function() {
 </div>
 <div class="about-logo-wrapper">
 <div class="about-logo-card">
-<img alt="Wasi Master Logo" class="about-logo" width="120" height="120" src="/apple-touch-icon.png"/>
+<img loading="lazy" decoding="async" alt="Wasi Master Logo" class="about-logo" width="120" height="120" src="/apple-touch-icon.png"/>
 <div class="about-logo-info">
 <h3>Wasi Master</h3>
 <p>Programmer &amp; Photographer</p>
@@ -1892,10 +1890,39 @@ window.addEventListener('load', function() {
             </p>
 </div>
 </footer>
-<script src="https://unpkg.com/feather-icons"></script>
-<script src="https://unpkg.com/aos"></script>
-<script src="https://unpkg.com/@popperjs/core@2.11.8"></script>
-<script src="https://unpkg.com/tippy.js@6.3.7"></script>
+<script src="https://unpkg.com/feather-icons@4.29.2/dist/feather.min.js"></script>
+<script>
+        // AOS is desktop-only (its stylesheet is media-gated to min-width: 768px),
+        // so skip loading the script entirely on smaller viewports. If the viewport
+        // later grows past the breakpoint (e.g. rotating a tablet), load it then —
+        // otherwise the media-gated stylesheet would hide [data-aos] elements with
+        // no script around to reveal them.
+        (function () {
+            var aosMedia = window.matchMedia("(min-width: 768px)");
+            var aosLoaded = false;
+            function loadAOS() {
+                if (aosLoaded) return;
+                aosLoaded = true;
+                var aosScript = document.createElement("script");
+                aosScript.src = "https://unpkg.com/aos@2.3.1/dist/aos.js";
+                aosScript.onload = function () {
+                    AOS.init({
+                        disable: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+                    });
+                };
+                document.head.appendChild(aosScript);
+            }
+            if (aosMedia.matches) {
+                loadAOS();
+            } else {
+                aosMedia.addEventListener("change", function (event) {
+                    if (event.matches) loadAOS();
+                });
+            }
+        })();
+    </script>
+<script src="https://unpkg.com/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+<script src="https://unpkg.com/tippy.js@6.3.7/dist/tippy-bundle.umd.min.js"></script>
 <!-- Circular progress bar: only used by the Skills section, which is currently commented out.
 <script src="https://cdn.jsdelivr.net/gh/tomik23/circular-progress-bar@1.1.9/dist/circularProgressBar.min.js"></script>
 -->
@@ -1971,11 +1998,6 @@ window.addEventListener('load', function() {
         feather.replace({
             width: "14",
         height: "14",
-        });
-    </script>
-<script>
-        AOS.init({
-            disable: window.matchMedia("(prefers-reduced-motion: reduce)").matches
         });
     </script>
 </body>

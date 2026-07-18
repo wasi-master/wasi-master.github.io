@@ -986,3 +986,144 @@ if (journeyContainer && journeyProgress) {
     window.addEventListener("resize", requestJourneyUpdate, { passive: true });
     updateJourneyProgress();
 }
+
+/* ==========================================================================
+   Site Navigation — hidden over the hero. Every reveal (section change,
+   scrolling up, hero exit, top-edge hover) shows the nav and re-arms a
+   linger timer; it retracts once the timer expires with no new activity.
+   ========================================================================== */
+const siteNav = document.querySelector(".site-nav");
+
+if (siteNav && "IntersectionObserver" in window) {
+    const NAV_LINGER = 1800;
+    const SCROLL_DELTA = 6;
+    const HOVER_ZONE_PX = 80;
+
+    const navList = siteNav.querySelector(".site-nav__list");
+    const navLinks = new Map(
+        [...siteNav.querySelectorAll(".site-nav__link")].map((link) => [
+            link.getAttribute("href").slice(1),
+            link,
+        ])
+    );
+    const navSections = [...navLinks.keys()]
+        .map((id) => document.getElementById(id))
+        .filter(Boolean);
+
+    let heroInView = true;
+    let hideTimer = null;
+    let activeSectionId = null;
+    let lastScrollY = window.scrollY;
+    let navScrollTicking = false;
+
+    const navHasAttention = () =>
+        siteNav.matches(":hover") || siteNav.contains(document.activeElement);
+
+    const hideNav = () => {
+        if (!navHasAttention()) {
+            siteNav.classList.remove("is-visible");
+        }
+    };
+
+    const clearHideTimer = () => {
+        window.clearTimeout(hideTimer);
+        hideTimer = null;
+    };
+
+    // Show now; retract NAV_LINGER after the most recent reveal request
+    const revealNav = () => {
+        if (heroInView) return;
+        siteNav.classList.add("is-visible");
+        clearHideTimer();
+        hideTimer = window.setTimeout(() => {
+            hideTimer = null;
+            hideNav();
+        }, NAV_LINGER);
+    };
+
+    // Hidden over the hero; announces itself as soon as the hero scrolls away
+    const navHero = document.querySelector(".hero");
+    if (navHero) {
+        new IntersectionObserver((entries) => {
+            heroInView = entries[entries.length - 1].isIntersecting;
+            if (heroInView) {
+                clearHideTimer();
+                siteNav.classList.remove("is-visible");
+            } else {
+                revealNav();
+            }
+        }).observe(navHero);
+    }
+
+    // Scrolling up keeps the nav on screen (each event re-arms the timer)
+    window.addEventListener("scroll", () => {
+        if (navScrollTicking) return;
+        navScrollTicking = true;
+        requestAnimationFrame(() => {
+            navScrollTicking = false;
+            const y = window.scrollY;
+            const delta = y - lastScrollY;
+            lastScrollY = y;
+            if (!heroInView && delta < -SCROLL_DELTA) {
+                revealNav();
+            }
+        });
+    }, { passive: true });
+
+    // Moving the pointer to the top edge summons the nav
+    window.addEventListener("mousemove", (e) => {
+        if (!heroInView && e.clientY <= HOVER_ZONE_PX) {
+            revealNav();
+        }
+    }, { passive: true });
+
+    // Keep the active pill in view when the list overflows (mobile)
+    const centerActiveLink = (link) => {
+        navList.scrollTo({
+            left: link.offsetLeft - (navList.clientWidth - link.offsetWidth) / 2,
+            behavior: prefersReducedMotion ? "auto" : "smooth",
+        });
+    };
+
+    // Scroll-spy: highlight the active section, reveal on change
+    const navSpyObserver = new IntersectionObserver((entries) => {
+        let changed = false;
+
+        entries.forEach((entry) => {
+            if (entry.isIntersecting && entry.target.id !== activeSectionId) {
+                activeSectionId = entry.target.id;
+                changed = true;
+            }
+        });
+
+        if (!changed) return;
+
+        navLinks.forEach((link, id) => {
+            const isActive = id === activeSectionId;
+            link.classList.toggle("is-active", isActive);
+            if (isActive) {
+                link.setAttribute("aria-current", "true");
+            } else {
+                link.removeAttribute("aria-current");
+            }
+        });
+
+        const activeLink = navLinks.get(activeSectionId);
+        if (activeLink) centerActiveLink(activeLink);
+
+        revealNav();
+    }, { rootMargin: "-35% 0px -55% 0px" });
+
+    navSections.forEach((section) => navSpyObserver.observe(section));
+
+    // Retract when pointer/focus leaves after the linger timer already expired
+    siteNav.addEventListener("pointerleave", () => {
+        if (!hideTimer && !heroInView) hideNav();
+    });
+    siteNav.addEventListener("focusout", (e) => {
+        if (siteNav.contains(e.relatedTarget)) return;
+        if (!hideTimer && !heroInView) {
+            siteNav.classList.remove("is-visible");
+        }
+    });
+}

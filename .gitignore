@@ -5,6 +5,9 @@ testimonials.json
 .DS_Store
 Thumbs.db
 
+# Claude Code
+.claude/
+
 # IDEs and editors
 .vscode/
 .cursor/

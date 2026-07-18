@@ -653,6 +653,76 @@ if (testimonialsSlider && testimonialsDotsContainer) {
         }, 150);
     });
 
+    // Autoplay: advance one page every few seconds, wrapping back to the start
+    const AUTOPLAY_INTERVAL = 5000;
+    const testimonialsContainer = testimonialsSlider.closest(".testimonials-container");
+    const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let autoplayTimer = null;
+    let autoplayPaused = false;
+    let sliderInView = false;
+
+    const advanceSlider = () => {
+        const sliderWidth = testimonialsSlider.clientWidth;
+        const maxScroll = testimonialsSlider.scrollWidth - sliderWidth;
+        if (testimonialsSlider.scrollLeft >= maxScroll - 10) {
+            // Wrap around to the first page
+            testimonialsSlider.scrollTo({ left: 0, behavior: "smooth" });
+        } else {
+            testimonialsSlider.scrollBy({ left: sliderWidth, behavior: "smooth" });
+        }
+    };
+
+    const stopAutoplay = () => {
+        window.clearInterval(autoplayTimer);
+        autoplayTimer = null;
+    };
+
+    const startAutoplay = () => {
+        if (autoplayTimer || autoplayPaused || !sliderInView || reducedMotionQuery.matches) return;
+        autoplayTimer = window.setInterval(() => {
+            if (!document.hidden) advanceSlider();
+        }, AUTOPLAY_INTERVAL);
+    };
+
+    const pauseAutoplay = () => {
+        autoplayPaused = true;
+        stopAutoplay();
+    };
+
+    const resumeAutoplay = () => {
+        autoplayPaused = false;
+        startAutoplay();
+    };
+
+    // Pause while the user is hovering, touching, or has focus inside the carousel
+    testimonialsContainer.addEventListener("pointerenter", pauseAutoplay);
+    testimonialsContainer.addEventListener("pointerleave", resumeAutoplay);
+    testimonialsContainer.addEventListener("focusin", pauseAutoplay);
+    testimonialsContainer.addEventListener("focusout", (e) => {
+        if (!testimonialsContainer.contains(e.relatedTarget)) resumeAutoplay();
+    });
+    testimonialsSlider.addEventListener("touchstart", pauseAutoplay, { passive: true });
+    testimonialsSlider.addEventListener("touchend", resumeAutoplay, { passive: true });
+
+    // Only run while the carousel is actually on screen
+    const autoplayObserver = new IntersectionObserver(([entry]) => {
+        sliderInView = entry.isIntersecting;
+        if (sliderInView) {
+            startAutoplay();
+        } else {
+            stopAutoplay();
+        }
+    }, { threshold: 0.3 });
+    autoplayObserver.observe(testimonialsSlider);
+
+    reducedMotionQuery.addEventListener("change", () => {
+        if (reducedMotionQuery.matches) {
+            stopAutoplay();
+        } else {
+            startAutoplay();
+        }
+    });
+
     // Initial setup
     setupDots();
     updateActiveDot();

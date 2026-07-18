@@ -244,7 +244,7 @@ a:not(.button):focus-visible {
 .hero-background {
     background-color: transparent;
     border-radius: 0 0 24px 24px;
-    height: 105%;
+    height: 100%;
     width: 100%;
     position: relative;
     overflow: hidden;

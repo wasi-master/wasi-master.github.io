@@ -1146,6 +1146,9 @@ footer .weak {
 
 .testimonial-card {
     flex: 0 0 100%;
+    /* Without this, nowrap text in the header sets the min-content floor and
+       cards grow past their flex-basis, getting clipped on narrow screens */
+    min-width: 0;
     scroll-snap-align: start;
     background-color: var(--surface-glass);
     backdrop-filter: blur(12px);
@@ -1236,6 +1239,7 @@ footer .weak {
     display: flex;
     flex-direction: column;
     line-height: 1.35;
+    min-width: 0;
     overflow: hidden;
 }
 

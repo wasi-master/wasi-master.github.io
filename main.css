@@ -94,6 +94,7 @@ body {
 
 header {
     height: 100vh;
+    height: 100svh;
     min-height: 28rem;
 }
 
@@ -155,13 +156,6 @@ a:not(.button):focus-visible {
         right: auto;
         width: 100%;
     }
-}
-
-img.emoji {
-    height: 1em;
-    width: 1em;
-    margin: 0 .05em 0 .1em;
-    vertical-align: -0.1em;
 }
 
 .hero-background {
@@ -338,7 +332,7 @@ img.emoji {
 
 .section-subtitle {
     font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-    font-weight: 300;
+    font-weight: 400;
     text-align: center;
     white-space: nowrap;
     color: #ffffff;
@@ -732,7 +726,7 @@ img.emoji {
 }
 
 .table {
-    font-family: "Open Sans", sans-serif;
+    font-family: "Raleway", sans-serif;
     border-collapse: collapse;
     width: 100%;
     max-width: 900px;
@@ -800,7 +794,7 @@ img.emoji {
 .prose {
     font-size: 1.05rem;
     line-height: 1.85;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Raleway", sans-serif;
     color: var(--text-secondary);
 }
 
@@ -957,14 +951,14 @@ footer {
     color: var(--text-muted);
     text-align: center;
     margin-top: 5rem;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Raleway", sans-serif;
     padding: 2rem 1rem;
     border-top: 1px solid var(--border-glass);
 }
 
 footer .weak {
     font-size: 0.9rem;
-    font-weight: 300;
+    font-weight: 400;
     color: var(--text-muted);
     margin: 0.5rem;
 }

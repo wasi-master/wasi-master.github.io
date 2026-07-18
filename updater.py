@@ -24,7 +24,6 @@ GITHUB_API_BASE = "https://api.github.com/repos"
 PEPY_API_BASE = "https://api.pepy.tech/api/v2/projects"
 VSCODE_MARKETPLACE_API = "https://marketplace.visualstudio.com/_apis/public/gallery/extensionquery"
 REQUEST_TIMEOUT_SECONDS = 12
-DEFAULT_PEPY_API_KEY = "ZbKqii6xOIiQlAGytUm+tBKXD9pSH+gM"
 BLOCKED_GITHUB_SEGMENTS = {
     "actions",
     "blob",
@@ -133,7 +132,7 @@ def fetch_github_stars_forks(session: requests.Session, repo: str) -> tuple[tupl
 
 def fetch_pepy_downloads(session: requests.Session, package: str) -> tuple[int | None, str | None]:
     headers = {}
-    pepy_api_key = os.environ.get("PEPY_API_KEY", "").strip() or DEFAULT_PEPY_API_KEY
+    pepy_api_key = os.environ.get("PEPY_API_KEY", "").strip()
     if pepy_api_key:
         headers["X-Api-Key"] = pepy_api_key
 

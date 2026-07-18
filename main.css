@@ -1696,3 +1696,278 @@ footer .weak {
         animation: none !important;
     }
 }
+
+/* ==========================================================================
+   Journey Timeline
+   ========================================================================== */
+#journey {
+    margin-top: clamp(4rem, 10vw, 8rem);
+    margin-bottom: clamp(4rem, 10vw, 8rem);
+}
+
+.journey-container {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+}
+
+/* Center spine; fills with gradient as the user scrolls */
+.journey-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 1px;
+    overflow: hidden;
+}
+
+.journey-line__progress {
+    width: 100%;
+    height: 0%;
+    background: linear-gradient(180deg, var(--accent-blue), var(--accent-cyan), var(--accent-violet));
+    transition: height 0.15s linear;
+}
+
+.journey-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.journey-item {
+    position: relative;
+    width: 50%;
+    padding-right: 2.5rem;
+}
+
+.journey-item:nth-child(even) {
+    align-self: flex-end;
+    padding-right: 0;
+    padding-left: 2.5rem;
+}
+
+.journey-item__marker {
+    position: absolute;
+    top: 1.6rem;
+    right: -7px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--bg-dark);
+    border: 3px solid var(--accent-cyan);
+    z-index: 1;
+    transition: box-shadow var(--transition-smooth), background var(--transition-smooth);
+}
+
+.journey-item:nth-child(even) .journey-item__marker {
+    right: auto;
+    left: -7px;
+}
+
+.journey-item:hover .journey-item__marker {
+    background: var(--accent-cyan);
+    box-shadow: 0 0 14px rgba(3, 177, 252, 0.7);
+}
+
+/* Final "today" node pulses */
+.journey-item--now .journey-item__marker {
+    border-color: var(--accent-violet);
+    animation: journey-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes journey-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.5); }
+    50% { box-shadow: 0 0 0 9px rgba(168, 85, 247, 0); }
+}
+
+.journey-item__card {
+    background-color: var(--surface-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-glass);
+    border-radius: 16px;
+    padding: 1.5rem 1.6rem;
+    transition: all var(--transition-smooth);
+}
+
+.journey-item__card:hover {
+    background-color: var(--surface-glass-hover);
+    border-color: var(--border-glass-hover);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4), 0 0 20px var(--accent-glow);
+}
+
+.journey-item__date {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-cyan);
+    background: rgba(3, 177, 252, 0.1);
+    border: 1px solid rgba(3, 177, 252, 0.25);
+    border-radius: 999px;
+    padding: 0.25rem 0.8rem;
+    margin-bottom: 0.75rem;
+}
+
+.journey-item--now .journey-item__date {
+    color: var(--accent-violet);
+    background: rgba(168, 85, 247, 0.1);
+    border-color: rgba(168, 85, 247, 0.3);
+}
+
+.journey-item__title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.45rem;
+}
+
+.journey-item__text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+.journey-item__text a {
+    color: var(--accent-cyan);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(3, 177, 252, 0.35);
+    transition: border-color var(--transition-smooth);
+}
+
+.journey-item__text a:hover {
+    border-bottom-color: var(--accent-cyan);
+}
+
+@media (max-width: 720px) {
+    .journey-line {
+        left: 10px;
+        transform: none;
+    }
+
+    .journey-item,
+    .journey-item:nth-child(even) {
+        width: 100%;
+        align-self: auto;
+        padding-left: 2.25rem;
+        padding-right: 0;
+    }
+
+    .journey-item__marker,
+    .journey-item:nth-child(even) .journey-item__marker {
+        left: 3px;
+        right: auto;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .journey-line__progress {
+        transition: none !important;
+        height: 100% !important;
+    }
+
+    .journey-item__card,
+    .journey-item__marker {
+        transition: none !important;
+    }
+
+    .journey-item__card:hover {
+        transform: none !important;
+        box-shadow: none !important;
+    }
+
+    .journey-item--now .journey-item__marker {
+        animation: none !important;
+    }
+}
+
+/* Floating date cursor riding the timeline fill */
+.journey-cursor {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    pointer-events: none;
+    padding: 0.3rem 0.85rem;
+    border-radius: 999px;
+    background: rgba(13, 18, 43, 0.88);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(3, 177, 252, 0.45);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45), 0 0 12px rgba(3, 177, 252, 0.25);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--accent-cyan);
+    opacity: 0;
+    transition:
+        opacity 0.35s ease,
+        transform 0.5s ease,
+        border-color 0.5s ease,
+        box-shadow 0.5s ease,
+        color 0.5s ease;
+}
+
+.journey-cursor.is-visible {
+    opacity: 1;
+}
+
+/* Snapped onto a card's marker: gentle emphasis and glow */
+.journey-cursor.is-snapped {
+    transform: translate(-50%, -50%) scale(1.04);
+    border-color: var(--accent-cyan);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), 0 0 16px rgba(3, 177, 252, 0.4);
+    color: #ffffff;
+}
+
+.journey-cursor__month,
+.journey-cursor__year {
+    display: inline-block;
+}
+
+/* Tick animation is debounced in JS: rapid scroll updates swap text
+   instantly, the fade only plays once scrolling settles */
+.journey-cursor__month.tick-up,
+.journey-cursor__year.tick-up {
+    animation: journey-tick-up 0.3s ease-out;
+}
+
+.journey-cursor__month.tick-down,
+.journey-cursor__year.tick-down {
+    animation: journey-tick-down 0.3s ease-out;
+}
+
+@keyframes journey-tick-up {
+    from { opacity: 0; transform: translateY(0.35em); }
+    to { opacity: 1; transform: none; }
+}
+
+@keyframes journey-tick-down {
+    from { opacity: 0; transform: translateY(-0.35em); }
+    to { opacity: 1; transform: none; }
+}
+
+/* On the single-column layout the spine hugs the left edge and every card
+   shows its own date pill at marker height, so the floating cursor would
+   only clip and overlap. Desktop-only. */
+@media (max-width: 720px) {
+    .journey-cursor {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .journey-cursor {
+        display: none !important;
+    }
+}

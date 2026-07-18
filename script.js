@@ -149,11 +149,11 @@ if (prefersReducedMotion) {
 var textWrapper = document.querySelector(".anim1");
 if (textWrapper && !prefersReducedMotion) {
     const originalHTML = textWrapper.innerHTML;
-    
+
     // Disable background gradient on parent during animation to prevent ghost outlines
     textWrapper.style.background = "none";
     textWrapper.style.webkitTextFillColor = "initial";
-    
+
     const words = textWrapper.textContent.trim().split(/\s+/);
     textWrapper.innerHTML = words
         .map(word => {
@@ -167,14 +167,14 @@ if (textWrapper && !prefersReducedMotion) {
     const letters = textWrapper.querySelectorAll(".letter");
     const parentRect = textWrapper.getBoundingClientRect();
     const totalWidth = parentRect.width;
-    
+
     // Get the exact elapsed time since page load to synchronize animation clocks
     const timeElapsed = performance.now() / 1000;
 
     letters.forEach(letter => {
         const letterRect = letter.getBoundingClientRect();
         const letterOffset = letterRect.left - parentRect.left;
-        
+
         letter.style.setProperty('--x-offset', `${letterOffset}px`);
         letter.style.setProperty('--parent-width', `${totalWidth}px`);
         letter.style.backgroundSize = `${2 * totalWidth}px auto`;
@@ -352,14 +352,14 @@ if (projectsSection) {
             const isFiltering = activeFilter !== null || activeDocFilter !== null;
             projectsSection.classList.toggle("is-filtering", isFiltering);
             const sections = projectsSection.querySelectorAll(".cards-section");
-            
+
             sections.forEach((section) => {
                 const title = section.querySelector(".cards-section__title");
                 const cards = Array.from(section.querySelectorAll(".card-wrapper"));
-                
+
                 // Check if any cards in this section are visible
                 const hasVisibleCards = cards.some(card => !card.classList.contains("is-filtered-out"));
-                
+
                 if (isFiltering) {
                     // While filtering, hide section title
                     if (title) {
@@ -371,7 +371,7 @@ if (projectsSection) {
                         title.classList.remove("is-hidden");
                     }
                 }
-                
+
                 // Hide entire section if no visible cards
                 if (!hasVisibleCards && isFiltering) {
                     section.style.display = "none";
@@ -410,7 +410,7 @@ if (projectsSection) {
                     card.classList.remove("is-filter-transition");
                 }, 180);
             });
-            
+
             updateSectionVisibility();
         };
 
@@ -528,7 +528,7 @@ if (otherProjectsToggle && otherProjectsWrapper) {
     otherProjectsToggle.addEventListener("click", () => {
         const isExpanded = otherProjectsToggle.getAttribute("aria-expanded") === "true";
         const newExpandedState = !isExpanded;
-        
+
         otherProjectsToggle.setAttribute("aria-expanded", String(newExpandedState));
         otherProjectsWrapper.classList.toggle("is-collapsed", !newExpandedState);
 
@@ -787,4 +787,202 @@ if (impactCounters.length > 0) {
     } else {
         impactCounters.forEach(runCountUp);
     }
+}
+
+/* ==========================================================================
+   Journey Section — timeline fill + floating date cursor that snaps to cards
+   ========================================================================== */
+const journeyContainer = document.querySelector(".journey-container");
+const journeyProgress = document.querySelector(".journey-line__progress");
+const journeyCursor = document.querySelector(".journey-cursor");
+const journeyCursorLabel = document.querySelector(".journey-cursor__label");
+
+if (journeyContainer && journeyProgress) {
+    const journeyReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const SNAP_RADIUS = 34;
+
+    // Month index since year 0 for a data-when value ("2022-03" or "today")
+    const whenToMonths = (when) => {
+        if (when === "today") {
+            const now = new Date();
+            return now.getFullYear() * 12 + now.getMonth();
+        }
+        const [y, m] = when.split("-").map(Number);
+        return y * 12 + (m - 1);
+    };
+
+    const monthsToLabel = (months) => {
+        const y = Math.floor(months / 12);
+        return `${MONTHS[((months % 12) + 12) % 12]} ${y}`;
+    };
+
+    // Node positions are read from layout offsets (not bounding rects), so
+    // AOS transforms mid-animation don't disturb them.
+    const journeyNodes = [...journeyContainer.querySelectorAll(".journey-item")].map((li) => {
+        const marker = li.querySelector(".journey-item__marker");
+        const dateText = li.querySelector(".journey-item__date");
+        return {
+            li,
+            marker,
+            months: whenToMonths(li.dataset.when || "today"),
+            label: dateText ? dateText.textContent.trim() : "",
+        };
+    });
+
+    const nodeY = (node) => node.li.offsetTop + node.marker.offsetTop + node.marker.offsetHeight / 2;
+
+    let cursorY = null;
+    let cursorRafActive = false;
+    let lastLabel = "";
+    let lastMonths = null;
+
+    // Split "Aug 2024" / "August 2024" / "Late 2023" into (front, year) so
+    // the year only animates when it actually changes.
+    const splitLabel = (text) => {
+        const match = text.match(/^(.*?)\s*(\d{4})$/);
+        return match ? [match[1], match[2]] : [text, ""];
+    };
+
+    const tick = (el, goingForward) => {
+        el.classList.remove("tick-up", "tick-down");
+        void el.offsetWidth; // restart the animation
+        el.classList.add(goingForward ? "tick-up" : "tick-down");
+    };
+
+    // Paced changes animate in the same frame the text is set, so the new
+    // month is REVEALED by the animation (starts at opacity 0) instead of
+    // popping in first. Rapid successive changes (fast scrolling) swap the
+    // text silently and never replay an animation afterwards. Pure format
+    // swaps at snap boundaries ("Jan 2022" <-> "January 2022") never animate.
+    const RAPID_MS = 250;
+    let lastChangeAt = 0;
+
+    const setCursorLabel = (text, months) => {
+        if (text === lastLabel) return;
+        const prevMonths = lastMonths;
+        const [front, year] = splitLabel(text);
+        lastLabel = text;
+        lastMonths = months;
+
+        let monthEl = journeyCursorLabel.querySelector(".journey-cursor__month");
+        let yearEl = journeyCursorLabel.querySelector(".journey-cursor__year");
+        let firstRender = false;
+        if (!monthEl) {
+            journeyCursorLabel.textContent = "";
+            monthEl = document.createElement("span");
+            monthEl.className = "journey-cursor__month";
+            yearEl = document.createElement("span");
+            yearEl.className = "journey-cursor__year";
+            journeyCursorLabel.append(monthEl, yearEl);
+            firstRender = true;
+        }
+
+        monthEl.textContent = front;
+        yearEl.textContent = year ? `\u00a0${year}` : "";
+
+        const now = performance.now();
+        const rapid = now - lastChangeAt < RAPID_MS;
+        lastChangeAt = now;
+
+        if (firstRender || rapid || prevMonths === null || months === prevMonths) return;
+
+        const goingForward = months > prevMonths;
+        tick(monthEl, goingForward);
+        if (Math.floor(months / 12) !== Math.floor(prevMonths / 12)) {
+            tick(yearEl, goingForward);
+        }
+    };
+
+    const updateCursor = (tipY, containerVisible) => {
+        if (!journeyCursor || !journeyCursorLabel) return;
+
+        const firstY = nodeY(journeyNodes[0]);
+        const lastY = nodeY(journeyNodes[journeyNodes.length - 1]);
+        const visible = containerVisible && tipY >= firstY - SNAP_RADIUS && tipY <= lastY + SNAP_RADIUS;
+        journeyCursor.classList.toggle("is-visible", visible);
+        if (!visible) return;
+
+        const clampedTip = Math.max(firstY, Math.min(lastY, tipY));
+
+        // Segment the tip falls in
+        let a = journeyNodes[0];
+        let b = journeyNodes[journeyNodes.length - 1];
+        for (let i = 0; i < journeyNodes.length - 1; i++) {
+            if (clampedTip >= nodeY(journeyNodes[i]) && clampedTip <= nodeY(journeyNodes[i + 1])) {
+                a = journeyNodes[i];
+                b = journeyNodes[i + 1];
+                break;
+            }
+        }
+
+        // Magnetic snap to the nearest marker
+        let targetY = clampedTip;
+        let snapped = null;
+        const distA = Math.abs(clampedTip - nodeY(a));
+        const distB = Math.abs(clampedTip - nodeY(b));
+        if (Math.min(distA, distB) <= SNAP_RADIUS) {
+            snapped = distA <= distB ? a : b;
+            targetY = nodeY(snapped);
+        }
+        journeyCursor.classList.toggle("is-snapped", snapped !== null);
+
+        if (snapped !== null) {
+            setCursorLabel(snapped.label, snapped.months);
+        } else {
+            const yA = nodeY(a);
+            const yB = nodeY(b);
+            const frac = yB > yA ? (clampedTip - yA) / (yB - yA) : 0;
+            const months = Math.round(a.months + frac * (b.months - a.months));
+            setCursorLabel(monthsToLabel(months), months);
+        }
+
+        // Ease toward the target for a soft, springy follow
+        if (cursorY === null) cursorY = targetY;
+        cursorY += (targetY - cursorY) * 0.22;
+        journeyCursor.style.top = `${cursorY}px`;
+
+        // Keep animating until settled
+        if (Math.abs(targetY - cursorY) > 0.4 && !cursorRafActive) {
+            cursorRafActive = true;
+            requestAnimationFrame(() => {
+                cursorRafActive = false;
+                updateJourneyProgress();
+            });
+        }
+    };
+
+    let journeyTicking = false;
+
+    const updateJourneyProgress = () => {
+        journeyTicking = false;
+        const rect = journeyContainer.getBoundingClientRect();
+        const containerVisible = rect.bottom > 0 && rect.top < window.innerHeight;
+
+        if (journeyReducedMotion.matches) {
+            journeyProgress.style.height = "100%";
+            if (journeyCursor) journeyCursor.classList.remove("is-visible");
+            return;
+        }
+
+        // Fill relative to how far the container has passed a line ~2/3 down
+        // the viewport, so the fill keeps pace with the cards animating in.
+        const fillLine = window.innerHeight * 0.66;
+        const progress = (fillLine - rect.top) / rect.height;
+        const clamped = Math.max(0, Math.min(1, progress));
+        journeyProgress.style.height = `${clamped * 100}%`;
+
+        updateCursor(clamped * journeyContainer.offsetHeight, containerVisible);
+    };
+
+    const requestJourneyUpdate = () => {
+        if (!journeyTicking) {
+            journeyTicking = true;
+            requestAnimationFrame(updateJourneyProgress);
+        }
+    };
+
+    window.addEventListener("scroll", requestJourneyUpdate, { passive: true });
+    window.addEventListener("resize", requestJourneyUpdate, { passive: true });
+    updateJourneyProgress();
 }

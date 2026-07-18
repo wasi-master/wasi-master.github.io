@@ -6,6 +6,10 @@
     X-Frame-Options = "DENY"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    # Non-fetch CSP directives: harden without an allowlist, so analytics (GA/Clarity)
+    # is unaffected. A full script-src CSP would need 'unsafe-inline' + every GA/Clarity
+    # subdomain enumerated — fragile on a static host, so intentionally omitted.
+    Content-Security-Policy = "frame-ancestors 'none'; base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests"
 
 # Infinite cache for all images and fonts
 [[headers]]

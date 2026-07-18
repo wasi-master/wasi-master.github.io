@@ -22,6 +22,9 @@ from urllib3.util.retry import Retry
 
 GITHUB_API_BASE = "https://api.github.com/repos"
 PEPY_API_BASE = "https://api.pepy.tech/api/v2/projects"
+PYPISTATS_API_BASE = "https://pypistats.org/api/packages"
+# Package shown in the Impact section's "downloads a day" highlight pill
+IMPACT_DAILY_PACKAGE = "rich-rst"
 VSCODE_MARKETPLACE_API = "https://marketplace.visualstudio.com/_apis/public/gallery/extensionquery"
 REQUEST_TIMEOUT_SECONDS = 12
 BLOCKED_GITHUB_SEGMENTS = {
@@ -213,6 +216,22 @@ def fetch_vscode_downloads(session: requests.Session, extension_id: str) -> tupl
         return None, "VS Code Marketplace response parse failed"
 
 
+def fetch_pypistats_last_day(session: requests.Session, package: str) -> tuple[int | None, str | None]:
+    try:
+        response = session.get(
+            f"{PYPISTATS_API_BASE}/{package}/recent",
+            timeout=REQUEST_TIMEOUT_SECONDS,
+        )
+        if response.status_code != 200:
+            return None, f"pypistats API HTTP {response.status_code}"
+        data = response.json()
+        return int(data["data"]["last_day"]), None
+    except requests.RequestException:
+        return None, "pypistats request failed"
+    except (TypeError, ValueError, KeyError):
+        return None, "pypistats response parse failed"
+
+
 def extract_count(text: str) -> int | None:
     values = extract_all_counts(text)
     return values[0] if values else None
@@ -264,6 +283,79 @@ def format_count(value: int) -> str:
         return f"{scaled:.1f}K+"
     else:
         return f"{math.floor(scaled)}K+"
+
+def format_daily_count(value: int) -> str:
+    if value >= 1_000_000:
+        scaled = math.floor(value / 100_000) / 10
+        return f"{int(scaled)}M+" if float(scaled).is_integer() else f"{scaled:.1f}M+"
+    if value >= 1_000:
+        scaled = math.floor(value / 100) / 10
+        return f"{int(scaled)}k+" if float(scaled).is_integer() else f"{scaled:.1f}k+"
+    return str(value)
+
+
+def update_impact_section(soup, pypi_cache: dict, session: requests.Session) -> tuple[int, list[str]]:
+    """Update the Impact section's aggregate numbers.
+
+    Values only ever move upward: a smaller fetched value usually means some
+    packages failed to resolve, so the previous (higher) figure is kept.
+    """
+    updates = 0
+    failures: list[str] = []
+    impact = soup.select_one("#impact")
+    if impact is None:
+        return updates, failures
+
+    # Total PyPI downloads counter: sum of every package we fetched.
+    totals = [value for value, _ in pypi_cache.values() if value is not None]
+    if totals:
+        total = sum(totals)
+        for card in impact.select(".impact-card"):
+            label = card.select_one(".impact-card__label")
+            if label is None or "pypi downloads" not in label.get_text(strip=True).lower():
+                continue
+            counter = card.select_one(".impact-counter")
+            if counter is None:
+                break
+            suffix = (counter.get("data-suffix") or "").strip()
+            if suffix.upper().startswith("M"):
+                multiplier = 1_000_000
+            elif suffix.lower().startswith("k"):
+                multiplier = 1_000
+            else:
+                multiplier = 1
+            try:
+                current_target = int(float(counter.get("data-target", "0")))
+            except ValueError:
+                current_target = 0
+            new_target = total // multiplier
+            if new_target > current_target:
+                counter["data-target"] = str(new_target)
+                updates += 1
+            break
+
+    # Daily downloads highlight pill.
+    daily, error = fetch_pypistats_last_day(session, IMPACT_DAILY_PACKAGE)
+    if daily is None:
+        failures.append(f"{IMPACT_DAILY_PACKAGE} (daily): {error}")
+    else:
+        for text_span in impact.select(".impact-highlight__text"):
+            direct_text = "".join(
+                str(child) for child in text_span.contents if isinstance(child, NavigableString)
+            )
+            if "downloads a day" not in direct_text:
+                continue
+            current_daily = extract_count(direct_text) or 0
+            if daily > current_daily:
+                for child in list(text_span.contents):
+                    if isinstance(child, NavigableString):
+                        child.extract()
+                text_span.insert(0, NavigableString(f"{format_daily_count(daily)} downloads a day "))
+                updates += 1
+            break
+
+    return updates, failures
+
 
 def parse_github_tooltip(text: str) -> tuple[int | None, int | None]:
     if not text:
@@ -542,8 +634,13 @@ def update_index(index_path: Path, no_concurrency: bool = False) -> dict[str, in
             if not card_changed:
                 untouched += 1
 
+    impact_updated, impact_failures = update_impact_section(soup, pypi_cache, session)
+    if impact_failures:
+        failed += len(impact_failures)
+        fail_messages.extend(impact_failures)
+
     html_after = str(soup)
-    changed = (updated > 0) or (text_updated > 0)
+    changed = (updated > 0) or (text_updated > 0) or (impact_updated > 0)
     if changed:
         index_path.write_text(html_after, encoding="utf-8")
 
@@ -551,6 +648,7 @@ def update_index(index_path: Path, no_concurrency: bool = False) -> dict[str, in
         "cards_total": len(cards),
         "updated": updated,
         "text_updated": text_updated,
+        "impact_updated": impact_updated,
         "untouched": untouched,
         "failed": failed,
         "fail_messages": fail_messages,
@@ -572,6 +670,7 @@ def main() -> None:
                 "cards": result["cards_total"],
                 "updated": result["updated"],
                 "text_updated": result["text_updated"],
+                "impact_updated": result["impact_updated"],
                 "untouched": result["untouched"],
                 "failed": result["failed"],
                 "html_changed": result["html_changed"],
@@ -585,6 +684,7 @@ def main() -> None:
             f"cards={result['cards_total']}, "
             f"updated={result['updated']}, "
             f"text_updated={result['text_updated']}, "
+            f"impact_updated={result['impact_updated']}, "
             f"untouched={result['untouched']}, "
             f"failed={result['failed']}, "
             f"html_changed={result['html_changed']}"

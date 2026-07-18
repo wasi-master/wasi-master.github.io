@@ -1488,3 +1488,211 @@ footer .weak {
         transform: none !important;
     }
 }
+
+/* ==========================================================================
+   Impact Section
+   ========================================================================== */
+#impact {
+    margin-top: clamp(4rem, 10vw, 8rem);
+    margin-bottom: clamp(4rem, 10vw, 8rem);
+}
+
+.impact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.impact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1.5rem;
+}
+
+.impact-card {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    background-color: var(--surface-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-glass);
+    border-radius: 16px;
+    padding: 2.25rem 1.5rem 2rem;
+    transition: all var(--transition-smooth);
+}
+
+/* Soft radial glow that breathes behind each card's number */
+.impact-card::before {
+    content: "";
+    position: absolute;
+    inset: -40%;
+    background: radial-gradient(circle at 50% 20%, var(--accent-glow), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+}
+
+.impact-card:hover {
+    background-color: var(--surface-glass-hover);
+    border-color: var(--border-glass-hover);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4), 0 0 20px var(--accent-glow);
+}
+
+.impact-card:hover::before,
+.impact-card.is-counted::before {
+    opacity: 1;
+}
+
+.impact-card__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    margin-bottom: 1.1rem;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-glass);
+    color: var(--accent-cyan);
+    transition: transform var(--transition-smooth);
+}
+
+.impact-card:hover .impact-card__icon {
+    transform: scale(1.1) rotate(-6deg);
+}
+
+.impact-card__icon--stars { color: #ffd35c; }
+.impact-card__icon--projects { color: var(--accent-violet); }
+.impact-card__icon--devs { color: #4ade80; }
+
+.impact-card__number {
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(2.4rem, 5vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    background: linear-gradient(120deg, #ffffff 0%, var(--accent-cyan) 55%, var(--accent-violet) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--accent-cyan); /* fallback if background-clip unsupported */
+}
+
+/* Gradient slowly sweeps across the digits once they've counted up */
+.impact-card.is-counted .impact-card__number {
+    animation: impact-gradient-sweep 6s ease-in-out infinite alternate;
+}
+
+@keyframes impact-gradient-sweep {
+    from { background-position: 0% center; }
+    to { background-position: 100% center; }
+}
+
+.impact-card__label {
+    margin-top: 0.4rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.impact-card__caption {
+    margin-top: 0.25rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* Highlights row */
+.impact-highlights {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.75rem;
+}
+
+.impact-highlight {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.65rem 1.15rem;
+    border-radius: 999px;
+    background-color: var(--surface-glass);
+    border: 1px solid var(--border-glass);
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 500;
+    transition: all var(--transition-smooth);
+}
+
+.impact-highlight:hover {
+    background-color: var(--surface-glass-hover);
+    border-color: var(--border-glass-hover);
+    color: var(--text-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35), 0 0 12px var(--accent-glow);
+}
+
+.impact-highlight__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    color: var(--accent-cyan);
+}
+
+.impact-highlight__icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.impact-highlight__icon--hn {
+    border-radius: 5px;
+    background: linear-gradient(135deg, #ff6600, #ff8833);
+    color: #ffffff;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+}
+
+.impact-highlight__detail {
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+@media (max-width: 520px) {
+    .impact-grid {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 1rem;
+    }
+
+    .impact-card {
+        padding: 1.5rem 1rem 1.4rem;
+    }
+
+    .impact-highlight__detail {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .impact-card,
+    .impact-card__icon,
+    .impact-highlight {
+        transition: none !important;
+    }
+
+    .impact-card:hover {
+        transform: none !important;
+        box-shadow: none !important;
+    }
+
+    .impact-card.is-counted .impact-card__number {
+        animation: none !important;
+    }
+}

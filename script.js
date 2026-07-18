@@ -727,3 +727,64 @@ if (testimonialsSlider && testimonialsDotsContainer) {
     setupDots();
     updateActiveDot();
 }
+/* ==========================================================================
+   Impact Section — animated count-up
+   ========================================================================== */
+const impactCounters = document.querySelectorAll(".impact-counter");
+
+if (impactCounters.length > 0) {
+    const impactReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const formatCounterValue = (counter, value) => {
+        const formatted =
+            counter.dataset.format === "comma"
+                ? Math.round(value).toLocaleString("en-US")
+                : String(Math.round(value));
+        return formatted + (counter.dataset.suffix || "");
+    };
+
+    const runCountUp = (counter) => {
+        const target = parseFloat(counter.dataset.target);
+        const card = counter.closest(".impact-card");
+
+        if (impactReducedMotion.matches || !Number.isFinite(target)) {
+            counter.textContent = formatCounterValue(counter, target);
+            if (card) card.classList.add("is-counted");
+            return;
+        }
+
+        const duration = 2000;
+        let startTime = null;
+
+        const tick = (timestamp) => {
+            if (startTime === null) startTime = timestamp;
+            const progress = Math.min((timestamp - startTime) / duration, 1);
+            // easeOutExpo — fast start, satisfying settle on the final digits
+            const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+            counter.textContent = formatCounterValue(counter, target * eased);
+
+            if (progress < 1) {
+                requestAnimationFrame(tick);
+            } else if (card) {
+                card.classList.add("is-counted");
+            }
+        };
+
+        requestAnimationFrame(tick);
+    };
+
+    if ("IntersectionObserver" in window) {
+        const counterObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    runCountUp(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.4 });
+
+        impactCounters.forEach((counter) => counterObserver.observe(counter));
+    } else {
+        impactCounters.forEach(runCountUp);
+    }
+}
